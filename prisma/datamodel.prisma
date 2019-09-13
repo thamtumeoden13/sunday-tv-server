@@ -46,3 +46,21 @@ type Parish {
     deanery: Deanery
     Album: Album!
 }
+
+  
+type User {
+  id: ID! @id
+  email: String! @unique
+  name: String
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  published: Boolean! @default(value: false)
+  title: String!
+  content: String
+  author: User!
+}
