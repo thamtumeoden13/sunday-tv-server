@@ -1,61 +1,109 @@
 const resolvers = {
     Query: {
         // info: () => `This is the API of a Hackernews Clone`, 
-        publishedPosts: (root, args, context) => {
-            return context.prisma.posts({ where: { published: true } })
+        // publishedPosts: (root, args, context) => {
+        //     return context.prisma.posts({ where: { published: true } })
+        // },
+        // post: (root, args, context) => {
+        //     return context.prisma.post({ id: args.postId })
+        // },
+        // postersByUser: (root, args, context) => {
+        //     if (!context) {
+        //         throw new Error('Not Authenticated', root, args, context)
+        //     }
+        //     return context.prisma.user({ id: args.userId, }).posters()
+        // },
+        // users: (root, args, context) => {
+        //     if (!context) {
+        //         throw new Error('Not Authenticated', root, args, context)
+        //     }
+        //     return context.prisma.users()
+        // },
+        // user: (root, args, context) => {
+        //     return context.prisma.user({ id: args.userId, })
+        // },
+        // posters: (root, args, context) => {
+        //     if (!context) {
+        //         throw new Error('Not Authenticated', root, args, context)
+        //     }
+        //     return context.prisma.posters()
+        // },
+        // poster: (root, args, context) => {
+        //     return context.prisma.poster({ id: args.posterId, })
+        // },
+        deaneries: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            return context.prisma.deaneries()
         },
-        post: (root, args, context) => {
-            return context.prisma.post({ id: args.postId })
+        deanery: (root, args, context) => {
+            return context.prisma.deanery({ id: args.deaneryId, })
         },
-        postsByUser: (root, args, context) => {
-            return context.prisma
-                .user({
-                    id: args.userId,
-                })
-                .posts()
+        dioceses: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            return context.prisma.dioceses()
         },
-        users: (root, args, context) => {
-            // if (!context) {
-            //     throw new Error('Not Authenticated', root, args, context)
-            // } 
-            return context.prisma.users()
+        diocese: (root, args, context) => {
+            return context.prisma.diocese({ id: args.dioceseId, })
+        },
+        deaneriesOfDiocese: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            return context.prisma.diocese({ id: args.dioceseId, })
         },
     },
     Mutation: {
-        createDraft: (root, args, context) => {
-            return context.prisma.createPost({
-                title: args.title,
-                author: {
-                    connect: { id: args.userId },
+        // createUser: (root, args, context) => {
+        //     return context.prisma.createUser({ name: args.name, email: args.email })
+        // },
+        // createPoster: (root, args, context) => {
+        //     return context.prisma.createPoster({
+        //         name: args.name,
+        //         authorCreated: {
+        //             connect: { id: args.userId },
+        //         },
+        //         title: args.title
+        //     })
+        // },
+        // publish: (root, args, context) => {
+        //     return context.prisma.updatePost({
+        //         where: { id: args.postId },
+        //         data: { published: true },
+        //     })
+        // },
+        createDeanery: (root, args, context) => {
+            return context.prisma.createDeanery({
+                name: args.name,
+                shortName: args.shortName,
+                diocese: {
+                    connect: { id: args.dioceseId },
                 },
             })
         },
-        publish: (root, args, context) => {
-            return context.prisma.updatePost({
-                where: { id: args.postId },
-                data: { published: true },
-            })
-        },
-        createUser: (root, args, context) => {
-            return context.prisma.createUser({ name: args.name })
+        createDiocese: (root, args, context) => {
+            return context.prisma.createDiocese({ name: args.name, shortName: args.shortName })
         },
     },
-    User: {
-        posts: (root, args, context) => {
+    Diocese: {
+        deaneries: (root, args, context) => {
             return context.prisma
-                .user({
+                .diocese({
                     id: root.id,
                 })
-                .posts()
+                .deaneries()
         },
     },
-    Post: {
-        author(root, args, context) {
+    Deanery: {
+        diocese: (root, args, context) => {
             return context.prisma
-                .post({
+                .deanery({
                     id: root.id,
                 })
-                .author()
+                .diocese()
         },
     },
 }

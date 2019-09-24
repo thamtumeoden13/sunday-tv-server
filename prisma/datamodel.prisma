@@ -1,66 +1,80 @@
 
-type Image {
+type Poster {
     id: ID! @id
+    name: String! @default(value: "")
+    image: String @default(value: "")
+    thumbnail: String @default(value: "")
+    description: String @default(value: "")
+    published: Boolean! @default(value: false)
+    title: String @default(value: "")
+    content: String @default(value: "")
+    imageType: ImageType @relation(onDelete: SET_NULL)
+    category: Category @relation(onDelete: SET_NULL)
+    createdAuthor: User @relation(name: "CreatedPoster", onDelete: SET_NULL)
     createdAt: DateTime! @createdAt
-    updateAt: DateTime @updateAt
-    name: String
-    picture: String
-    thumbnail: String
-    description: String
-    album: Album
+    updatedAuthor: User  @relation(name: "UpdatedPoster", onDelete: SET_NULL)
+    updatedAt: DateTime! @updatedAt
 }
 
-type Album {
+type ImageType {
     id: ID! @id
-    name: String!
+    name: String! @default(value: "")
+    posters: [Poster!]! @relation(onDelete: CASCADE)
     createdAt: DateTime! @createdAt
-    updateAt: DateTime @updateAt
-    parish: Parish!@relation(link: INLINE)
-    image: [Image!]!
+    updatedAt: DateTime! @updatedAt
 }
 
-type Diocese {
+type Category {
     id: ID! @id
+    name: String! @default(value: "")
+    published: Boolean! @default(value: false)
+    title: String @default(value: "")
+    content: String @default(value: "")
+    parish: Parish @relation(onDelete: SET_NULL)
+    posters: [Poster!]! @relation(onDelete: CASCADE)
+    createdAuthor: User @relation(name: "CreatedCategory", onDelete: SET_NULL)
     createdAt: DateTime! @createdAt
-    updateAt: DateTime @updateAt
-    name: String!
-    shortName: String!
-    deanery: [Deanery!]!
-}
-
-type Deanery {
-    id: ID! @id
-    createdAt: DateTime! @createdAt
-    updateAt: DateTime @updateAt
-    name: String!
-    shortName: String!
-    parish: [Parish!]!
-    diocese: Diocese
+    updatedAuthor: User @relation(name: "UpdatedCategory", onDelete: SET_NULL)
+    updatedAt: DateTime! @updatedAt
 }
 
 type Parish {
     id: ID! @id
+    name: String! @default(value: "")
+    shortName: String @default(value: "")
+    deanery: Deanery @relation(onDelete: SET_NULL)
+    categories: [Category!]! @relation(onDelete: CASCADE)
     createdAt: DateTime! @createdAt
-    updateAt: DateTime @updateAt
-    name: String!
-    deanery: Deanery
-    Album: Album!
+    updatedAt: DateTime! @updatedAt
 }
 
+type Deanery {
+    id: ID! @id
+    name: String! @default(value: "")
+    shortName: String @default(value: "")
+    parishes: [Parish!]! @relation(onDelete: CASCADE)
+    diocese: Diocese  @relation(onDelete: SET_NULL)
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}
+
+type Diocese {
+    id: ID! @id
+    name: String! @default(value: "")
+    shortName: String @default(value: "")
+    deaneries: [Deanery!]! @relation(onDelete: CASCADE)
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}
   
 type User {
   id: ID! @id
-  email: String! @unique
-  name: String
-  posts: [Post!]!
-}
-
-type Post {
-  id: ID! @id
+  email: String! @unique @default(value: "")
+  name: String @default(value: "")
+  createdPosters: [Poster!]! @relation(name: "CreatedPosters", onDelete: CASCADE)
+  createdCategories: [Category!]!  @relation(name: "CreatedCategory", onDelete: CASCADE)
   createdAt: DateTime! @createdAt
+  updatedPosters: [Poster!]! @relation(name: "UpdatedPoster", onDelete: CASCADE)
+  updatedCategories: [Category!]!  @relation(name: "UpdatedCategory", onDelete: CASCADE)
   updatedAt: DateTime! @updatedAt
-  published: Boolean! @default(value: false)
-  title: String!
-  content: String
-  author: User!
 }

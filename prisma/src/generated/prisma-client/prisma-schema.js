@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateAlbum {
+/* GraphQL */ `type AggregateCategory {
   count: Int!
 }
 
@@ -15,7 +15,7 @@ type AggregateDiocese {
   count: Int!
 }
 
-type AggregateImage {
+type AggregateImageType {
   count: Int!
 }
 
@@ -23,7 +23,7 @@ type AggregateParish {
   count: Int!
 }
 
-type AggregatePost {
+type AggregatePoster {
   count: Int!
 }
 
@@ -31,145 +31,139 @@ type AggregateUser {
   count: Int!
 }
 
-type Album {
+type BatchPayload {
+  count: Long!
+}
+
+type Category {
   id: ID!
   name: String!
+  published: Boolean!
+  title: String
+  content: String
+  parish: Parish
+  posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
+  createdAuthor: User
   createdAt: DateTime!
-  updateAt: DateTime
-  parish: Parish!
-  image(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image!]
+  updatedAuthor: User
+  updatedAt: DateTime!
 }
 
-type AlbumConnection {
+type CategoryConnection {
   pageInfo: PageInfo!
-  edges: [AlbumEdge]!
-  aggregate: AggregateAlbum!
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
 }
 
-input AlbumCreateInput {
+input CategoryCreateInput {
   id: ID
-  name: String!
-  updateAt: DateTime
-  parish: ParishCreateOneWithoutAlbumInput!
-  image: ImageCreateManyWithoutAlbumInput
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishCreateOneWithoutCategoriesInput
+  posters: PosterCreateManyWithoutCategoryInput
+  createdAuthor: UserCreateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserCreateOneWithoutUpdatedCategoriesInput
 }
 
-input AlbumCreateOneWithoutImageInput {
-  create: AlbumCreateWithoutImageInput
-  connect: AlbumWhereUniqueInput
+input CategoryCreateManyWithoutCreatedAuthorInput {
+  create: [CategoryCreateWithoutCreatedAuthorInput!]
+  connect: [CategoryWhereUniqueInput!]
 }
 
-input AlbumCreateOneWithoutParishInput {
-  create: AlbumCreateWithoutParishInput
-  connect: AlbumWhereUniqueInput
+input CategoryCreateManyWithoutParishInput {
+  create: [CategoryCreateWithoutParishInput!]
+  connect: [CategoryWhereUniqueInput!]
 }
 
-input AlbumCreateWithoutImageInput {
+input CategoryCreateManyWithoutUpdatedAuthorInput {
+  create: [CategoryCreateWithoutUpdatedAuthorInput!]
+  connect: [CategoryWhereUniqueInput!]
+}
+
+input CategoryCreateOneWithoutPostersInput {
+  create: CategoryCreateWithoutPostersInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryCreateWithoutCreatedAuthorInput {
   id: ID
-  name: String!
-  updateAt: DateTime
-  parish: ParishCreateOneWithoutAlbumInput!
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishCreateOneWithoutCategoriesInput
+  posters: PosterCreateManyWithoutCategoryInput
+  updatedAuthor: UserCreateOneWithoutUpdatedCategoriesInput
 }
 
-input AlbumCreateWithoutParishInput {
+input CategoryCreateWithoutParishInput {
   id: ID
-  name: String!
-  updateAt: DateTime
-  image: ImageCreateManyWithoutAlbumInput
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  posters: PosterCreateManyWithoutCategoryInput
+  createdAuthor: UserCreateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserCreateOneWithoutUpdatedCategoriesInput
 }
 
-type AlbumEdge {
-  node: Album!
+input CategoryCreateWithoutPostersInput {
+  id: ID
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishCreateOneWithoutCategoriesInput
+  createdAuthor: UserCreateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserCreateOneWithoutUpdatedCategoriesInput
+}
+
+input CategoryCreateWithoutUpdatedAuthorInput {
+  id: ID
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishCreateOneWithoutCategoriesInput
+  posters: PosterCreateManyWithoutCategoryInput
+  createdAuthor: UserCreateOneWithoutCreatedCategoriesInput
+}
+
+type CategoryEdge {
+  node: Category!
   cursor: String!
 }
 
-enum AlbumOrderByInput {
+enum CategoryOrderByInput {
   id_ASC
   id_DESC
   name_ASC
   name_DESC
+  published_ASC
+  published_DESC
+  title_ASC
+  title_DESC
+  content_ASC
+  content_DESC
   createdAt_ASC
   createdAt_DESC
-  updateAt_ASC
-  updateAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
-type AlbumPreviousValues {
+type CategoryPreviousValues {
   id: ID!
   name: String!
+  published: Boolean!
+  title: String
+  content: String
   createdAt: DateTime!
-  updateAt: DateTime
+  updatedAt: DateTime!
 }
 
-type AlbumSubscriptionPayload {
-  mutation: MutationType!
-  node: Album
-  updatedFields: [String!]
-  previousValues: AlbumPreviousValues
-}
-
-input AlbumSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: AlbumWhereInput
-  AND: [AlbumSubscriptionWhereInput!]
-  OR: [AlbumSubscriptionWhereInput!]
-  NOT: [AlbumSubscriptionWhereInput!]
-}
-
-input AlbumUpdateInput {
-  name: String
-  updateAt: DateTime
-  parish: ParishUpdateOneRequiredWithoutAlbumInput
-  image: ImageUpdateManyWithoutAlbumInput
-}
-
-input AlbumUpdateManyMutationInput {
-  name: String
-  updateAt: DateTime
-}
-
-input AlbumUpdateOneRequiredWithoutParishInput {
-  create: AlbumCreateWithoutParishInput
-  update: AlbumUpdateWithoutParishDataInput
-  upsert: AlbumUpsertWithoutParishInput
-  connect: AlbumWhereUniqueInput
-}
-
-input AlbumUpdateOneWithoutImageInput {
-  create: AlbumCreateWithoutImageInput
-  update: AlbumUpdateWithoutImageDataInput
-  upsert: AlbumUpsertWithoutImageInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: AlbumWhereUniqueInput
-}
-
-input AlbumUpdateWithoutImageDataInput {
-  name: String
-  updateAt: DateTime
-  parish: ParishUpdateOneRequiredWithoutAlbumInput
-}
-
-input AlbumUpdateWithoutParishDataInput {
-  name: String
-  updateAt: DateTime
-  image: ImageUpdateManyWithoutAlbumInput
-}
-
-input AlbumUpsertWithoutImageInput {
-  update: AlbumUpdateWithoutImageDataInput!
-  create: AlbumCreateWithoutImageInput!
-}
-
-input AlbumUpsertWithoutParishInput {
-  update: AlbumUpdateWithoutParishDataInput!
-  create: AlbumCreateWithoutParishInput!
-}
-
-input AlbumWhereInput {
+input CategoryScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -198,6 +192,36 @@ input AlbumWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -206,41 +230,290 @@ input AlbumWhereInput {
   createdAt_lte: DateTime
   createdAt_gt: DateTime
   createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
-  parish: ParishWhereInput
-  image_every: ImageWhereInput
-  image_some: ImageWhereInput
-  image_none: ImageWhereInput
-  AND: [AlbumWhereInput!]
-  OR: [AlbumWhereInput!]
-  NOT: [AlbumWhereInput!]
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [CategoryScalarWhereInput!]
+  OR: [CategoryScalarWhereInput!]
+  NOT: [CategoryScalarWhereInput!]
 }
 
-input AlbumWhereUniqueInput {
+type CategorySubscriptionPayload {
+  mutation: MutationType!
+  node: Category
+  updatedFields: [String!]
+  previousValues: CategoryPreviousValues
+}
+
+input CategorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CategoryWhereInput
+  AND: [CategorySubscriptionWhereInput!]
+  OR: [CategorySubscriptionWhereInput!]
+  NOT: [CategorySubscriptionWhereInput!]
+}
+
+input CategoryUpdateInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishUpdateOneWithoutCategoriesInput
+  posters: PosterUpdateManyWithoutCategoryInput
+  createdAuthor: UserUpdateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedCategoriesInput
+}
+
+input CategoryUpdateManyDataInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+}
+
+input CategoryUpdateManyMutationInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+}
+
+input CategoryUpdateManyWithoutCreatedAuthorInput {
+  create: [CategoryCreateWithoutCreatedAuthorInput!]
+  delete: [CategoryWhereUniqueInput!]
+  connect: [CategoryWhereUniqueInput!]
+  set: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput!]
+  deleteMany: [CategoryScalarWhereInput!]
+  updateMany: [CategoryUpdateManyWithWhereNestedInput!]
+}
+
+input CategoryUpdateManyWithoutParishInput {
+  create: [CategoryCreateWithoutParishInput!]
+  delete: [CategoryWhereUniqueInput!]
+  connect: [CategoryWhereUniqueInput!]
+  set: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutParishInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutParishInput!]
+  deleteMany: [CategoryScalarWhereInput!]
+  updateMany: [CategoryUpdateManyWithWhereNestedInput!]
+}
+
+input CategoryUpdateManyWithoutUpdatedAuthorInput {
+  create: [CategoryCreateWithoutUpdatedAuthorInput!]
+  delete: [CategoryWhereUniqueInput!]
+  connect: [CategoryWhereUniqueInput!]
+  set: [CategoryWhereUniqueInput!]
+  disconnect: [CategoryWhereUniqueInput!]
+  update: [CategoryUpdateWithWhereUniqueWithoutUpdatedAuthorInput!]
+  upsert: [CategoryUpsertWithWhereUniqueWithoutUpdatedAuthorInput!]
+  deleteMany: [CategoryScalarWhereInput!]
+  updateMany: [CategoryUpdateManyWithWhereNestedInput!]
+}
+
+input CategoryUpdateManyWithWhereNestedInput {
+  where: CategoryScalarWhereInput!
+  data: CategoryUpdateManyDataInput!
+}
+
+input CategoryUpdateOneWithoutPostersInput {
+  create: CategoryCreateWithoutPostersInput
+  update: CategoryUpdateWithoutPostersDataInput
+  upsert: CategoryUpsertWithoutPostersInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryUpdateWithoutCreatedAuthorDataInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishUpdateOneWithoutCategoriesInput
+  posters: PosterUpdateManyWithoutCategoryInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedCategoriesInput
+}
+
+input CategoryUpdateWithoutParishDataInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  posters: PosterUpdateManyWithoutCategoryInput
+  createdAuthor: UserUpdateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedCategoriesInput
+}
+
+input CategoryUpdateWithoutPostersDataInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishUpdateOneWithoutCategoriesInput
+  createdAuthor: UserUpdateOneWithoutCreatedCategoriesInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedCategoriesInput
+}
+
+input CategoryUpdateWithoutUpdatedAuthorDataInput {
+  name: String
+  published: Boolean
+  title: String
+  content: String
+  parish: ParishUpdateOneWithoutCategoriesInput
+  posters: PosterUpdateManyWithoutCategoryInput
+  createdAuthor: UserUpdateOneWithoutCreatedCategoriesInput
+}
+
+input CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutCreatedAuthorDataInput!
+}
+
+input CategoryUpdateWithWhereUniqueWithoutParishInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutParishDataInput!
+}
+
+input CategoryUpdateWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: CategoryWhereUniqueInput!
+  data: CategoryUpdateWithoutUpdatedAuthorDataInput!
+}
+
+input CategoryUpsertWithoutPostersInput {
+  update: CategoryUpdateWithoutPostersDataInput!
+  create: CategoryCreateWithoutPostersInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutCreatedAuthorDataInput!
+  create: CategoryCreateWithoutCreatedAuthorInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutParishInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutParishDataInput!
+  create: CategoryCreateWithoutParishInput!
+}
+
+input CategoryUpsertWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: CategoryWhereUniqueInput!
+  update: CategoryUpdateWithoutUpdatedAuthorDataInput!
+  create: CategoryCreateWithoutUpdatedAuthorInput!
+}
+
+input CategoryWhereInput {
   id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  content: String
+  content_not: String
+  content_in: [String!]
+  content_not_in: [String!]
+  content_lt: String
+  content_lte: String
+  content_gt: String
+  content_gte: String
+  content_contains: String
+  content_not_contains: String
+  content_starts_with: String
+  content_not_starts_with: String
+  content_ends_with: String
+  content_not_ends_with: String
+  parish: ParishWhereInput
+  posters_every: PosterWhereInput
+  posters_some: PosterWhereInput
+  posters_none: PosterWhereInput
+  createdAuthor: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAuthor: UserWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
 }
 
-type BatchPayload {
-  count: Long!
+input CategoryWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
 
 type Deanery {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
-  shortName: String!
-  parish(where: ParishWhereInput, orderBy: ParishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Parish!]
+  shortName: String
+  parishes(where: ParishWhereInput, orderBy: ParishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Parish!]
   diocese: Diocese
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type DeaneryConnection {
@@ -251,11 +524,10 @@ type DeaneryConnection {
 
 input DeaneryCreateInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  shortName: String!
-  parish: ParishCreateManyWithoutDeaneryInput
-  diocese: DioceseCreateOneWithoutDeaneryInput
+  name: String
+  shortName: String
+  parishes: ParishCreateManyWithoutDeaneryInput
+  diocese: DioceseCreateOneWithoutDeaneriesInput
 }
 
 input DeaneryCreateManyWithoutDioceseInput {
@@ -263,25 +535,23 @@ input DeaneryCreateManyWithoutDioceseInput {
   connect: [DeaneryWhereUniqueInput!]
 }
 
-input DeaneryCreateOneWithoutParishInput {
-  create: DeaneryCreateWithoutParishInput
+input DeaneryCreateOneWithoutParishesInput {
+  create: DeaneryCreateWithoutParishesInput
   connect: DeaneryWhereUniqueInput
 }
 
 input DeaneryCreateWithoutDioceseInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  shortName: String!
-  parish: ParishCreateManyWithoutDeaneryInput
+  name: String
+  shortName: String
+  parishes: ParishCreateManyWithoutDeaneryInput
 }
 
-input DeaneryCreateWithoutParishInput {
+input DeaneryCreateWithoutParishesInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  shortName: String!
-  diocese: DioceseCreateOneWithoutDeaneryInput
+  name: String
+  shortName: String
+  diocese: DioceseCreateOneWithoutDeaneriesInput
 }
 
 type DeaneryEdge {
@@ -292,22 +562,22 @@ type DeaneryEdge {
 enum DeaneryOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updateAt_ASC
-  updateAt_DESC
   name_ASC
   name_DESC
   shortName_ASC
   shortName_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type DeaneryPreviousValues {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
-  shortName: String!
+  shortName: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input DeaneryScalarWhereInput {
@@ -325,22 +595,6 @@ input DeaneryScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -369,6 +623,22 @@ input DeaneryScalarWhereInput {
   shortName_not_starts_with: String
   shortName_ends_with: String
   shortName_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [DeaneryScalarWhereInput!]
   OR: [DeaneryScalarWhereInput!]
   NOT: [DeaneryScalarWhereInput!]
@@ -393,21 +663,18 @@ input DeanerySubscriptionWhereInput {
 }
 
 input DeaneryUpdateInput {
-  updateAt: DateTime
   name: String
   shortName: String
-  parish: ParishUpdateManyWithoutDeaneryInput
-  diocese: DioceseUpdateOneWithoutDeaneryInput
+  parishes: ParishUpdateManyWithoutDeaneryInput
+  diocese: DioceseUpdateOneWithoutDeaneriesInput
 }
 
 input DeaneryUpdateManyDataInput {
-  updateAt: DateTime
   name: String
   shortName: String
 }
 
 input DeaneryUpdateManyMutationInput {
-  updateAt: DateTime
   name: String
   shortName: String
 }
@@ -429,27 +696,25 @@ input DeaneryUpdateManyWithWhereNestedInput {
   data: DeaneryUpdateManyDataInput!
 }
 
-input DeaneryUpdateOneWithoutParishInput {
-  create: DeaneryCreateWithoutParishInput
-  update: DeaneryUpdateWithoutParishDataInput
-  upsert: DeaneryUpsertWithoutParishInput
+input DeaneryUpdateOneWithoutParishesInput {
+  create: DeaneryCreateWithoutParishesInput
+  update: DeaneryUpdateWithoutParishesDataInput
+  upsert: DeaneryUpsertWithoutParishesInput
   delete: Boolean
   disconnect: Boolean
   connect: DeaneryWhereUniqueInput
 }
 
 input DeaneryUpdateWithoutDioceseDataInput {
-  updateAt: DateTime
   name: String
   shortName: String
-  parish: ParishUpdateManyWithoutDeaneryInput
+  parishes: ParishUpdateManyWithoutDeaneryInput
 }
 
-input DeaneryUpdateWithoutParishDataInput {
-  updateAt: DateTime
+input DeaneryUpdateWithoutParishesDataInput {
   name: String
   shortName: String
-  diocese: DioceseUpdateOneWithoutDeaneryInput
+  diocese: DioceseUpdateOneWithoutDeaneriesInput
 }
 
 input DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
@@ -457,9 +722,9 @@ input DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
   data: DeaneryUpdateWithoutDioceseDataInput!
 }
 
-input DeaneryUpsertWithoutParishInput {
-  update: DeaneryUpdateWithoutParishDataInput!
-  create: DeaneryCreateWithoutParishInput!
+input DeaneryUpsertWithoutParishesInput {
+  update: DeaneryUpdateWithoutParishesDataInput!
+  create: DeaneryCreateWithoutParishesInput!
 }
 
 input DeaneryUpsertWithWhereUniqueWithoutDioceseInput {
@@ -483,22 +748,6 @@ input DeaneryWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -527,10 +776,26 @@ input DeaneryWhereInput {
   shortName_not_starts_with: String
   shortName_ends_with: String
   shortName_not_ends_with: String
-  parish_every: ParishWhereInput
-  parish_some: ParishWhereInput
-  parish_none: ParishWhereInput
+  parishes_every: ParishWhereInput
+  parishes_some: ParishWhereInput
+  parishes_none: ParishWhereInput
   diocese: DioceseWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [DeaneryWhereInput!]
   OR: [DeaneryWhereInput!]
   NOT: [DeaneryWhereInput!]
@@ -542,11 +807,11 @@ input DeaneryWhereUniqueInput {
 
 type Diocese {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
-  shortName: String!
-  deanery(where: DeaneryWhereInput, orderBy: DeaneryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deanery!]
+  shortName: String
+  deaneries(where: DeaneryWhereInput, orderBy: DeaneryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deanery!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type DioceseConnection {
@@ -557,22 +822,20 @@ type DioceseConnection {
 
 input DioceseCreateInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  shortName: String!
-  deanery: DeaneryCreateManyWithoutDioceseInput
+  name: String
+  shortName: String
+  deaneries: DeaneryCreateManyWithoutDioceseInput
 }
 
-input DioceseCreateOneWithoutDeaneryInput {
-  create: DioceseCreateWithoutDeaneryInput
+input DioceseCreateOneWithoutDeaneriesInput {
+  create: DioceseCreateWithoutDeaneriesInput
   connect: DioceseWhereUniqueInput
 }
 
-input DioceseCreateWithoutDeaneryInput {
+input DioceseCreateWithoutDeaneriesInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  shortName: String!
+  name: String
+  shortName: String
 }
 
 type DioceseEdge {
@@ -583,22 +846,22 @@ type DioceseEdge {
 enum DioceseOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updateAt_ASC
-  updateAt_DESC
   name_ASC
   name_DESC
   shortName_ASC
   shortName_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type DiocesePreviousValues {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
-  shortName: String!
+  shortName: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type DioceseSubscriptionPayload {
@@ -620,36 +883,33 @@ input DioceseSubscriptionWhereInput {
 }
 
 input DioceseUpdateInput {
-  updateAt: DateTime
   name: String
   shortName: String
-  deanery: DeaneryUpdateManyWithoutDioceseInput
+  deaneries: DeaneryUpdateManyWithoutDioceseInput
 }
 
 input DioceseUpdateManyMutationInput {
-  updateAt: DateTime
   name: String
   shortName: String
 }
 
-input DioceseUpdateOneWithoutDeaneryInput {
-  create: DioceseCreateWithoutDeaneryInput
-  update: DioceseUpdateWithoutDeaneryDataInput
-  upsert: DioceseUpsertWithoutDeaneryInput
+input DioceseUpdateOneWithoutDeaneriesInput {
+  create: DioceseCreateWithoutDeaneriesInput
+  update: DioceseUpdateWithoutDeaneriesDataInput
+  upsert: DioceseUpsertWithoutDeaneriesInput
   delete: Boolean
   disconnect: Boolean
   connect: DioceseWhereUniqueInput
 }
 
-input DioceseUpdateWithoutDeaneryDataInput {
-  updateAt: DateTime
+input DioceseUpdateWithoutDeaneriesDataInput {
   name: String
   shortName: String
 }
 
-input DioceseUpsertWithoutDeaneryInput {
-  update: DioceseUpdateWithoutDeaneryDataInput!
-  create: DioceseCreateWithoutDeaneryInput!
+input DioceseUpsertWithoutDeaneriesInput {
+  update: DioceseUpdateWithoutDeaneriesDataInput!
+  create: DioceseCreateWithoutDeaneriesInput!
 }
 
 input DioceseWhereInput {
@@ -667,22 +927,6 @@ input DioceseWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -711,9 +955,25 @@ input DioceseWhereInput {
   shortName_not_starts_with: String
   shortName_ends_with: String
   shortName_not_ends_with: String
-  deanery_every: DeaneryWhereInput
-  deanery_some: DeaneryWhereInput
-  deanery_none: DeaneryWhereInput
+  deaneries_every: DeaneryWhereInput
+  deaneries_some: DeaneryWhereInput
+  deaneries_none: DeaneryWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [DioceseWhereInput!]
   OR: [DioceseWhereInput!]
   NOT: [DioceseWhereInput!]
@@ -723,251 +983,105 @@ input DioceseWhereUniqueInput {
   id: ID
 }
 
-type Image {
+type ImageType {
   id: ID!
+  name: String!
+  posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
   createdAt: DateTime!
-  updateAt: DateTime
-  name: String
-  picture: String
-  thumbnail: String
-  description: String
-  album: Album
+  updatedAt: DateTime!
 }
 
-type ImageConnection {
+type ImageTypeConnection {
   pageInfo: PageInfo!
-  edges: [ImageEdge]!
-  aggregate: AggregateImage!
+  edges: [ImageTypeEdge]!
+  aggregate: AggregateImageType!
 }
 
-input ImageCreateInput {
+input ImageTypeCreateInput {
   id: ID
-  updateAt: DateTime
   name: String
-  picture: String
-  thumbnail: String
-  description: String
-  album: AlbumCreateOneWithoutImageInput
+  posters: PosterCreateManyWithoutImageTypeInput
 }
 
-input ImageCreateManyWithoutAlbumInput {
-  create: [ImageCreateWithoutAlbumInput!]
-  connect: [ImageWhereUniqueInput!]
+input ImageTypeCreateOneWithoutPostersInput {
+  create: ImageTypeCreateWithoutPostersInput
+  connect: ImageTypeWhereUniqueInput
 }
 
-input ImageCreateWithoutAlbumInput {
+input ImageTypeCreateWithoutPostersInput {
   id: ID
-  updateAt: DateTime
   name: String
-  picture: String
-  thumbnail: String
-  description: String
 }
 
-type ImageEdge {
-  node: Image!
+type ImageTypeEdge {
+  node: ImageType!
   cursor: String!
 }
 
-enum ImageOrderByInput {
+enum ImageTypeOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updateAt_ASC
-  updateAt_DESC
   name_ASC
   name_DESC
-  picture_ASC
-  picture_DESC
-  thumbnail_ASC
-  thumbnail_DESC
-  description_ASC
-  description_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
-type ImagePreviousValues {
+type ImageTypePreviousValues {
   id: ID!
+  name: String!
   createdAt: DateTime!
-  updateAt: DateTime
-  name: String
-  picture: String
-  thumbnail: String
-  description: String
+  updatedAt: DateTime!
 }
 
-input ImageScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  picture: String
-  picture_not: String
-  picture_in: [String!]
-  picture_not_in: [String!]
-  picture_lt: String
-  picture_lte: String
-  picture_gt: String
-  picture_gte: String
-  picture_contains: String
-  picture_not_contains: String
-  picture_starts_with: String
-  picture_not_starts_with: String
-  picture_ends_with: String
-  picture_not_ends_with: String
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  AND: [ImageScalarWhereInput!]
-  OR: [ImageScalarWhereInput!]
-  NOT: [ImageScalarWhereInput!]
-}
-
-type ImageSubscriptionPayload {
+type ImageTypeSubscriptionPayload {
   mutation: MutationType!
-  node: Image
+  node: ImageType
   updatedFields: [String!]
-  previousValues: ImagePreviousValues
+  previousValues: ImageTypePreviousValues
 }
 
-input ImageSubscriptionWhereInput {
+input ImageTypeSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: ImageWhereInput
-  AND: [ImageSubscriptionWhereInput!]
-  OR: [ImageSubscriptionWhereInput!]
-  NOT: [ImageSubscriptionWhereInput!]
+  node: ImageTypeWhereInput
+  AND: [ImageTypeSubscriptionWhereInput!]
+  OR: [ImageTypeSubscriptionWhereInput!]
+  NOT: [ImageTypeSubscriptionWhereInput!]
 }
 
-input ImageUpdateInput {
-  updateAt: DateTime
+input ImageTypeUpdateInput {
   name: String
-  picture: String
-  thumbnail: String
-  description: String
-  album: AlbumUpdateOneWithoutImageInput
+  posters: PosterUpdateManyWithoutImageTypeInput
 }
 
-input ImageUpdateManyDataInput {
-  updateAt: DateTime
+input ImageTypeUpdateManyMutationInput {
   name: String
-  picture: String
-  thumbnail: String
-  description: String
 }
 
-input ImageUpdateManyMutationInput {
-  updateAt: DateTime
+input ImageTypeUpdateOneWithoutPostersInput {
+  create: ImageTypeCreateWithoutPostersInput
+  update: ImageTypeUpdateWithoutPostersDataInput
+  upsert: ImageTypeUpsertWithoutPostersInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ImageTypeWhereUniqueInput
+}
+
+input ImageTypeUpdateWithoutPostersDataInput {
   name: String
-  picture: String
-  thumbnail: String
-  description: String
 }
 
-input ImageUpdateManyWithoutAlbumInput {
-  create: [ImageCreateWithoutAlbumInput!]
-  delete: [ImageWhereUniqueInput!]
-  connect: [ImageWhereUniqueInput!]
-  set: [ImageWhereUniqueInput!]
-  disconnect: [ImageWhereUniqueInput!]
-  update: [ImageUpdateWithWhereUniqueWithoutAlbumInput!]
-  upsert: [ImageUpsertWithWhereUniqueWithoutAlbumInput!]
-  deleteMany: [ImageScalarWhereInput!]
-  updateMany: [ImageUpdateManyWithWhereNestedInput!]
+input ImageTypeUpsertWithoutPostersInput {
+  update: ImageTypeUpdateWithoutPostersDataInput!
+  create: ImageTypeCreateWithoutPostersInput!
 }
 
-input ImageUpdateManyWithWhereNestedInput {
-  where: ImageScalarWhereInput!
-  data: ImageUpdateManyDataInput!
-}
-
-input ImageUpdateWithoutAlbumDataInput {
-  updateAt: DateTime
-  name: String
-  picture: String
-  thumbnail: String
-  description: String
-}
-
-input ImageUpdateWithWhereUniqueWithoutAlbumInput {
-  where: ImageWhereUniqueInput!
-  data: ImageUpdateWithoutAlbumDataInput!
-}
-
-input ImageUpsertWithWhereUniqueWithoutAlbumInput {
-  where: ImageWhereUniqueInput!
-  update: ImageUpdateWithoutAlbumDataInput!
-  create: ImageCreateWithoutAlbumInput!
-}
-
-input ImageWhereInput {
+input ImageTypeWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -982,22 +1096,6 @@ input ImageWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -1012,67 +1110,43 @@ input ImageWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  picture: String
-  picture_not: String
-  picture_in: [String!]
-  picture_not_in: [String!]
-  picture_lt: String
-  picture_lte: String
-  picture_gt: String
-  picture_gte: String
-  picture_contains: String
-  picture_not_contains: String
-  picture_starts_with: String
-  picture_not_starts_with: String
-  picture_ends_with: String
-  picture_not_ends_with: String
-  thumbnail: String
-  thumbnail_not: String
-  thumbnail_in: [String!]
-  thumbnail_not_in: [String!]
-  thumbnail_lt: String
-  thumbnail_lte: String
-  thumbnail_gt: String
-  thumbnail_gte: String
-  thumbnail_contains: String
-  thumbnail_not_contains: String
-  thumbnail_starts_with: String
-  thumbnail_not_starts_with: String
-  thumbnail_ends_with: String
-  thumbnail_not_ends_with: String
-  description: String
-  description_not: String
-  description_in: [String!]
-  description_not_in: [String!]
-  description_lt: String
-  description_lte: String
-  description_gt: String
-  description_gte: String
-  description_contains: String
-  description_not_contains: String
-  description_starts_with: String
-  description_not_starts_with: String
-  description_ends_with: String
-  description_not_ends_with: String
-  album: AlbumWhereInput
-  AND: [ImageWhereInput!]
-  OR: [ImageWhereInput!]
-  NOT: [ImageWhereInput!]
+  posters_every: PosterWhereInput
+  posters_some: PosterWhereInput
+  posters_none: PosterWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ImageTypeWhereInput!]
+  OR: [ImageTypeWhereInput!]
+  NOT: [ImageTypeWhereInput!]
 }
 
-input ImageWhereUniqueInput {
+input ImageTypeWhereUniqueInput {
   id: ID
 }
 
 scalar Long
 
 type Mutation {
-  createAlbum(data: AlbumCreateInput!): Album!
-  updateAlbum(data: AlbumUpdateInput!, where: AlbumWhereUniqueInput!): Album
-  updateManyAlbums(data: AlbumUpdateManyMutationInput!, where: AlbumWhereInput): BatchPayload!
-  upsertAlbum(where: AlbumWhereUniqueInput!, create: AlbumCreateInput!, update: AlbumUpdateInput!): Album!
-  deleteAlbum(where: AlbumWhereUniqueInput!): Album
-  deleteManyAlbums(where: AlbumWhereInput): BatchPayload!
+  createCategory(data: CategoryCreateInput!): Category!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   createDeanery(data: DeaneryCreateInput!): Deanery!
   updateDeanery(data: DeaneryUpdateInput!, where: DeaneryWhereUniqueInput!): Deanery
   updateManyDeaneries(data: DeaneryUpdateManyMutationInput!, where: DeaneryWhereInput): BatchPayload!
@@ -1085,24 +1159,24 @@ type Mutation {
   upsertDiocese(where: DioceseWhereUniqueInput!, create: DioceseCreateInput!, update: DioceseUpdateInput!): Diocese!
   deleteDiocese(where: DioceseWhereUniqueInput!): Diocese
   deleteManyDioceses(where: DioceseWhereInput): BatchPayload!
-  createImage(data: ImageCreateInput!): Image!
-  updateImage(data: ImageUpdateInput!, where: ImageWhereUniqueInput!): Image
-  updateManyImages(data: ImageUpdateManyMutationInput!, where: ImageWhereInput): BatchPayload!
-  upsertImage(where: ImageWhereUniqueInput!, create: ImageCreateInput!, update: ImageUpdateInput!): Image!
-  deleteImage(where: ImageWhereUniqueInput!): Image
-  deleteManyImages(where: ImageWhereInput): BatchPayload!
+  createImageType(data: ImageTypeCreateInput!): ImageType!
+  updateImageType(data: ImageTypeUpdateInput!, where: ImageTypeWhereUniqueInput!): ImageType
+  updateManyImageTypes(data: ImageTypeUpdateManyMutationInput!, where: ImageTypeWhereInput): BatchPayload!
+  upsertImageType(where: ImageTypeWhereUniqueInput!, create: ImageTypeCreateInput!, update: ImageTypeUpdateInput!): ImageType!
+  deleteImageType(where: ImageTypeWhereUniqueInput!): ImageType
+  deleteManyImageTypes(where: ImageTypeWhereInput): BatchPayload!
   createParish(data: ParishCreateInput!): Parish!
   updateParish(data: ParishUpdateInput!, where: ParishWhereUniqueInput!): Parish
   updateManyParishes(data: ParishUpdateManyMutationInput!, where: ParishWhereInput): BatchPayload!
   upsertParish(where: ParishWhereUniqueInput!, create: ParishCreateInput!, update: ParishUpdateInput!): Parish!
   deleteParish(where: ParishWhereUniqueInput!): Parish
   deleteManyParishes(where: ParishWhereInput): BatchPayload!
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  createPoster(data: PosterCreateInput!): Poster!
+  updatePoster(data: PosterUpdateInput!, where: PosterWhereUniqueInput!): Poster
+  updateManyPosters(data: PosterUpdateManyMutationInput!, where: PosterWhereInput): BatchPayload!
+  upsertPoster(where: PosterWhereUniqueInput!, create: PosterCreateInput!, update: PosterUpdateInput!): Poster!
+  deletePoster(where: PosterWhereUniqueInput!): Poster
+  deleteManyPosters(where: PosterWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -1130,11 +1204,12 @@ type PageInfo {
 
 type Parish {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
+  shortName: String
   deanery: Deanery
-  Album: Album!
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type ParishConnection {
@@ -1145,10 +1220,10 @@ type ParishConnection {
 
 input ParishCreateInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  deanery: DeaneryCreateOneWithoutParishInput
-  Album: AlbumCreateOneWithoutParishInput!
+  name: String
+  shortName: String
+  deanery: DeaneryCreateOneWithoutParishesInput
+  categories: CategoryCreateManyWithoutParishInput
 }
 
 input ParishCreateManyWithoutDeaneryInput {
@@ -1156,23 +1231,23 @@ input ParishCreateManyWithoutDeaneryInput {
   connect: [ParishWhereUniqueInput!]
 }
 
-input ParishCreateOneWithoutAlbumInput {
-  create: ParishCreateWithoutAlbumInput
+input ParishCreateOneWithoutCategoriesInput {
+  create: ParishCreateWithoutCategoriesInput
   connect: ParishWhereUniqueInput
 }
 
-input ParishCreateWithoutAlbumInput {
+input ParishCreateWithoutCategoriesInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  deanery: DeaneryCreateOneWithoutParishInput
+  name: String
+  shortName: String
+  deanery: DeaneryCreateOneWithoutParishesInput
 }
 
 input ParishCreateWithoutDeaneryInput {
   id: ID
-  updateAt: DateTime
-  name: String!
-  Album: AlbumCreateOneWithoutParishInput!
+  name: String
+  shortName: String
+  categories: CategoryCreateManyWithoutParishInput
 }
 
 type ParishEdge {
@@ -1183,19 +1258,22 @@ type ParishEdge {
 enum ParishOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updateAt_ASC
-  updateAt_DESC
   name_ASC
   name_DESC
+  shortName_ASC
+  shortName_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type ParishPreviousValues {
   id: ID!
-  createdAt: DateTime!
-  updateAt: DateTime
   name: String!
+  shortName: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input ParishScalarWhereInput {
@@ -1213,22 +1291,6 @@ input ParishScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -1243,6 +1305,36 @@ input ParishScalarWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  shortName: String
+  shortName_not: String
+  shortName_in: [String!]
+  shortName_not_in: [String!]
+  shortName_lt: String
+  shortName_lte: String
+  shortName_gt: String
+  shortName_gte: String
+  shortName_contains: String
+  shortName_not_contains: String
+  shortName_starts_with: String
+  shortName_not_starts_with: String
+  shortName_ends_with: String
+  shortName_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ParishScalarWhereInput!]
   OR: [ParishScalarWhereInput!]
   NOT: [ParishScalarWhereInput!]
@@ -1267,20 +1359,20 @@ input ParishSubscriptionWhereInput {
 }
 
 input ParishUpdateInput {
-  updateAt: DateTime
   name: String
-  deanery: DeaneryUpdateOneWithoutParishInput
-  Album: AlbumUpdateOneRequiredWithoutParishInput
+  shortName: String
+  deanery: DeaneryUpdateOneWithoutParishesInput
+  categories: CategoryUpdateManyWithoutParishInput
 }
 
 input ParishUpdateManyDataInput {
-  updateAt: DateTime
   name: String
+  shortName: String
 }
 
 input ParishUpdateManyMutationInput {
-  updateAt: DateTime
   name: String
+  shortName: String
 }
 
 input ParishUpdateManyWithoutDeaneryInput {
@@ -1300,23 +1392,25 @@ input ParishUpdateManyWithWhereNestedInput {
   data: ParishUpdateManyDataInput!
 }
 
-input ParishUpdateOneRequiredWithoutAlbumInput {
-  create: ParishCreateWithoutAlbumInput
-  update: ParishUpdateWithoutAlbumDataInput
-  upsert: ParishUpsertWithoutAlbumInput
+input ParishUpdateOneWithoutCategoriesInput {
+  create: ParishCreateWithoutCategoriesInput
+  update: ParishUpdateWithoutCategoriesDataInput
+  upsert: ParishUpsertWithoutCategoriesInput
+  delete: Boolean
+  disconnect: Boolean
   connect: ParishWhereUniqueInput
 }
 
-input ParishUpdateWithoutAlbumDataInput {
-  updateAt: DateTime
+input ParishUpdateWithoutCategoriesDataInput {
   name: String
-  deanery: DeaneryUpdateOneWithoutParishInput
+  shortName: String
+  deanery: DeaneryUpdateOneWithoutParishesInput
 }
 
 input ParishUpdateWithoutDeaneryDataInput {
-  updateAt: DateTime
   name: String
-  Album: AlbumUpdateOneRequiredWithoutParishInput
+  shortName: String
+  categories: CategoryUpdateManyWithoutParishInput
 }
 
 input ParishUpdateWithWhereUniqueWithoutDeaneryInput {
@@ -1324,9 +1418,9 @@ input ParishUpdateWithWhereUniqueWithoutDeaneryInput {
   data: ParishUpdateWithoutDeaneryDataInput!
 }
 
-input ParishUpsertWithoutAlbumInput {
-  update: ParishUpdateWithoutAlbumDataInput!
-  create: ParishCreateWithoutAlbumInput!
+input ParishUpsertWithoutCategoriesInput {
+  update: ParishUpdateWithoutCategoriesDataInput!
+  create: ParishCreateWithoutCategoriesInput!
 }
 
 input ParishUpsertWithWhereUniqueWithoutDeaneryInput {
@@ -1350,22 +1444,6 @@ input ParishWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updateAt: DateTime
-  updateAt_not: DateTime
-  updateAt_in: [DateTime!]
-  updateAt_not_in: [DateTime!]
-  updateAt_lt: DateTime
-  updateAt_lte: DateTime
-  updateAt_gt: DateTime
-  updateAt_gte: DateTime
   name: String
   name_not: String
   name_in: [String!]
@@ -1380,8 +1458,40 @@ input ParishWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  shortName: String
+  shortName_not: String
+  shortName_in: [String!]
+  shortName_not_in: [String!]
+  shortName_lt: String
+  shortName_lte: String
+  shortName_gt: String
+  shortName_gte: String
+  shortName_contains: String
+  shortName_not_contains: String
+  shortName_starts_with: String
+  shortName_not_starts_with: String
+  shortName_ends_with: String
+  shortName_not_ends_with: String
   deanery: DeaneryWhereInput
-  Album: AlbumWhereInput
+  categories_every: CategoryWhereInput
+  categories_some: CategoryWhereInput
+  categories_none: CategoryWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [ParishWhereInput!]
   OR: [ParishWhereInput!]
   NOT: [ParishWhereInput!]
@@ -1391,72 +1501,148 @@ input ParishWhereUniqueInput {
   id: ID
 }
 
-type Post {
+type Poster {
   id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  name: String!
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean!
-  title: String!
+  title: String
   content: String
-  author: User!
+  imageType: ImageType
+  category: Category
+  createdAuthor: User
+  createdAt: DateTime!
+  updatedAuthor: User
+  updatedAt: DateTime!
 }
 
-type PostConnection {
+type PosterConnection {
   pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
+  edges: [PosterEdge]!
+  aggregate: AggregatePoster!
 }
 
-input PostCreateInput {
+input PosterCreateInput {
   id: ID
+  name: String
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean
-  title: String!
+  title: String
   content: String
-  author: UserCreateOneWithoutPostsInput!
+  imageType: ImageTypeCreateOneWithoutPostersInput
+  category: CategoryCreateOneWithoutPostersInput
+  createdAuthor: UserCreateOneInput
+  updatedAuthor: UserCreateOneWithoutUpdatedPostersInput
 }
 
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
+input PosterCreateManyInput {
+  create: [PosterCreateInput!]
+  connect: [PosterWhereUniqueInput!]
 }
 
-input PostCreateWithoutAuthorInput {
+input PosterCreateManyWithoutCategoryInput {
+  create: [PosterCreateWithoutCategoryInput!]
+  connect: [PosterWhereUniqueInput!]
+}
+
+input PosterCreateManyWithoutImageTypeInput {
+  create: [PosterCreateWithoutImageTypeInput!]
+  connect: [PosterWhereUniqueInput!]
+}
+
+input PosterCreateManyWithoutUpdatedAuthorInput {
+  create: [PosterCreateWithoutUpdatedAuthorInput!]
+  connect: [PosterWhereUniqueInput!]
+}
+
+input PosterCreateWithoutCategoryInput {
   id: ID
+  name: String
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean
-  title: String!
+  title: String
   content: String
+  imageType: ImageTypeCreateOneWithoutPostersInput
+  createdAuthor: UserCreateOneInput
+  updatedAuthor: UserCreateOneWithoutUpdatedPostersInput
 }
 
-type PostEdge {
-  node: Post!
+input PosterCreateWithoutImageTypeInput {
+  id: ID
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
+  category: CategoryCreateOneWithoutPostersInput
+  createdAuthor: UserCreateOneInput
+  updatedAuthor: UserCreateOneWithoutUpdatedPostersInput
+}
+
+input PosterCreateWithoutUpdatedAuthorInput {
+  id: ID
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
+  imageType: ImageTypeCreateOneWithoutPostersInput
+  category: CategoryCreateOneWithoutPostersInput
+  createdAuthor: UserCreateOneInput
+}
+
+type PosterEdge {
+  node: Poster!
   cursor: String!
 }
 
-enum PostOrderByInput {
+enum PosterOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
+  name_ASC
+  name_DESC
+  image_ASC
+  image_DESC
+  thumbnail_ASC
+  thumbnail_DESC
+  description_ASC
+  description_DESC
   published_ASC
   published_DESC
   title_ASC
   title_DESC
   content_ASC
   content_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
-type PostPreviousValues {
+type PosterPreviousValues {
   id: ID!
+  name: String!
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean!
+  title: String
+  content: String
   createdAt: DateTime!
   updatedAt: DateTime!
-  published: Boolean!
-  title: String!
-  content: String
 }
 
-input PostScalarWhereInput {
+input PosterScalarWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -1471,22 +1657,62 @@ input PostScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   published: Boolean
   published_not: Boolean
   title: String
@@ -1517,83 +1743,230 @@ input PostScalarWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  AND: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [PosterScalarWhereInput!]
+  OR: [PosterScalarWhereInput!]
+  NOT: [PosterScalarWhereInput!]
 }
 
-type PostSubscriptionPayload {
+type PosterSubscriptionPayload {
   mutation: MutationType!
-  node: Post
+  node: Poster
   updatedFields: [String!]
-  previousValues: PostPreviousValues
+  previousValues: PosterPreviousValues
 }
 
-input PostSubscriptionWhereInput {
+input PosterSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
+  node: PosterWhereInput
+  AND: [PosterSubscriptionWhereInput!]
+  OR: [PosterSubscriptionWhereInput!]
+  NOT: [PosterSubscriptionWhereInput!]
 }
 
-input PostUpdateInput {
+input PosterUpdateDataInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean
   title: String
   content: String
-  author: UserUpdateOneRequiredWithoutPostsInput
+  imageType: ImageTypeUpdateOneWithoutPostersInput
+  category: CategoryUpdateOneWithoutPostersInput
+  createdAuthor: UserUpdateOneInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedPostersInput
 }
 
-input PostUpdateManyDataInput {
+input PosterUpdateInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean
   title: String
   content: String
+  imageType: ImageTypeUpdateOneWithoutPostersInput
+  category: CategoryUpdateOneWithoutPostersInput
+  createdAuthor: UserUpdateOneInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedPostersInput
 }
 
-input PostUpdateManyMutationInput {
-  published: Boolean
-  title: String
-  content: String
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-  deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateWithoutAuthorDataInput {
+input PosterUpdateManyDataInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
   published: Boolean
   title: String
   content: String
 }
 
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
+input PosterUpdateManyInput {
+  create: [PosterCreateInput!]
+  update: [PosterUpdateWithWhereUniqueNestedInput!]
+  upsert: [PosterUpsertWithWhereUniqueNestedInput!]
+  delete: [PosterWhereUniqueInput!]
+  connect: [PosterWhereUniqueInput!]
+  set: [PosterWhereUniqueInput!]
+  disconnect: [PosterWhereUniqueInput!]
+  deleteMany: [PosterScalarWhereInput!]
+  updateMany: [PosterUpdateManyWithWhereNestedInput!]
 }
 
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
+input PosterUpdateManyMutationInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
 }
 
-input PostWhereInput {
+input PosterUpdateManyWithoutCategoryInput {
+  create: [PosterCreateWithoutCategoryInput!]
+  delete: [PosterWhereUniqueInput!]
+  connect: [PosterWhereUniqueInput!]
+  set: [PosterWhereUniqueInput!]
+  disconnect: [PosterWhereUniqueInput!]
+  update: [PosterUpdateWithWhereUniqueWithoutCategoryInput!]
+  upsert: [PosterUpsertWithWhereUniqueWithoutCategoryInput!]
+  deleteMany: [PosterScalarWhereInput!]
+  updateMany: [PosterUpdateManyWithWhereNestedInput!]
+}
+
+input PosterUpdateManyWithoutImageTypeInput {
+  create: [PosterCreateWithoutImageTypeInput!]
+  delete: [PosterWhereUniqueInput!]
+  connect: [PosterWhereUniqueInput!]
+  set: [PosterWhereUniqueInput!]
+  disconnect: [PosterWhereUniqueInput!]
+  update: [PosterUpdateWithWhereUniqueWithoutImageTypeInput!]
+  upsert: [PosterUpsertWithWhereUniqueWithoutImageTypeInput!]
+  deleteMany: [PosterScalarWhereInput!]
+  updateMany: [PosterUpdateManyWithWhereNestedInput!]
+}
+
+input PosterUpdateManyWithoutUpdatedAuthorInput {
+  create: [PosterCreateWithoutUpdatedAuthorInput!]
+  delete: [PosterWhereUniqueInput!]
+  connect: [PosterWhereUniqueInput!]
+  set: [PosterWhereUniqueInput!]
+  disconnect: [PosterWhereUniqueInput!]
+  update: [PosterUpdateWithWhereUniqueWithoutUpdatedAuthorInput!]
+  upsert: [PosterUpsertWithWhereUniqueWithoutUpdatedAuthorInput!]
+  deleteMany: [PosterScalarWhereInput!]
+  updateMany: [PosterUpdateManyWithWhereNestedInput!]
+}
+
+input PosterUpdateManyWithWhereNestedInput {
+  where: PosterScalarWhereInput!
+  data: PosterUpdateManyDataInput!
+}
+
+input PosterUpdateWithoutCategoryDataInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
+  imageType: ImageTypeUpdateOneWithoutPostersInput
+  createdAuthor: UserUpdateOneInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedPostersInput
+}
+
+input PosterUpdateWithoutImageTypeDataInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
+  category: CategoryUpdateOneWithoutPostersInput
+  createdAuthor: UserUpdateOneInput
+  updatedAuthor: UserUpdateOneWithoutUpdatedPostersInput
+}
+
+input PosterUpdateWithoutUpdatedAuthorDataInput {
+  name: String
+  image: String
+  thumbnail: String
+  description: String
+  published: Boolean
+  title: String
+  content: String
+  imageType: ImageTypeUpdateOneWithoutPostersInput
+  category: CategoryUpdateOneWithoutPostersInput
+  createdAuthor: UserUpdateOneInput
+}
+
+input PosterUpdateWithWhereUniqueNestedInput {
+  where: PosterWhereUniqueInput!
+  data: PosterUpdateDataInput!
+}
+
+input PosterUpdateWithWhereUniqueWithoutCategoryInput {
+  where: PosterWhereUniqueInput!
+  data: PosterUpdateWithoutCategoryDataInput!
+}
+
+input PosterUpdateWithWhereUniqueWithoutImageTypeInput {
+  where: PosterWhereUniqueInput!
+  data: PosterUpdateWithoutImageTypeDataInput!
+}
+
+input PosterUpdateWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: PosterWhereUniqueInput!
+  data: PosterUpdateWithoutUpdatedAuthorDataInput!
+}
+
+input PosterUpsertWithWhereUniqueNestedInput {
+  where: PosterWhereUniqueInput!
+  update: PosterUpdateDataInput!
+  create: PosterCreateInput!
+}
+
+input PosterUpsertWithWhereUniqueWithoutCategoryInput {
+  where: PosterWhereUniqueInput!
+  update: PosterUpdateWithoutCategoryDataInput!
+  create: PosterCreateWithoutCategoryInput!
+}
+
+input PosterUpsertWithWhereUniqueWithoutImageTypeInput {
+  where: PosterWhereUniqueInput!
+  update: PosterUpdateWithoutImageTypeDataInput!
+  create: PosterCreateWithoutImageTypeInput!
+}
+
+input PosterUpsertWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: PosterWhereUniqueInput!
+  update: PosterUpdateWithoutUpdatedAuthorDataInput!
+  create: PosterCreateWithoutUpdatedAuthorInput!
+}
+
+input PosterWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -1608,22 +1981,62 @@ input PostWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  thumbnail: String
+  thumbnail_not: String
+  thumbnail_in: [String!]
+  thumbnail_not_in: [String!]
+  thumbnail_lt: String
+  thumbnail_lte: String
+  thumbnail_gt: String
+  thumbnail_gte: String
+  thumbnail_contains: String
+  thumbnail_not_contains: String
+  thumbnail_starts_with: String
+  thumbnail_not_starts_with: String
+  thumbnail_ends_with: String
+  thumbnail_not_ends_with: String
+  description: String
+  description_not: String
+  description_in: [String!]
+  description_not_in: [String!]
+  description_lt: String
+  description_lte: String
+  description_gt: String
+  description_gte: String
+  description_contains: String
+  description_not_contains: String
+  description_starts_with: String
+  description_not_starts_with: String
+  description_ends_with: String
+  description_not_ends_with: String
   published: Boolean
   published_not: Boolean
   title: String
@@ -1654,35 +2067,54 @@ input PostWhereInput {
   content_not_starts_with: String
   content_ends_with: String
   content_not_ends_with: String
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
+  imageType: ImageTypeWhereInput
+  category: CategoryWhereInput
+  createdAuthor: UserWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAuthor: UserWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [PosterWhereInput!]
+  OR: [PosterWhereInput!]
+  NOT: [PosterWhereInput!]
 }
 
-input PostWhereUniqueInput {
+input PosterWhereUniqueInput {
   id: ID
 }
 
 type Query {
-  album(where: AlbumWhereUniqueInput!): Album
-  albums(where: AlbumWhereInput, orderBy: AlbumOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Album]!
-  albumsConnection(where: AlbumWhereInput, orderBy: AlbumOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AlbumConnection!
+  category(where: CategoryWhereUniqueInput!): Category
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   deanery(where: DeaneryWhereUniqueInput!): Deanery
   deaneries(where: DeaneryWhereInput, orderBy: DeaneryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deanery]!
   deaneriesConnection(where: DeaneryWhereInput, orderBy: DeaneryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DeaneryConnection!
   diocese(where: DioceseWhereUniqueInput!): Diocese
   dioceses(where: DioceseWhereInput, orderBy: DioceseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Diocese]!
   diocesesConnection(where: DioceseWhereInput, orderBy: DioceseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DioceseConnection!
-  image(where: ImageWhereUniqueInput!): Image
-  images(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Image]!
-  imagesConnection(where: ImageWhereInput, orderBy: ImageOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImageConnection!
+  imageType(where: ImageTypeWhereUniqueInput!): ImageType
+  imageTypes(where: ImageTypeWhereInput, orderBy: ImageTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ImageType]!
+  imageTypesConnection(where: ImageTypeWhereInput, orderBy: ImageTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ImageTypeConnection!
   parish(where: ParishWhereUniqueInput!): Parish
   parishes(where: ParishWhereInput, orderBy: ParishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Parish]!
   parishesConnection(where: ParishWhereInput, orderBy: ParishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ParishConnection!
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  poster(where: PosterWhereUniqueInput!): Poster
+  posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster]!
+  postersConnection(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PosterConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -1690,12 +2122,12 @@ type Query {
 }
 
 type Subscription {
-  album(where: AlbumSubscriptionWhereInput): AlbumSubscriptionPayload
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   deanery(where: DeanerySubscriptionWhereInput): DeanerySubscriptionPayload
   diocese(where: DioceseSubscriptionWhereInput): DioceseSubscriptionPayload
-  image(where: ImageSubscriptionWhereInput): ImageSubscriptionPayload
+  imageType(where: ImageTypeSubscriptionWhereInput): ImageTypeSubscriptionPayload
   parish(where: ParishSubscriptionWhereInput): ParishSubscriptionPayload
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  poster(where: PosterSubscriptionWhereInput): PosterSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -1703,7 +2135,12 @@ type User {
   id: ID!
   email: String!
   name: String
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  createdPosters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
+  createdCategories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  createdAt: DateTime!
+  updatedPosters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
+  updatedCategories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1714,20 +2151,59 @@ type UserConnection {
 
 input UserCreateInput {
   id: ID
-  email: String!
+  email: String
   name: String
-  posts: PostCreateManyWithoutAuthorInput
+  createdPosters: PosterCreateManyInput
+  createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
+  updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
+  updatedCategories: CategoryCreateManyWithoutUpdatedAuthorInput
 }
 
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
+input UserCreateOneInput {
+  create: UserCreateInput
   connect: UserWhereUniqueInput
 }
 
-input UserCreateWithoutPostsInput {
+input UserCreateOneWithoutCreatedCategoriesInput {
+  create: UserCreateWithoutCreatedCategoriesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutUpdatedCategoriesInput {
+  create: UserCreateWithoutUpdatedCategoriesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutUpdatedPostersInput {
+  create: UserCreateWithoutUpdatedPostersInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCreatedCategoriesInput {
   id: ID
-  email: String!
+  email: String
   name: String
+  createdPosters: PosterCreateManyInput
+  updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
+  updatedCategories: CategoryCreateManyWithoutUpdatedAuthorInput
+}
+
+input UserCreateWithoutUpdatedCategoriesInput {
+  id: ID
+  email: String
+  name: String
+  createdPosters: PosterCreateManyInput
+  createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
+  updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
+}
+
+input UserCreateWithoutUpdatedPostersInput {
+  id: ID
+  email: String
+  name: String
+  createdPosters: PosterCreateManyInput
+  createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
+  updatedCategories: CategoryCreateManyWithoutUpdatedAuthorInput
 }
 
 type UserEdge {
@@ -1742,12 +2218,18 @@ enum UserOrderByInput {
   email_DESC
   name_ASC
   name_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   email: String!
   name: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1768,10 +2250,22 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  email: String
+  name: String
+  createdPosters: PosterUpdateManyInput
+  createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
+  updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
+  updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
+}
+
 input UserUpdateInput {
   email: String
   name: String
-  posts: PostUpdateManyWithoutAuthorInput
+  createdPosters: PosterUpdateManyInput
+  createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
+  updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
+  updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1779,21 +2273,84 @@ input UserUpdateManyMutationInput {
   name: String
 }
 
-input UserUpdateOneRequiredWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 
-input UserUpdateWithoutPostsDataInput {
-  email: String
-  name: String
+input UserUpdateOneWithoutCreatedCategoriesInput {
+  create: UserCreateWithoutCreatedCategoriesInput
+  update: UserUpdateWithoutCreatedCategoriesDataInput
+  upsert: UserUpsertWithoutCreatedCategoriesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input UserUpdateOneWithoutUpdatedCategoriesInput {
+  create: UserCreateWithoutUpdatedCategoriesInput
+  update: UserUpdateWithoutUpdatedCategoriesDataInput
+  upsert: UserUpsertWithoutUpdatedCategoriesInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutUpdatedPostersInput {
+  create: UserCreateWithoutUpdatedPostersInput
+  update: UserUpdateWithoutUpdatedPostersDataInput
+  upsert: UserUpsertWithoutUpdatedPostersInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutCreatedCategoriesDataInput {
+  email: String
+  name: String
+  createdPosters: PosterUpdateManyInput
+  updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
+  updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
+}
+
+input UserUpdateWithoutUpdatedCategoriesDataInput {
+  email: String
+  name: String
+  createdPosters: PosterUpdateManyInput
+  createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
+  updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
+}
+
+input UserUpdateWithoutUpdatedPostersDataInput {
+  email: String
+  name: String
+  createdPosters: PosterUpdateManyInput
+  createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
+  updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithoutCreatedCategoriesInput {
+  update: UserUpdateWithoutCreatedCategoriesDataInput!
+  create: UserCreateWithoutCreatedCategoriesInput!
+}
+
+input UserUpsertWithoutUpdatedCategoriesInput {
+  update: UserUpdateWithoutUpdatedCategoriesDataInput!
+  create: UserCreateWithoutUpdatedCategoriesInput!
+}
+
+input UserUpsertWithoutUpdatedPostersInput {
+  update: UserUpdateWithoutUpdatedPostersDataInput!
+  create: UserCreateWithoutUpdatedPostersInput!
 }
 
 input UserWhereInput {
@@ -1839,9 +2396,34 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
+  createdPosters_every: PosterWhereInput
+  createdPosters_some: PosterWhereInput
+  createdPosters_none: PosterWhereInput
+  createdCategories_every: CategoryWhereInput
+  createdCategories_some: CategoryWhereInput
+  createdCategories_none: CategoryWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedPosters_every: PosterWhereInput
+  updatedPosters_some: PosterWhereInput
+  updatedPosters_none: PosterWhereInput
+  updatedCategories_every: CategoryWhereInput
+  updatedCategories_some: CategoryWhereInput
+  updatedCategories_none: CategoryWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

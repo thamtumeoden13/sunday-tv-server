@@ -16,12 +16,12 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  album: (where?: AlbumWhereInput) => Promise<boolean>;
+  category: (where?: CategoryWhereInput) => Promise<boolean>;
   deanery: (where?: DeaneryWhereInput) => Promise<boolean>;
   diocese: (where?: DioceseWhereInput) => Promise<boolean>;
-  image: (where?: ImageWhereInput) => Promise<boolean>;
+  imageType: (where?: ImageTypeWhereInput) => Promise<boolean>;
   parish: (where?: ParishWhereInput) => Promise<boolean>;
-  post: (where?: PostWhereInput) => Promise<boolean>;
+  poster: (where?: PosterWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -44,25 +44,25 @@ export interface Prisma {
    * Queries
    */
 
-  album: (where: AlbumWhereUniqueInput) => AlbumNullablePromise;
-  albums: (args?: {
-    where?: AlbumWhereInput;
-    orderBy?: AlbumOrderByInput;
+  category: (where: CategoryWhereUniqueInput) => CategoryNullablePromise;
+  categories: (args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Album>;
-  albumsConnection: (args?: {
-    where?: AlbumWhereInput;
-    orderBy?: AlbumOrderByInput;
+  }) => FragmentableArray<Category>;
+  categoriesConnection: (args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => AlbumConnectionPromise;
+  }) => CategoryConnectionPromise;
   deanery: (where: DeaneryWhereUniqueInput) => DeaneryNullablePromise;
   deaneries: (args?: {
     where?: DeaneryWhereInput;
@@ -101,25 +101,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => DioceseConnectionPromise;
-  image: (where: ImageWhereUniqueInput) => ImageNullablePromise;
-  images: (args?: {
-    where?: ImageWhereInput;
-    orderBy?: ImageOrderByInput;
+  imageType: (where: ImageTypeWhereUniqueInput) => ImageTypeNullablePromise;
+  imageTypes: (args?: {
+    where?: ImageTypeWhereInput;
+    orderBy?: ImageTypeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Image>;
-  imagesConnection: (args?: {
-    where?: ImageWhereInput;
-    orderBy?: ImageOrderByInput;
+  }) => FragmentableArray<ImageType>;
+  imageTypesConnection: (args?: {
+    where?: ImageTypeWhereInput;
+    orderBy?: ImageTypeOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => ImageConnectionPromise;
+  }) => ImageTypeConnectionPromise;
   parish: (where: ParishWhereUniqueInput) => ParishNullablePromise;
   parishes: (args?: {
     where?: ParishWhereInput;
@@ -139,25 +139,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ParishConnectionPromise;
-  post: (where: PostWhereUniqueInput) => PostNullablePromise;
-  posts: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  poster: (where: PosterWhereUniqueInput) => PosterNullablePromise;
+  posters: (args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Post>;
-  postsConnection: (args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
+  }) => FragmentableArray<Poster>;
+  postersConnection: (args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => PostConnectionPromise;
+  }) => PosterConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -183,22 +183,22 @@ export interface Prisma {
    * Mutations
    */
 
-  createAlbum: (data: AlbumCreateInput) => AlbumPromise;
-  updateAlbum: (args: {
-    data: AlbumUpdateInput;
-    where: AlbumWhereUniqueInput;
-  }) => AlbumPromise;
-  updateManyAlbums: (args: {
-    data: AlbumUpdateManyMutationInput;
-    where?: AlbumWhereInput;
+  createCategory: (data: CategoryCreateInput) => CategoryPromise;
+  updateCategory: (args: {
+    data: CategoryUpdateInput;
+    where: CategoryWhereUniqueInput;
+  }) => CategoryPromise;
+  updateManyCategories: (args: {
+    data: CategoryUpdateManyMutationInput;
+    where?: CategoryWhereInput;
   }) => BatchPayloadPromise;
-  upsertAlbum: (args: {
-    where: AlbumWhereUniqueInput;
-    create: AlbumCreateInput;
-    update: AlbumUpdateInput;
-  }) => AlbumPromise;
-  deleteAlbum: (where: AlbumWhereUniqueInput) => AlbumPromise;
-  deleteManyAlbums: (where?: AlbumWhereInput) => BatchPayloadPromise;
+  upsertCategory: (args: {
+    where: CategoryWhereUniqueInput;
+    create: CategoryCreateInput;
+    update: CategoryUpdateInput;
+  }) => CategoryPromise;
+  deleteCategory: (where: CategoryWhereUniqueInput) => CategoryPromise;
+  deleteManyCategories: (where?: CategoryWhereInput) => BatchPayloadPromise;
   createDeanery: (data: DeaneryCreateInput) => DeaneryPromise;
   updateDeanery: (args: {
     data: DeaneryUpdateInput;
@@ -231,22 +231,22 @@ export interface Prisma {
   }) => DiocesePromise;
   deleteDiocese: (where: DioceseWhereUniqueInput) => DiocesePromise;
   deleteManyDioceses: (where?: DioceseWhereInput) => BatchPayloadPromise;
-  createImage: (data: ImageCreateInput) => ImagePromise;
-  updateImage: (args: {
-    data: ImageUpdateInput;
-    where: ImageWhereUniqueInput;
-  }) => ImagePromise;
-  updateManyImages: (args: {
-    data: ImageUpdateManyMutationInput;
-    where?: ImageWhereInput;
+  createImageType: (data: ImageTypeCreateInput) => ImageTypePromise;
+  updateImageType: (args: {
+    data: ImageTypeUpdateInput;
+    where: ImageTypeWhereUniqueInput;
+  }) => ImageTypePromise;
+  updateManyImageTypes: (args: {
+    data: ImageTypeUpdateManyMutationInput;
+    where?: ImageTypeWhereInput;
   }) => BatchPayloadPromise;
-  upsertImage: (args: {
-    where: ImageWhereUniqueInput;
-    create: ImageCreateInput;
-    update: ImageUpdateInput;
-  }) => ImagePromise;
-  deleteImage: (where: ImageWhereUniqueInput) => ImagePromise;
-  deleteManyImages: (where?: ImageWhereInput) => BatchPayloadPromise;
+  upsertImageType: (args: {
+    where: ImageTypeWhereUniqueInput;
+    create: ImageTypeCreateInput;
+    update: ImageTypeUpdateInput;
+  }) => ImageTypePromise;
+  deleteImageType: (where: ImageTypeWhereUniqueInput) => ImageTypePromise;
+  deleteManyImageTypes: (where?: ImageTypeWhereInput) => BatchPayloadPromise;
   createParish: (data: ParishCreateInput) => ParishPromise;
   updateParish: (args: {
     data: ParishUpdateInput;
@@ -263,22 +263,22 @@ export interface Prisma {
   }) => ParishPromise;
   deleteParish: (where: ParishWhereUniqueInput) => ParishPromise;
   deleteManyParishes: (where?: ParishWhereInput) => BatchPayloadPromise;
-  createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (args: {
-    data: PostUpdateInput;
-    where: PostWhereUniqueInput;
-  }) => PostPromise;
-  updateManyPosts: (args: {
-    data: PostUpdateManyMutationInput;
-    where?: PostWhereInput;
+  createPoster: (data: PosterCreateInput) => PosterPromise;
+  updatePoster: (args: {
+    data: PosterUpdateInput;
+    where: PosterWhereUniqueInput;
+  }) => PosterPromise;
+  updateManyPosters: (args: {
+    data: PosterUpdateManyMutationInput;
+    where?: PosterWhereInput;
   }) => BatchPayloadPromise;
-  upsertPost: (args: {
-    where: PostWhereUniqueInput;
-    create: PostCreateInput;
-    update: PostUpdateInput;
-  }) => PostPromise;
-  deletePost: (where: PostWhereUniqueInput) => PostPromise;
-  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
+  upsertPoster: (args: {
+    where: PosterWhereUniqueInput;
+    create: PosterCreateInput;
+    update: PosterUpdateInput;
+  }) => PosterPromise;
+  deletePoster: (where: PosterWhereUniqueInput) => PosterPromise;
+  deleteManyPosters: (where?: PosterWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -304,24 +304,24 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  album: (
-    where?: AlbumSubscriptionWhereInput
-  ) => AlbumSubscriptionPayloadSubscription;
+  category: (
+    where?: CategorySubscriptionWhereInput
+  ) => CategorySubscriptionPayloadSubscription;
   deanery: (
     where?: DeanerySubscriptionWhereInput
   ) => DeanerySubscriptionPayloadSubscription;
   diocese: (
     where?: DioceseSubscriptionWhereInput
   ) => DioceseSubscriptionPayloadSubscription;
-  image: (
-    where?: ImageSubscriptionWhereInput
-  ) => ImageSubscriptionPayloadSubscription;
+  imageType: (
+    where?: ImageTypeSubscriptionWhereInput
+  ) => ImageTypeSubscriptionPayloadSubscription;
   parish: (
     where?: ParishSubscriptionWhereInput
   ) => ParishSubscriptionPayloadSubscription;
-  post: (
-    where?: PostSubscriptionWhereInput
-  ) => PostSubscriptionPayloadSubscription;
+  poster: (
+    where?: PosterSubscriptionWhereInput
+  ) => PosterSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -338,78 +338,86 @@ export interface ClientConstructor<T> {
 export type ParishOrderByInput =
   | "id_ASC"
   | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "shortName_ASC"
+  | "shortName_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
-  | "updateAt_ASC"
-  | "updateAt_DESC"
-  | "name_ASC"
-  | "name_DESC";
-
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type DeaneryOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updateAt_ASC"
-  | "updateAt_DESC"
   | "name_ASC"
   | "name_DESC"
   | "shortName_ASC"
-  | "shortName_DESC";
-
-export type ImageOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updateAt_ASC"
-  | "updateAt_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "picture_ASC"
-  | "picture_DESC"
-  | "thumbnail_ASC"
-  | "thumbnail_DESC"
-  | "description_ASC"
-  | "description_DESC";
-
-export type AlbumOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updateAt_ASC"
-  | "updateAt_DESC";
-
-export type DioceseOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updateAt_ASC"
-  | "updateAt_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "shortName_ASC"
-  | "shortName_DESC";
-
-export type PostOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
+  | "shortName_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
-  | "updatedAt_DESC"
+  | "updatedAt_DESC";
+
+export type CategoryOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
   | "published_ASC"
   | "published_DESC"
   | "title_ASC"
   | "title_DESC"
   | "content_ASC"
-  | "content_DESC";
+  | "content_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type PosterOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "image_ASC"
+  | "image_DESC"
+  | "thumbnail_ASC"
+  | "thumbnail_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "published_ASC"
+  | "published_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "content_ASC"
+  | "content_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type DioceseOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "shortName_ASC"
+  | "shortName_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ImageTypeOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -417,43 +425,88 @@ export type UserOrderByInput =
   | "email_ASC"
   | "email_DESC"
   | "name_ASC"
-  | "name_DESC";
+  | "name_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
-export interface DeaneryCreateOneWithoutParishInput {
-  create?: Maybe<DeaneryCreateWithoutParishInput>;
-  connect?: Maybe<DeaneryWhereUniqueInput>;
-}
+export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface ImageUpdateInput {
-  updateAt?: Maybe<DateTimeInput>;
+export interface PosterUpdateDataInput {
   name?: Maybe<String>;
-  picture?: Maybe<String>;
+  image?: Maybe<String>;
   thumbnail?: Maybe<String>;
   description?: Maybe<String>;
-  album?: Maybe<AlbumUpdateOneWithoutImageInput>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeUpdateOneWithoutPostersInput>;
+  category?: Maybe<CategoryUpdateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserUpdateOneInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedPostersInput>;
 }
 
-export interface ImageCreateWithoutAlbumInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  picture?: Maybe<String>;
-  thumbnail?: Maybe<String>;
-  description?: Maybe<String>;
-}
-
-export type AlbumWhereUniqueInput = AtLeastOne<{
+export type CategoryWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface AlbumUpdateInput {
-  name?: Maybe<String>;
-  updateAt?: Maybe<DateTimeInput>;
-  parish?: Maybe<ParishUpdateOneRequiredWithoutAlbumInput>;
-  image?: Maybe<ImageUpdateManyWithoutAlbumInput>;
+export interface ParishUpdateOneWithoutCategoriesInput {
+  create?: Maybe<ParishCreateWithoutCategoriesInput>;
+  update?: Maybe<ParishUpdateWithoutCategoriesDataInput>;
+  upsert?: Maybe<ParishUpsertWithoutCategoriesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ParishWhereUniqueInput>;
 }
 
-export interface ImageWhereInput {
+export interface DioceseCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deaneries?: Maybe<DeaneryCreateManyWithoutDioceseInput>;
+}
+
+export interface ParishUpdateWithoutCategoriesDataInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deanery?: Maybe<DeaneryUpdateOneWithoutParishesInput>;
+}
+
+export interface PosterUpdateManyWithoutUpdatedAuthorInput {
+  create?: Maybe<
+    | PosterCreateWithoutUpdatedAuthorInput[]
+    | PosterCreateWithoutUpdatedAuthorInput
+  >;
+  delete?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  set?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  disconnect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  update?: Maybe<
+    | PosterUpdateWithWhereUniqueWithoutUpdatedAuthorInput[]
+    | PosterUpdateWithWhereUniqueWithoutUpdatedAuthorInput
+  >;
+  upsert?: Maybe<
+    | PosterUpsertWithWhereUniqueWithoutUpdatedAuthorInput[]
+    | PosterUpsertWithWhereUniqueWithoutUpdatedAuthorInput
+  >;
+  deleteMany?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  updateMany?: Maybe<
+    | PosterUpdateManyWithWhereNestedInput[]
+    | PosterUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface DeaneryUpdateOneWithoutParishesInput {
+  create?: Maybe<DeaneryCreateWithoutParishesInput>;
+  update?: Maybe<DeaneryUpdateWithoutParishesDataInput>;
+  upsert?: Maybe<DeaneryUpsertWithoutParishesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<DeaneryWhereUniqueInput>;
+}
+
+export interface ImageTypeWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -468,22 +521,6 @@ export interface ImageWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -498,79 +535,37 @@ export interface ImageWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  picture?: Maybe<String>;
-  picture_not?: Maybe<String>;
-  picture_in?: Maybe<String[] | String>;
-  picture_not_in?: Maybe<String[] | String>;
-  picture_lt?: Maybe<String>;
-  picture_lte?: Maybe<String>;
-  picture_gt?: Maybe<String>;
-  picture_gte?: Maybe<String>;
-  picture_contains?: Maybe<String>;
-  picture_not_contains?: Maybe<String>;
-  picture_starts_with?: Maybe<String>;
-  picture_not_starts_with?: Maybe<String>;
-  picture_ends_with?: Maybe<String>;
-  picture_not_ends_with?: Maybe<String>;
-  thumbnail?: Maybe<String>;
-  thumbnail_not?: Maybe<String>;
-  thumbnail_in?: Maybe<String[] | String>;
-  thumbnail_not_in?: Maybe<String[] | String>;
-  thumbnail_lt?: Maybe<String>;
-  thumbnail_lte?: Maybe<String>;
-  thumbnail_gt?: Maybe<String>;
-  thumbnail_gte?: Maybe<String>;
-  thumbnail_contains?: Maybe<String>;
-  thumbnail_not_contains?: Maybe<String>;
-  thumbnail_starts_with?: Maybe<String>;
-  thumbnail_not_starts_with?: Maybe<String>;
-  thumbnail_ends_with?: Maybe<String>;
-  thumbnail_not_ends_with?: Maybe<String>;
-  description?: Maybe<String>;
-  description_not?: Maybe<String>;
-  description_in?: Maybe<String[] | String>;
-  description_not_in?: Maybe<String[] | String>;
-  description_lt?: Maybe<String>;
-  description_lte?: Maybe<String>;
-  description_gt?: Maybe<String>;
-  description_gte?: Maybe<String>;
-  description_contains?: Maybe<String>;
-  description_not_contains?: Maybe<String>;
-  description_starts_with?: Maybe<String>;
-  description_not_starts_with?: Maybe<String>;
-  description_ends_with?: Maybe<String>;
-  description_not_ends_with?: Maybe<String>;
-  album?: Maybe<AlbumWhereInput>;
-  AND?: Maybe<ImageWhereInput[] | ImageWhereInput>;
-  OR?: Maybe<ImageWhereInput[] | ImageWhereInput>;
-  NOT?: Maybe<ImageWhereInput[] | ImageWhereInput>;
+  posters_every?: Maybe<PosterWhereInput>;
+  posters_some?: Maybe<PosterWhereInput>;
+  posters_none?: Maybe<PosterWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ImageTypeWhereInput[] | ImageTypeWhereInput>;
+  OR?: Maybe<ImageTypeWhereInput[] | ImageTypeWhereInput>;
+  NOT?: Maybe<ImageTypeWhereInput[] | ImageTypeWhereInput>;
 }
 
-export interface ParishUpdateOneRequiredWithoutAlbumInput {
-  create?: Maybe<ParishCreateWithoutAlbumInput>;
-  update?: Maybe<ParishUpdateWithoutAlbumDataInput>;
-  upsert?: Maybe<ParishUpsertWithoutAlbumInput>;
-  connect?: Maybe<ParishWhereUniqueInput>;
-}
-
-export interface DeanerySubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<DeaneryWhereInput>;
-  AND?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
-  OR?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
-  NOT?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
-}
-
-export interface ParishUpdateWithoutAlbumDataInput {
-  updateAt?: Maybe<DateTimeInput>;
+export interface DeaneryUpdateWithoutParishesDataInput {
   name?: Maybe<String>;
-  deanery?: Maybe<DeaneryUpdateOneWithoutParishInput>;
+  shortName?: Maybe<String>;
+  diocese?: Maybe<DioceseUpdateOneWithoutDeaneriesInput>;
 }
 
-export interface DeaneryWhereInput {
+export interface DioceseWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -585,22 +580,6 @@ export interface DeaneryWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -629,186 +608,56 @@ export interface DeaneryWhereInput {
   shortName_not_starts_with?: Maybe<String>;
   shortName_ends_with?: Maybe<String>;
   shortName_not_ends_with?: Maybe<String>;
-  parish_every?: Maybe<ParishWhereInput>;
-  parish_some?: Maybe<ParishWhereInput>;
-  parish_none?: Maybe<ParishWhereInput>;
-  diocese?: Maybe<DioceseWhereInput>;
-  AND?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
-  OR?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
-  NOT?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
+  deaneries_every?: Maybe<DeaneryWhereInput>;
+  deaneries_some?: Maybe<DeaneryWhereInput>;
+  deaneries_none?: Maybe<DeaneryWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
+  OR?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
+  NOT?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
 }
 
-export interface DeaneryUpdateOneWithoutParishInput {
-  create?: Maybe<DeaneryCreateWithoutParishInput>;
-  update?: Maybe<DeaneryUpdateWithoutParishDataInput>;
-  upsert?: Maybe<DeaneryUpsertWithoutParishInput>;
-  delete?: Maybe<Boolean>;
-  disconnect?: Maybe<Boolean>;
-  connect?: Maybe<DeaneryWhereUniqueInput>;
-}
-
-export interface AlbumSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<AlbumWhereInput>;
-  AND?: Maybe<AlbumSubscriptionWhereInput[] | AlbumSubscriptionWhereInput>;
-  OR?: Maybe<AlbumSubscriptionWhereInput[] | AlbumSubscriptionWhereInput>;
-  NOT?: Maybe<AlbumSubscriptionWhereInput[] | AlbumSubscriptionWhereInput>;
-}
-
-export interface DeaneryUpdateWithoutParishDataInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-  diocese?: Maybe<DioceseUpdateOneWithoutDeaneryInput>;
-}
-
-export interface UserUpdateManyMutationInput {
-  email?: Maybe<String>;
-  name?: Maybe<String>;
-}
-
-export interface DioceseUpdateOneWithoutDeaneryInput {
-  create?: Maybe<DioceseCreateWithoutDeaneryInput>;
-  update?: Maybe<DioceseUpdateWithoutDeaneryDataInput>;
-  upsert?: Maybe<DioceseUpsertWithoutDeaneryInput>;
+export interface DioceseUpdateOneWithoutDeaneriesInput {
+  create?: Maybe<DioceseCreateWithoutDeaneriesInput>;
+  update?: Maybe<DioceseUpdateWithoutDeaneriesDataInput>;
+  upsert?: Maybe<DioceseUpsertWithoutDeaneriesInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
   connect?: Maybe<DioceseWhereUniqueInput>;
 }
 
-export interface PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput;
-  data: PostUpdateManyDataInput;
-}
-
-export interface DioceseUpdateWithoutDeaneryDataInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-}
-
-export interface PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  update: PostUpdateWithoutAuthorDataInput;
-  create: PostCreateWithoutAuthorInput;
-}
-
-export interface DioceseUpsertWithoutDeaneryInput {
-  update: DioceseUpdateWithoutDeaneryDataInput;
-  create: DioceseCreateWithoutDeaneryInput;
-}
-
-export interface PostUpdateWithoutAuthorDataInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface DeaneryUpsertWithoutParishInput {
-  update: DeaneryUpdateWithoutParishDataInput;
-  create: DeaneryCreateWithoutParishInput;
-}
-
-export interface PostUpdateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-  update?: Maybe<
-    | PostUpdateWithWhereUniqueWithoutAuthorInput[]
-    | PostUpdateWithWhereUniqueWithoutAuthorInput
-  >;
-  upsert?: Maybe<
-    | PostUpsertWithWhereUniqueWithoutAuthorInput[]
-    | PostUpsertWithWhereUniqueWithoutAuthorInput
-  >;
-  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  updateMany?: Maybe<
-    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface ParishUpsertWithoutAlbumInput {
-  update: ParishUpdateWithoutAlbumDataInput;
-  create: ParishCreateWithoutAlbumInput;
-}
-
-export interface ImageSubscriptionWhereInput {
+export interface PosterSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ImageWhereInput>;
-  AND?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
-  OR?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
-  NOT?: Maybe<ImageSubscriptionWhereInput[] | ImageSubscriptionWhereInput>;
+  node?: Maybe<PosterWhereInput>;
+  AND?: Maybe<PosterSubscriptionWhereInput[] | PosterSubscriptionWhereInput>;
+  OR?: Maybe<PosterSubscriptionWhereInput[] | PosterSubscriptionWhereInput>;
+  NOT?: Maybe<PosterSubscriptionWhereInput[] | PosterSubscriptionWhereInput>;
 }
 
-export interface ImageUpdateManyWithoutAlbumInput {
-  create?: Maybe<ImageCreateWithoutAlbumInput[] | ImageCreateWithoutAlbumInput>;
-  delete?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
-  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
-  set?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
-  disconnect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
-  update?: Maybe<
-    | ImageUpdateWithWhereUniqueWithoutAlbumInput[]
-    | ImageUpdateWithWhereUniqueWithoutAlbumInput
-  >;
-  upsert?: Maybe<
-    | ImageUpsertWithWhereUniqueWithoutAlbumInput[]
-    | ImageUpsertWithWhereUniqueWithoutAlbumInput
-  >;
-  deleteMany?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
-  updateMany?: Maybe<
-    ImageUpdateManyWithWhereNestedInput[] | ImageUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface PostCreateWithoutAuthorInput {
-  id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content?: Maybe<String>;
-}
-
-export interface ImageUpdateWithWhereUniqueWithoutAlbumInput {
-  where: ImageWhereUniqueInput;
-  data: ImageUpdateWithoutAlbumDataInput;
-}
-
-export type ImageWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ImageUpdateWithoutAlbumDataInput {
-  updateAt?: Maybe<DateTimeInput>;
+export interface DioceseUpdateWithoutDeaneriesDataInput {
   name?: Maybe<String>;
-  picture?: Maybe<String>;
-  thumbnail?: Maybe<String>;
-  description?: Maybe<String>;
+  shortName?: Maybe<String>;
 }
 
-export interface PostUpdateManyMutationInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-}
-
-export interface ImageUpsertWithWhereUniqueWithoutAlbumInput {
-  where: ImageWhereUniqueInput;
-  update: ImageUpdateWithoutAlbumDataInput;
-  create: ImageCreateWithoutAlbumInput;
-}
-
-export type ParishWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ImageScalarWhereInput {
+export interface ParishWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -823,22 +672,6 @@ export interface ImageScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -853,20 +686,596 @@ export interface ImageScalarWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  picture?: Maybe<String>;
-  picture_not?: Maybe<String>;
-  picture_in?: Maybe<String[] | String>;
-  picture_not_in?: Maybe<String[] | String>;
-  picture_lt?: Maybe<String>;
-  picture_lte?: Maybe<String>;
-  picture_gt?: Maybe<String>;
-  picture_gte?: Maybe<String>;
-  picture_contains?: Maybe<String>;
-  picture_not_contains?: Maybe<String>;
-  picture_starts_with?: Maybe<String>;
-  picture_not_starts_with?: Maybe<String>;
-  picture_ends_with?: Maybe<String>;
-  picture_not_ends_with?: Maybe<String>;
+  shortName?: Maybe<String>;
+  shortName_not?: Maybe<String>;
+  shortName_in?: Maybe<String[] | String>;
+  shortName_not_in?: Maybe<String[] | String>;
+  shortName_lt?: Maybe<String>;
+  shortName_lte?: Maybe<String>;
+  shortName_gt?: Maybe<String>;
+  shortName_gte?: Maybe<String>;
+  shortName_contains?: Maybe<String>;
+  shortName_not_contains?: Maybe<String>;
+  shortName_starts_with?: Maybe<String>;
+  shortName_not_starts_with?: Maybe<String>;
+  shortName_ends_with?: Maybe<String>;
+  shortName_not_ends_with?: Maybe<String>;
+  deanery?: Maybe<DeaneryWhereInput>;
+  categories_every?: Maybe<CategoryWhereInput>;
+  categories_some?: Maybe<CategoryWhereInput>;
+  categories_none?: Maybe<CategoryWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ParishWhereInput[] | ParishWhereInput>;
+  OR?: Maybe<ParishWhereInput[] | ParishWhereInput>;
+  NOT?: Maybe<ParishWhereInput[] | ParishWhereInput>;
+}
+
+export interface DioceseUpsertWithoutDeaneriesInput {
+  update: DioceseUpdateWithoutDeaneriesDataInput;
+  create: DioceseCreateWithoutDeaneriesInput;
+}
+
+export interface ImageTypeSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ImageTypeWhereInput>;
+  AND?: Maybe<
+    ImageTypeSubscriptionWhereInput[] | ImageTypeSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    ImageTypeSubscriptionWhereInput[] | ImageTypeSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    ImageTypeSubscriptionWhereInput[] | ImageTypeSubscriptionWhereInput
+  >;
+}
+
+export interface DeaneryUpsertWithoutParishesInput {
+  update: DeaneryUpdateWithoutParishesDataInput;
+  create: DeaneryCreateWithoutParishesInput;
+}
+
+export interface DeanerySubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<DeaneryWhereInput>;
+  AND?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
+  OR?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
+  NOT?: Maybe<DeanerySubscriptionWhereInput[] | DeanerySubscriptionWhereInput>;
+}
+
+export interface ParishUpsertWithoutCategoriesInput {
+  update: ParishUpdateWithoutCategoriesDataInput;
+  create: ParishCreateWithoutCategoriesInput;
+}
+
+export interface UserUpdateManyMutationInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+}
+
+export interface PosterUpdateManyWithoutCategoryInput {
+  create?: Maybe<
+    PosterCreateWithoutCategoryInput[] | PosterCreateWithoutCategoryInput
+  >;
+  delete?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  set?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  disconnect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  update?: Maybe<
+    | PosterUpdateWithWhereUniqueWithoutCategoryInput[]
+    | PosterUpdateWithWhereUniqueWithoutCategoryInput
+  >;
+  upsert?: Maybe<
+    | PosterUpsertWithWhereUniqueWithoutCategoryInput[]
+    | PosterUpsertWithWhereUniqueWithoutCategoryInput
+  >;
+  deleteMany?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  updateMany?: Maybe<
+    | PosterUpdateManyWithWhereNestedInput[]
+    | PosterUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PosterUpdateManyMutationInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+}
+
+export interface PosterUpdateWithWhereUniqueWithoutCategoryInput {
+  where: PosterWhereUniqueInput;
+  data: PosterUpdateWithoutCategoryDataInput;
+}
+
+export interface PosterUpdateInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeUpdateOneWithoutPostersInput>;
+  category?: Maybe<CategoryUpdateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserUpdateOneInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedPostersInput>;
+}
+
+export interface PosterUpdateWithoutCategoryDataInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeUpdateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserUpdateOneInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedPostersInput>;
+}
+
+export interface ParishUpdateInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deanery?: Maybe<DeaneryUpdateOneWithoutParishesInput>;
+  categories?: Maybe<CategoryUpdateManyWithoutParishInput>;
+}
+
+export interface ImageTypeUpdateOneWithoutPostersInput {
+  create?: Maybe<ImageTypeCreateWithoutPostersInput>;
+  update?: Maybe<ImageTypeUpdateWithoutPostersDataInput>;
+  upsert?: Maybe<ImageTypeUpsertWithoutPostersInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<ImageTypeWhereUniqueInput>;
+}
+
+export interface ParishCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deanery?: Maybe<DeaneryCreateOneWithoutParishesInput>;
+  categories?: Maybe<CategoryCreateManyWithoutParishInput>;
+}
+
+export interface ImageTypeUpdateWithoutPostersDataInput {
+  name?: Maybe<String>;
+}
+
+export interface PosterUpsertWithWhereUniqueWithoutImageTypeInput {
+  where: PosterWhereUniqueInput;
+  update: PosterUpdateWithoutImageTypeDataInput;
+  create: PosterCreateWithoutImageTypeInput;
+}
+
+export interface ImageTypeUpsertWithoutPostersInput {
+  update: ImageTypeUpdateWithoutPostersDataInput;
+  create: ImageTypeCreateWithoutPostersInput;
+}
+
+export type ImageTypeWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface UserUpdateOneInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface PosterUpdateManyWithoutImageTypeInput {
+  create?: Maybe<
+    PosterCreateWithoutImageTypeInput[] | PosterCreateWithoutImageTypeInput
+  >;
+  delete?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  set?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  disconnect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  update?: Maybe<
+    | PosterUpdateWithWhereUniqueWithoutImageTypeInput[]
+    | PosterUpdateWithWhereUniqueWithoutImageTypeInput
+  >;
+  upsert?: Maybe<
+    | PosterUpsertWithWhereUniqueWithoutImageTypeInput[]
+    | PosterUpsertWithWhereUniqueWithoutImageTypeInput
+  >;
+  deleteMany?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  updateMany?: Maybe<
+    | PosterUpdateManyWithWhereNestedInput[]
+    | PosterUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserUpdateDataInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterUpdateManyInput>;
+  createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
+  updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface PosterCreateWithoutImageTypeInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  category?: Maybe<CategoryCreateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserCreateOneInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedPostersInput>;
+}
+
+export interface PosterUpdateManyInput {
+  create?: Maybe<PosterCreateInput[] | PosterCreateInput>;
+  update?: Maybe<
+    | PosterUpdateWithWhereUniqueNestedInput[]
+    | PosterUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | PosterUpsertWithWhereUniqueNestedInput[]
+    | PosterUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  set?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  disconnect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+  deleteMany?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  updateMany?: Maybe<
+    | PosterUpdateManyWithWhereNestedInput[]
+    | PosterUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface PosterCreateManyWithoutImageTypeInput {
+  create?: Maybe<
+    PosterCreateWithoutImageTypeInput[] | PosterCreateWithoutImageTypeInput
+  >;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+}
+
+export interface PosterUpdateWithWhereUniqueNestedInput {
+  where: PosterWhereUniqueInput;
+  data: PosterUpdateDataInput;
+}
+
+export interface DioceseUpdateManyMutationInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface DioceseUpdateInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deaneries?: Maybe<DeaneryUpdateManyWithoutDioceseInput>;
+}
+
+export interface DeaneryUpdateManyDataInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface CategoryUpdateOneWithoutPostersInput {
+  create?: Maybe<CategoryCreateWithoutPostersInput>;
+  update?: Maybe<CategoryUpdateWithoutPostersDataInput>;
+  upsert?: Maybe<CategoryUpsertWithoutPostersInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
+}
+
+export interface DeaneryScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  shortName?: Maybe<String>;
+  shortName_not?: Maybe<String>;
+  shortName_in?: Maybe<String[] | String>;
+  shortName_not_in?: Maybe<String[] | String>;
+  shortName_lt?: Maybe<String>;
+  shortName_lte?: Maybe<String>;
+  shortName_gt?: Maybe<String>;
+  shortName_gte?: Maybe<String>;
+  shortName_contains?: Maybe<String>;
+  shortName_not_contains?: Maybe<String>;
+  shortName_starts_with?: Maybe<String>;
+  shortName_not_starts_with?: Maybe<String>;
+  shortName_ends_with?: Maybe<String>;
+  shortName_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
+  OR?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
+  NOT?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
+}
+
+export interface CategoryUpdateWithoutPostersDataInput {
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishUpdateOneWithoutCategoriesInput>;
+  createdAuthor?: Maybe<UserUpdateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface DeaneryUpsertWithWhereUniqueWithoutDioceseInput {
+  where: DeaneryWhereUniqueInput;
+  update: DeaneryUpdateWithoutDioceseDataInput;
+  create: DeaneryCreateWithoutDioceseInput;
+}
+
+export interface UserUpdateOneWithoutCreatedCategoriesInput {
+  create?: Maybe<UserCreateWithoutCreatedCategoriesInput>;
+  update?: Maybe<UserUpdateWithoutCreatedCategoriesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCreatedCategoriesInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
+  where: DeaneryWhereUniqueInput;
+  data: DeaneryUpdateWithoutDioceseDataInput;
+}
+
+export interface UserUpdateWithoutCreatedCategoriesDataInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterUpdateManyInput>;
+  updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface ParishCreateOneWithoutCategoriesInput {
+  create?: Maybe<ParishCreateWithoutCategoriesInput>;
+  connect?: Maybe<ParishWhereUniqueInput>;
+}
+
+export interface CategoryWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  parish?: Maybe<ParishWhereInput>;
+  posters_every?: Maybe<PosterWhereInput>;
+  posters_some?: Maybe<PosterWhereInput>;
+  posters_none?: Maybe<PosterWhereInput>;
+  createdAuthor?: Maybe<UserWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAuthor?: Maybe<UserWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CategoryWhereInput[] | CategoryWhereInput>;
+  OR?: Maybe<CategoryWhereInput[] | CategoryWhereInput>;
+  NOT?: Maybe<CategoryWhereInput[] | CategoryWhereInput>;
+}
+
+export interface DeaneryCreateOneWithoutParishesInput {
+  create?: Maybe<DeaneryCreateWithoutParishesInput>;
+  connect?: Maybe<DeaneryWhereUniqueInput>;
+}
+
+export interface PosterUpdateWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: PosterWhereUniqueInput;
+  data: PosterUpdateWithoutUpdatedAuthorDataInput;
+}
+
+export interface DioceseCreateOneWithoutDeaneriesInput {
+  create?: Maybe<DioceseCreateWithoutDeaneriesInput>;
+  connect?: Maybe<DioceseWhereUniqueInput>;
+}
+
+export interface PosterUpdateWithoutUpdatedAuthorDataInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeUpdateOneWithoutPostersInput>;
+  category?: Maybe<CategoryUpdateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserUpdateOneInput>;
+}
+
+export interface PosterCreateManyWithoutCategoryInput {
+  create?: Maybe<
+    PosterCreateWithoutCategoryInput[] | PosterCreateWithoutCategoryInput
+  >;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+}
+
+export interface PosterUpsertWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: PosterWhereUniqueInput;
+  update: PosterUpdateWithoutUpdatedAuthorDataInput;
+  create: PosterCreateWithoutUpdatedAuthorInput;
+}
+
+export interface ImageTypeCreateOneWithoutPostersInput {
+  create?: Maybe<ImageTypeCreateWithoutPostersInput>;
+  connect?: Maybe<ImageTypeWhereUniqueInput>;
+}
+
+export interface PosterScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
   thumbnail?: Maybe<String>;
   thumbnail_not?: Maybe<String>;
   thumbnail_in?: Maybe<String[] | String>;
@@ -895,43 +1304,277 @@ export interface ImageScalarWhereInput {
   description_not_starts_with?: Maybe<String>;
   description_ends_with?: Maybe<String>;
   description_not_ends_with?: Maybe<String>;
-  AND?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
-  OR?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
-  NOT?: Maybe<ImageScalarWhereInput[] | ImageScalarWhereInput>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  OR?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
+  NOT?: Maybe<PosterScalarWhereInput[] | PosterScalarWhereInput>;
 }
 
-export interface UserUpdateOneRequiredWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
-  update?: Maybe<UserUpdateWithoutPostsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutPostsInput>;
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface ImageUpdateManyWithWhereNestedInput {
-  where: ImageScalarWhereInput;
-  data: ImageUpdateManyDataInput;
+export interface PosterUpdateManyWithWhereNestedInput {
+  where: PosterScalarWhereInput;
+  data: PosterUpdateManyDataInput;
 }
 
-export type PostWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
+export interface PosterCreateManyInput {
+  create?: Maybe<PosterCreateInput[] | PosterCreateInput>;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+}
 
-export interface ImageUpdateManyDataInput {
-  updateAt?: Maybe<DateTimeInput>;
+export interface PosterUpdateManyDataInput {
   name?: Maybe<String>;
-  picture?: Maybe<String>;
+  image?: Maybe<String>;
   thumbnail?: Maybe<String>;
   description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
 }
 
-export interface UserCreateOneWithoutPostsInput {
-  create?: Maybe<UserCreateWithoutPostsInput>;
+export interface CategoryCreateOneWithoutPostersInput {
+  create?: Maybe<CategoryCreateWithoutPostersInput>;
+  connect?: Maybe<CategoryWhereUniqueInput>;
+}
+
+export interface CategoryUpdateManyWithoutUpdatedAuthorInput {
+  create?: Maybe<
+    | CategoryCreateWithoutUpdatedAuthorInput[]
+    | CategoryCreateWithoutUpdatedAuthorInput
+  >;
+  delete?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  set?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  disconnect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  update?: Maybe<
+    | CategoryUpdateWithWhereUniqueWithoutUpdatedAuthorInput[]
+    | CategoryUpdateWithWhereUniqueWithoutUpdatedAuthorInput
+  >;
+  upsert?: Maybe<
+    | CategoryUpsertWithWhereUniqueWithoutUpdatedAuthorInput[]
+    | CategoryUpsertWithWhereUniqueWithoutUpdatedAuthorInput
+  >;
+  deleteMany?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+  updateMany?: Maybe<
+    | CategoryUpdateManyWithWhereNestedInput[]
+    | CategoryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserCreateOneWithoutCreatedCategoriesInput {
+  create?: Maybe<UserCreateWithoutCreatedCategoriesInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface AlbumUpdateManyMutationInput {
+export interface CategoryUpdateWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutUpdatedAuthorDataInput;
+}
+
+export interface PosterCreateManyWithoutUpdatedAuthorInput {
+  create?: Maybe<
+    | PosterCreateWithoutUpdatedAuthorInput[]
+    | PosterCreateWithoutUpdatedAuthorInput
+  >;
+  connect?: Maybe<PosterWhereUniqueInput[] | PosterWhereUniqueInput>;
+}
+
+export interface CategoryUpdateWithoutUpdatedAuthorDataInput {
   name?: Maybe<String>;
-  updateAt?: Maybe<DateTimeInput>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishUpdateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterUpdateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserUpdateOneWithoutCreatedCategoriesInput>;
+}
+
+export interface CategoryCreateManyWithoutUpdatedAuthorInput {
+  create?: Maybe<
+    | CategoryCreateWithoutUpdatedAuthorInput[]
+    | CategoryCreateWithoutUpdatedAuthorInput
+  >;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+}
+
+export interface CategoryUpsertWithWhereUniqueWithoutUpdatedAuthorInput {
+  where: CategoryWhereUniqueInput;
+  update: CategoryUpdateWithoutUpdatedAuthorDataInput;
+  create: CategoryCreateWithoutUpdatedAuthorInput;
+}
+
+export interface UserCreateOneWithoutUpdatedCategoriesInput {
+  create?: Maybe<UserCreateWithoutUpdatedCategoriesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface CategoryScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+  OR?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+  NOT?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+}
+
+export interface CategoryCreateManyWithoutCreatedAuthorInput {
+  create?: Maybe<
+    | CategoryCreateWithoutCreatedAuthorInput[]
+    | CategoryCreateWithoutCreatedAuthorInput
+  >;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+}
+
+export interface CategoryUpdateManyWithWhereNestedInput {
+  where: CategoryScalarWhereInput;
+  data: CategoryUpdateManyDataInput;
+}
+
+export interface UserCreateOneWithoutUpdatedPostersInput {
+  create?: Maybe<UserCreateWithoutUpdatedPostersInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface CategoryUpdateManyDataInput {
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+}
+
+export interface CategoryUpdateInput {
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishUpdateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterUpdateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserUpdateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface UserUpsertWithoutCreatedCategoriesInput {
+  update: UserUpdateWithoutCreatedCategoriesDataInput;
+  create: UserCreateWithoutCreatedCategoriesInput;
 }
 
 export interface UserWhereInput {
@@ -977,62 +1620,505 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
-  posts_every?: Maybe<PostWhereInput>;
-  posts_some?: Maybe<PostWhereInput>;
-  posts_none?: Maybe<PostWhereInput>;
+  createdPosters_every?: Maybe<PosterWhereInput>;
+  createdPosters_some?: Maybe<PosterWhereInput>;
+  createdPosters_none?: Maybe<PosterWhereInput>;
+  createdCategories_every?: Maybe<CategoryWhereInput>;
+  createdCategories_some?: Maybe<CategoryWhereInput>;
+  createdCategories_none?: Maybe<CategoryWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedPosters_every?: Maybe<PosterWhereInput>;
+  updatedPosters_some?: Maybe<PosterWhereInput>;
+  updatedPosters_none?: Maybe<PosterWhereInput>;
+  updatedCategories_every?: Maybe<CategoryWhereInput>;
+  updatedCategories_some?: Maybe<CategoryWhereInput>;
+  updatedCategories_none?: Maybe<CategoryWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
-export interface AlbumUpdateWithoutImageDataInput {
-  name?: Maybe<String>;
-  updateAt?: Maybe<DateTimeInput>;
-  parish?: Maybe<ParishUpdateOneRequiredWithoutAlbumInput>;
-}
-
-export interface PostCreateInput {
-  id?: Maybe<ID_Input>;
-  published?: Maybe<Boolean>;
-  title: String;
-  content?: Maybe<String>;
-  author: UserCreateOneWithoutPostsInput;
-}
-
-export interface AlbumUpdateOneWithoutImageInput {
-  create?: Maybe<AlbumCreateWithoutImageInput>;
-  update?: Maybe<AlbumUpdateWithoutImageDataInput>;
-  upsert?: Maybe<AlbumUpsertWithoutImageInput>;
+export interface UserUpdateOneWithoutUpdatedCategoriesInput {
+  create?: Maybe<UserCreateWithoutUpdatedCategoriesInput>;
+  update?: Maybe<UserUpdateWithoutUpdatedCategoriesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutUpdatedCategoriesInput>;
   delete?: Maybe<Boolean>;
   disconnect?: Maybe<Boolean>;
-  connect?: Maybe<AlbumWhereUniqueInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface ParishUpdateInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  deanery?: Maybe<DeaneryUpdateOneWithoutParishInput>;
-  Album?: Maybe<AlbumUpdateOneRequiredWithoutParishInput>;
-}
-
-export interface DeaneryCreateInput {
+export interface DeaneryWhereInput {
   id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  shortName: String;
-  parish?: Maybe<ParishCreateManyWithoutDeaneryInput>;
-  diocese?: Maybe<DioceseCreateOneWithoutDeaneryInput>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  shortName?: Maybe<String>;
+  shortName_not?: Maybe<String>;
+  shortName_in?: Maybe<String[] | String>;
+  shortName_not_in?: Maybe<String[] | String>;
+  shortName_lt?: Maybe<String>;
+  shortName_lte?: Maybe<String>;
+  shortName_gt?: Maybe<String>;
+  shortName_gte?: Maybe<String>;
+  shortName_contains?: Maybe<String>;
+  shortName_not_contains?: Maybe<String>;
+  shortName_starts_with?: Maybe<String>;
+  shortName_not_starts_with?: Maybe<String>;
+  shortName_ends_with?: Maybe<String>;
+  shortName_not_ends_with?: Maybe<String>;
+  parishes_every?: Maybe<ParishWhereInput>;
+  parishes_some?: Maybe<ParishWhereInput>;
+  parishes_none?: Maybe<ParishWhereInput>;
+  diocese?: Maybe<DioceseWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
+  OR?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
+  NOT?: Maybe<DeaneryWhereInput[] | DeaneryWhereInput>;
 }
 
-export interface PostSubscriptionWhereInput {
+export interface UserUpdateWithoutUpdatedCategoriesDataInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterUpdateManyInput>;
+  createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
+  updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface DioceseSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<PostWhereInput>;
-  AND?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  OR?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
-  NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  node?: Maybe<DioceseWhereInput>;
+  AND?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
+  OR?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
+  NOT?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
+}
+
+export interface CategoryUpdateManyWithoutCreatedAuthorInput {
+  create?: Maybe<
+    | CategoryCreateWithoutCreatedAuthorInput[]
+    | CategoryCreateWithoutCreatedAuthorInput
+  >;
+  delete?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  set?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  disconnect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  update?: Maybe<
+    | CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput[]
+    | CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput
+  >;
+  upsert?: Maybe<
+    | CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput[]
+    | CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput
+  >;
+  deleteMany?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+  updateMany?: Maybe<
+    | CategoryUpdateManyWithWhereNestedInput[]
+    | CategoryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserUpdateInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterUpdateManyInput>;
+  createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
+  updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutCreatedAuthorDataInput;
+}
+
+export interface ParishUpdateManyMutationInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface CategoryUpdateWithoutCreatedAuthorDataInput {
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishUpdateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterUpdateManyWithoutCategoryInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface ImageTypeUpdateManyMutationInput {
+  name?: Maybe<String>;
+}
+
+export interface CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput {
+  where: CategoryWhereUniqueInput;
+  update: CategoryUpdateWithoutCreatedAuthorDataInput;
+  create: CategoryCreateWithoutCreatedAuthorInput;
+}
+
+export interface PosterUpdateWithWhereUniqueWithoutImageTypeInput {
+  where: PosterWhereUniqueInput;
+  data: PosterUpdateWithoutImageTypeDataInput;
+}
+
+export interface UserUpsertWithoutUpdatedCategoriesInput {
+  update: UserUpdateWithoutUpdatedCategoriesDataInput;
+  create: UserCreateWithoutUpdatedCategoriesInput;
+}
+
+export type ParishWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface CategoryUpsertWithoutPostersInput {
+  update: CategoryUpdateWithoutPostersDataInput;
+  create: CategoryCreateWithoutPostersInput;
+}
+
+export type PosterWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface UserUpdateOneWithoutUpdatedPostersInput {
+  create?: Maybe<UserCreateWithoutUpdatedPostersInput>;
+  update?: Maybe<UserUpdateWithoutUpdatedPostersDataInput>;
+  upsert?: Maybe<UserUpsertWithoutUpdatedPostersInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  email?: Maybe<String>;
+}>;
+
+export interface UserUpdateWithoutUpdatedPostersDataInput {
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterUpdateManyInput>;
+  createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface DeaneryUpdateManyWithoutDioceseInput {
+  create?: Maybe<
+    DeaneryCreateWithoutDioceseInput[] | DeaneryCreateWithoutDioceseInput
+  >;
+  delete?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
+  connect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
+  set?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
+  disconnect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
+  update?: Maybe<
+    | DeaneryUpdateWithWhereUniqueWithoutDioceseInput[]
+    | DeaneryUpdateWithWhereUniqueWithoutDioceseInput
+  >;
+  upsert?: Maybe<
+    | DeaneryUpsertWithWhereUniqueWithoutDioceseInput[]
+    | DeaneryUpsertWithWhereUniqueWithoutDioceseInput
+  >;
+  deleteMany?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
+  updateMany?: Maybe<
+    | DeaneryUpdateManyWithWhereNestedInput[]
+    | DeaneryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserUpsertWithoutUpdatedPostersInput {
+  update: UserUpdateWithoutUpdatedPostersDataInput;
+  create: UserCreateWithoutUpdatedPostersInput;
+}
+
+export interface ParishCreateWithoutCategoriesInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  deanery?: Maybe<DeaneryCreateOneWithoutParishesInput>;
+}
+
+export interface PosterUpsertWithWhereUniqueNestedInput {
+  where: PosterWhereUniqueInput;
+  update: PosterUpdateDataInput;
+  create: PosterCreateInput;
+}
+
+export interface DioceseCreateWithoutDeaneriesInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface ImageTypeCreateWithoutPostersInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}
+
+export interface PosterUpsertWithWhereUniqueWithoutCategoryInput {
+  where: PosterWhereUniqueInput;
+  update: PosterUpdateWithoutCategoryDataInput;
+  create: PosterCreateWithoutCategoryInput;
+}
+
+export interface PosterCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeCreateOneWithoutPostersInput>;
+  category?: Maybe<CategoryCreateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserCreateOneInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedPostersInput>;
+}
+
+export interface CategoryUpdateManyMutationInput {
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+}
+
+export interface UserCreateWithoutCreatedCategoriesInput {
+  id?: Maybe<ID_Input>;
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterCreateManyInput>;
+  updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryCreateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface DeaneryCreateWithoutDioceseInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  parishes?: Maybe<ParishCreateManyWithoutDeaneryInput>;
+}
+
+export interface CategoryCreateWithoutUpdatedAuthorInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishCreateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterCreateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserCreateOneWithoutCreatedCategoriesInput>;
+}
+
+export interface DeaneryCreateManyWithoutDioceseInput {
+  create?: Maybe<
+    DeaneryCreateWithoutDioceseInput[] | DeaneryCreateWithoutDioceseInput
+  >;
+  connect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
+}
+
+export interface CategoryCreateWithoutCreatedAuthorInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishCreateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterCreateManyWithoutCategoryInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface DeaneryCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  parishes?: Maybe<ParishCreateManyWithoutDeaneryInput>;
+  diocese?: Maybe<DioceseCreateOneWithoutDeaneriesInput>;
+}
+
+export interface PosterWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  thumbnail_not?: Maybe<String>;
+  thumbnail_in?: Maybe<String[] | String>;
+  thumbnail_not_in?: Maybe<String[] | String>;
+  thumbnail_lt?: Maybe<String>;
+  thumbnail_lte?: Maybe<String>;
+  thumbnail_gt?: Maybe<String>;
+  thumbnail_gte?: Maybe<String>;
+  thumbnail_contains?: Maybe<String>;
+  thumbnail_not_contains?: Maybe<String>;
+  thumbnail_starts_with?: Maybe<String>;
+  thumbnail_not_starts_with?: Maybe<String>;
+  thumbnail_ends_with?: Maybe<String>;
+  thumbnail_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  content?: Maybe<String>;
+  content_not?: Maybe<String>;
+  content_in?: Maybe<String[] | String>;
+  content_not_in?: Maybe<String[] | String>;
+  content_lt?: Maybe<String>;
+  content_lte?: Maybe<String>;
+  content_gt?: Maybe<String>;
+  content_gte?: Maybe<String>;
+  content_contains?: Maybe<String>;
+  content_not_contains?: Maybe<String>;
+  content_starts_with?: Maybe<String>;
+  content_not_starts_with?: Maybe<String>;
+  content_ends_with?: Maybe<String>;
+  content_not_ends_with?: Maybe<String>;
+  imageType?: Maybe<ImageTypeWhereInput>;
+  category?: Maybe<CategoryWhereInput>;
+  createdAuthor?: Maybe<UserWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAuthor?: Maybe<UserWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PosterWhereInput[] | PosterWhereInput>;
+  OR?: Maybe<PosterWhereInput[] | PosterWhereInput>;
+  NOT?: Maybe<PosterWhereInput[] | PosterWhereInput>;
 }
 
 export interface ParishCreateManyWithoutDeaneryInput {
@@ -1042,65 +2128,76 @@ export interface ParishCreateManyWithoutDeaneryInput {
   connect?: Maybe<ParishWhereUniqueInput[] | ParishWhereUniqueInput>;
 }
 
-export interface ImageUpdateManyMutationInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  picture?: Maybe<String>;
-  thumbnail?: Maybe<String>;
-  description?: Maybe<String>;
-}
-
-export interface ParishCreateWithoutDeaneryInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  Album: AlbumCreateOneWithoutParishInput;
-}
-
-export interface ParishCreateOneWithoutAlbumInput {
-  create?: Maybe<ParishCreateWithoutAlbumInput>;
-  connect?: Maybe<ParishWhereUniqueInput>;
-}
-
-export interface AlbumCreateOneWithoutParishInput {
-  create?: Maybe<AlbumCreateWithoutParishInput>;
-  connect?: Maybe<AlbumWhereUniqueInput>;
-}
-
-export interface UserSubscriptionWhereInput {
+export interface ParishSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  node?: Maybe<ParishWhereInput>;
+  AND?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
+  OR?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
+  NOT?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
 }
 
-export interface AlbumCreateWithoutParishInput {
+export interface ParishCreateWithoutDeaneryInput {
   id?: Maybe<ID_Input>;
-  name: String;
-  updateAt?: Maybe<DateTimeInput>;
-  image?: Maybe<ImageCreateManyWithoutAlbumInput>;
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  categories?: Maybe<CategoryCreateManyWithoutParishInput>;
 }
 
-export interface DioceseCreateOneWithoutDeaneryInput {
-  create?: Maybe<DioceseCreateWithoutDeaneryInput>;
-  connect?: Maybe<DioceseWhereUniqueInput>;
+export type DeaneryWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface CategoryCreateManyWithoutParishInput {
+  create?: Maybe<
+    CategoryCreateWithoutParishInput[] | CategoryCreateWithoutParishInput
+  >;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+}
+
+export interface PosterUpdateWithoutImageTypeDataInput {
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  category?: Maybe<CategoryUpdateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserUpdateOneInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedPostersInput>;
+}
+
+export interface CategoryCreateWithoutParishInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  posters?: Maybe<PosterCreateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserCreateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface ImageTypeCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  posters?: Maybe<PosterCreateManyWithoutImageTypeInput>;
 }
 
 export interface DeaneryUpdateInput {
-  updateAt?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   shortName?: Maybe<String>;
-  parish?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
-  diocese?: Maybe<DioceseUpdateOneWithoutDeaneryInput>;
+  parishes?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
+  diocese?: Maybe<DioceseUpdateOneWithoutDeaneriesInput>;
 }
 
-export interface ImageCreateManyWithoutAlbumInput {
-  create?: Maybe<ImageCreateWithoutAlbumInput[] | ImageCreateWithoutAlbumInput>;
-  connect?: Maybe<ImageWhereUniqueInput[] | ImageWhereUniqueInput>;
+export interface DeaneryUpdateWithoutDioceseDataInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  parishes?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
 }
 
 export interface ParishUpdateManyWithoutDeaneryInput {
@@ -1126,71 +2223,11 @@ export interface ParishUpdateManyWithoutDeaneryInput {
   >;
 }
 
-export interface DioceseWhereInput {
+export interface DeaneryCreateWithoutParishesInput {
   id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
   shortName?: Maybe<String>;
-  shortName_not?: Maybe<String>;
-  shortName_in?: Maybe<String[] | String>;
-  shortName_not_in?: Maybe<String[] | String>;
-  shortName_lt?: Maybe<String>;
-  shortName_lte?: Maybe<String>;
-  shortName_gt?: Maybe<String>;
-  shortName_gte?: Maybe<String>;
-  shortName_contains?: Maybe<String>;
-  shortName_not_contains?: Maybe<String>;
-  shortName_starts_with?: Maybe<String>;
-  shortName_not_starts_with?: Maybe<String>;
-  shortName_ends_with?: Maybe<String>;
-  shortName_not_ends_with?: Maybe<String>;
-  deanery_every?: Maybe<DeaneryWhereInput>;
-  deanery_some?: Maybe<DeaneryWhereInput>;
-  deanery_none?: Maybe<DeaneryWhereInput>;
-  AND?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
-  OR?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
-  NOT?: Maybe<DioceseWhereInput[] | DioceseWhereInput>;
+  diocese?: Maybe<DioceseCreateOneWithoutDeaneriesInput>;
 }
 
 export interface ParishUpdateWithWhereUniqueWithoutDeaneryInput {
@@ -1198,123 +2235,119 @@ export interface ParishUpdateWithWhereUniqueWithoutDeaneryInput {
   data: ParishUpdateWithoutDeaneryDataInput;
 }
 
-export interface DioceseSubscriptionWhereInput {
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterCreateManyInput>;
+  createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
+  updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryCreateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface ParishUpdateWithoutDeaneryDataInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+  categories?: Maybe<CategoryUpdateManyWithoutParishInput>;
+}
+
+export interface PosterCreateWithoutUpdatedAuthorInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  image?: Maybe<String>;
+  thumbnail?: Maybe<String>;
+  description?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeCreateOneWithoutPostersInput>;
+  category?: Maybe<CategoryCreateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserCreateOneInput>;
+}
+
+export interface CategoryUpdateManyWithoutParishInput {
+  create?: Maybe<
+    CategoryCreateWithoutParishInput[] | CategoryCreateWithoutParishInput
+  >;
+  delete?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  connect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  set?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  disconnect?: Maybe<CategoryWhereUniqueInput[] | CategoryWhereUniqueInput>;
+  update?: Maybe<
+    | CategoryUpdateWithWhereUniqueWithoutParishInput[]
+    | CategoryUpdateWithWhereUniqueWithoutParishInput
+  >;
+  upsert?: Maybe<
+    | CategoryUpsertWithWhereUniqueWithoutParishInput[]
+    | CategoryUpsertWithWhereUniqueWithoutParishInput
+  >;
+  deleteMany?: Maybe<CategoryScalarWhereInput[] | CategoryScalarWhereInput>;
+  updateMany?: Maybe<
+    | CategoryUpdateManyWithWhereNestedInput[]
+    | CategoryUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface UserCreateWithoutUpdatedPostersInput {
+  id?: Maybe<ID_Input>;
+  email?: Maybe<String>;
+  name?: Maybe<String>;
+  createdPosters?: Maybe<PosterCreateManyInput>;
+  createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
+  updatedCategories?: Maybe<CategoryCreateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface CategoryUpdateWithWhereUniqueWithoutParishInput {
+  where: CategoryWhereUniqueInput;
+  data: CategoryUpdateWithoutParishDataInput;
+}
+
+export interface CategorySubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<DioceseWhereInput>;
-  AND?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
-  OR?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
-  NOT?: Maybe<DioceseSubscriptionWhereInput[] | DioceseSubscriptionWhereInput>;
+  node?: Maybe<CategoryWhereInput>;
+  AND?: Maybe<
+    CategorySubscriptionWhereInput[] | CategorySubscriptionWhereInput
+  >;
+  OR?: Maybe<CategorySubscriptionWhereInput[] | CategorySubscriptionWhereInput>;
+  NOT?: Maybe<
+    CategorySubscriptionWhereInput[] | CategorySubscriptionWhereInput
+  >;
 }
 
-export interface ParishUpdateWithoutDeaneryDataInput {
-  updateAt?: Maybe<DateTimeInput>;
+export interface CategoryUpdateWithoutParishDataInput {
   name?: Maybe<String>;
-  Album?: Maybe<AlbumUpdateOneRequiredWithoutParishInput>;
-}
-
-export interface PostScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
   published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
   title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
   content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
-  NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  posters?: Maybe<PosterUpdateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserUpdateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserUpdateOneWithoutUpdatedCategoriesInput>;
 }
 
-export interface AlbumUpdateOneRequiredWithoutParishInput {
-  create?: Maybe<AlbumCreateWithoutParishInput>;
-  update?: Maybe<AlbumUpdateWithoutParishDataInput>;
-  upsert?: Maybe<AlbumUpsertWithoutParishInput>;
-  connect?: Maybe<AlbumWhereUniqueInput>;
-}
-
-export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput;
-  data: PostUpdateWithoutAuthorDataInput;
-}
-
-export interface AlbumUpdateWithoutParishDataInput {
+export interface ImageTypeUpdateInput {
   name?: Maybe<String>;
-  updateAt?: Maybe<DateTimeInput>;
-  image?: Maybe<ImageUpdateManyWithoutAlbumInput>;
+  posters?: Maybe<PosterUpdateManyWithoutImageTypeInput>;
 }
 
-export interface UserUpdateInput {
-  email?: Maybe<String>;
-  name?: Maybe<String>;
-  posts?: Maybe<PostUpdateManyWithoutAuthorInput>;
+export interface CategoryUpsertWithWhereUniqueWithoutParishInput {
+  where: CategoryWhereUniqueInput;
+  update: CategoryUpdateWithoutParishDataInput;
+  create: CategoryCreateWithoutParishInput;
 }
 
-export interface AlbumUpsertWithoutParishInput {
-  update: AlbumUpdateWithoutParishDataInput;
-  create: AlbumCreateWithoutParishInput;
-}
-
-export interface UserCreateInput {
+export interface CategoryCreateInput {
   id?: Maybe<ID_Input>;
-  email: String;
   name?: Maybe<String>;
-  posts?: Maybe<PostCreateManyWithoutAuthorInput>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishCreateOneWithoutCategoriesInput>;
+  posters?: Maybe<PosterCreateManyWithoutCategoryInput>;
+  createdAuthor?: Maybe<UserCreateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedCategoriesInput>;
 }
 
 export interface ParishUpsertWithWhereUniqueWithoutDeaneryInput {
@@ -1323,9 +2356,30 @@ export interface ParishUpsertWithWhereUniqueWithoutDeaneryInput {
   create: ParishCreateWithoutDeaneryInput;
 }
 
-export interface UserUpdateWithoutPostsDataInput {
-  email?: Maybe<String>;
+export interface CategoryCreateWithoutPostersInput {
+  id?: Maybe<ID_Input>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  title?: Maybe<String>;
+  content?: Maybe<String>;
+  parish?: Maybe<ParishCreateOneWithoutCategoriesInput>;
+  createdAuthor?: Maybe<UserCreateOneWithoutCreatedCategoriesInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedCategoriesInput>;
+}
+
+export interface DeaneryUpdateManyMutationInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface ParishUpdateManyDataInput {
+  name?: Maybe<String>;
+  shortName?: Maybe<String>;
+}
+
+export interface ParishUpdateManyWithWhereNestedInput {
+  where: ParishScalarWhereInput;
+  data: ParishUpdateManyDataInput;
 }
 
 export interface ParishScalarWhereInput {
@@ -1343,281 +2397,6 @@ export interface ParishScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  AND?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
-  OR?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
-  NOT?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
-}
-
-export interface UserCreateWithoutPostsInput {
-  id?: Maybe<ID_Input>;
-  email: String;
-  name?: Maybe<String>;
-}
-
-export interface ParishUpdateManyWithWhereNestedInput {
-  where: ParishScalarWhereInput;
-  data: ParishUpdateManyDataInput;
-}
-
-export interface ParishSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ParishWhereInput>;
-  AND?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
-  OR?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
-  NOT?: Maybe<ParishSubscriptionWhereInput[] | ParishSubscriptionWhereInput>;
-}
-
-export interface ParishUpdateManyDataInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-  email?: Maybe<String>;
-}>;
-
-export interface DeaneryUpdateManyMutationInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-}
-
-export interface AlbumUpsertWithoutImageInput {
-  update: AlbumUpdateWithoutImageDataInput;
-  create: AlbumCreateWithoutImageInput;
-}
-
-export interface DioceseCreateInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  shortName: String;
-  deanery?: Maybe<DeaneryCreateManyWithoutDioceseInput>;
-}
-
-export interface ParishCreateWithoutAlbumInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  deanery?: Maybe<DeaneryCreateOneWithoutParishInput>;
-}
-
-export interface DeaneryCreateManyWithoutDioceseInput {
-  create?: Maybe<
-    DeaneryCreateWithoutDioceseInput[] | DeaneryCreateWithoutDioceseInput
-  >;
-  connect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
-}
-
-export interface DioceseCreateWithoutDeaneryInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  shortName: String;
-}
-
-export interface DeaneryCreateWithoutDioceseInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  shortName: String;
-  parish?: Maybe<ParishCreateManyWithoutDeaneryInput>;
-}
-
-export interface ParishWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  deanery?: Maybe<DeaneryWhereInput>;
-  Album?: Maybe<AlbumWhereInput>;
-  AND?: Maybe<ParishWhereInput[] | ParishWhereInput>;
-  OR?: Maybe<ParishWhereInput[] | ParishWhereInput>;
-  NOT?: Maybe<ParishWhereInput[] | ParishWhereInput>;
-}
-
-export interface DioceseUpdateInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-  deanery?: Maybe<DeaneryUpdateManyWithoutDioceseInput>;
-}
-
-export type DeaneryWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface DeaneryUpdateManyWithoutDioceseInput {
-  create?: Maybe<
-    DeaneryCreateWithoutDioceseInput[] | DeaneryCreateWithoutDioceseInput
-  >;
-  delete?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
-  connect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
-  set?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
-  disconnect?: Maybe<DeaneryWhereUniqueInput[] | DeaneryWhereUniqueInput>;
-  update?: Maybe<
-    | DeaneryUpdateWithWhereUniqueWithoutDioceseInput[]
-    | DeaneryUpdateWithWhereUniqueWithoutDioceseInput
-  >;
-  upsert?: Maybe<
-    | DeaneryUpsertWithWhereUniqueWithoutDioceseInput[]
-    | DeaneryUpsertWithWhereUniqueWithoutDioceseInput
-  >;
-  deleteMany?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
-  updateMany?: Maybe<
-    | DeaneryUpdateManyWithWhereNestedInput[]
-    | DeaneryUpdateManyWithWhereNestedInput
-  >;
-}
-
-export interface PostCreateManyWithoutAuthorInput {
-  create?: Maybe<PostCreateWithoutAuthorInput[] | PostCreateWithoutAuthorInput>;
-  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
-}
-
-export interface DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
-  where: DeaneryWhereUniqueInput;
-  data: DeaneryUpdateWithoutDioceseDataInput;
-}
-
-export interface PostUpdateInput {
-  published?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  content?: Maybe<String>;
-  author?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
-}
-
-export interface DeaneryUpdateWithoutDioceseDataInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-  parish?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
-}
-
-export interface ParishUpdateManyMutationInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-}
-
-export interface DeaneryUpsertWithWhereUniqueWithoutDioceseInput {
-  where: DeaneryWhereUniqueInput;
-  update: DeaneryUpdateWithoutDioceseDataInput;
-  create: DeaneryCreateWithoutDioceseInput;
-}
-
-export interface AlbumCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  updateAt?: Maybe<DateTimeInput>;
-  parish: ParishCreateOneWithoutAlbumInput;
-  image?: Maybe<ImageCreateManyWithoutAlbumInput>;
-}
-
-export interface DeaneryScalarWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -1646,95 +2425,6 @@ export interface DeaneryScalarWhereInput {
   shortName_not_starts_with?: Maybe<String>;
   shortName_ends_with?: Maybe<String>;
   shortName_not_ends_with?: Maybe<String>;
-  AND?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
-  OR?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
-  NOT?: Maybe<DeaneryScalarWhereInput[] | DeaneryScalarWhereInput>;
-}
-
-export interface AlbumWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updateAt?: Maybe<DateTimeInput>;
-  updateAt_not?: Maybe<DateTimeInput>;
-  updateAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updateAt_lt?: Maybe<DateTimeInput>;
-  updateAt_lte?: Maybe<DateTimeInput>;
-  updateAt_gt?: Maybe<DateTimeInput>;
-  updateAt_gte?: Maybe<DateTimeInput>;
-  parish?: Maybe<ParishWhereInput>;
-  image_every?: Maybe<ImageWhereInput>;
-  image_some?: Maybe<ImageWhereInput>;
-  image_none?: Maybe<ImageWhereInput>;
-  AND?: Maybe<AlbumWhereInput[] | AlbumWhereInput>;
-  OR?: Maybe<AlbumWhereInput[] | AlbumWhereInput>;
-  NOT?: Maybe<AlbumWhereInput[] | AlbumWhereInput>;
-}
-
-export interface DeaneryUpdateManyWithWhereNestedInput {
-  where: DeaneryScalarWhereInput;
-  data: DeaneryUpdateManyDataInput;
-}
-
-export type DioceseWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface DeaneryUpdateManyDataInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-}
-
-export interface PostWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1751,99 +2441,201 @@ export interface PostWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  published?: Maybe<Boolean>;
-  published_not?: Maybe<Boolean>;
-  title?: Maybe<String>;
-  title_not?: Maybe<String>;
-  title_in?: Maybe<String[] | String>;
-  title_not_in?: Maybe<String[] | String>;
-  title_lt?: Maybe<String>;
-  title_lte?: Maybe<String>;
-  title_gt?: Maybe<String>;
-  title_gte?: Maybe<String>;
-  title_contains?: Maybe<String>;
-  title_not_contains?: Maybe<String>;
-  title_starts_with?: Maybe<String>;
-  title_not_starts_with?: Maybe<String>;
-  title_ends_with?: Maybe<String>;
-  title_not_ends_with?: Maybe<String>;
-  content?: Maybe<String>;
-  content_not?: Maybe<String>;
-  content_in?: Maybe<String[] | String>;
-  content_not_in?: Maybe<String[] | String>;
-  content_lt?: Maybe<String>;
-  content_lte?: Maybe<String>;
-  content_gt?: Maybe<String>;
-  content_gte?: Maybe<String>;
-  content_contains?: Maybe<String>;
-  content_not_contains?: Maybe<String>;
-  content_starts_with?: Maybe<String>;
-  content_not_starts_with?: Maybe<String>;
-  content_ends_with?: Maybe<String>;
-  content_not_ends_with?: Maybe<String>;
-  author?: Maybe<UserWhereInput>;
-  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
-  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
-  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+  AND?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
+  OR?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
+  NOT?: Maybe<ParishScalarWhereInput[] | ParishScalarWhereInput>;
 }
 
-export interface AlbumCreateWithoutImageInput {
+export interface UserCreateWithoutUpdatedCategoriesInput {
   id?: Maybe<ID_Input>;
-  name: String;
-  updateAt?: Maybe<DateTimeInput>;
-  parish: ParishCreateOneWithoutAlbumInput;
-}
-
-export interface AlbumCreateOneWithoutImageInput {
-  create?: Maybe<AlbumCreateWithoutImageInput>;
-  connect?: Maybe<AlbumWhereUniqueInput>;
-}
-
-export interface ImageCreateInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
+  email?: Maybe<String>;
   name?: Maybe<String>;
-  picture?: Maybe<String>;
+  createdPosters?: Maybe<PosterCreateManyInput>;
+  createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
+  updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
+}
+
+export interface PosterCreateWithoutCategoryInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  image?: Maybe<String>;
   thumbnail?: Maybe<String>;
   description?: Maybe<String>;
-  album?: Maybe<AlbumCreateOneWithoutImageInput>;
-}
-
-export interface DioceseUpdateManyMutationInput {
-  updateAt?: Maybe<DateTimeInput>;
-  name?: Maybe<String>;
-  shortName?: Maybe<String>;
-}
-
-export interface ParishCreateInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  deanery?: Maybe<DeaneryCreateOneWithoutParishInput>;
-  Album: AlbumCreateOneWithoutParishInput;
-}
-
-export interface UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput;
-  create: UserCreateWithoutPostsInput;
-}
-
-export interface PostUpdateManyDataInput {
   published?: Maybe<Boolean>;
   title?: Maybe<String>;
   content?: Maybe<String>;
+  imageType?: Maybe<ImageTypeCreateOneWithoutPostersInput>;
+  createdAuthor?: Maybe<UserCreateOneInput>;
+  updatedAuthor?: Maybe<UserCreateOneWithoutUpdatedPostersInput>;
 }
 
-export interface DeaneryCreateWithoutParishInput {
-  id?: Maybe<ID_Input>;
-  updateAt?: Maybe<DateTimeInput>;
-  name: String;
-  shortName: String;
-  diocese?: Maybe<DioceseCreateOneWithoutDeaneryInput>;
+export interface DeaneryUpdateManyWithWhereNestedInput {
+  where: DeaneryScalarWhereInput;
+  data: DeaneryUpdateManyDataInput;
+}
+
+export type DioceseWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
 
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  email: String;
+  name?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface DeaneryEdge {
+  node: Deanery;
+  cursor: String;
+}
+
+export interface DeaneryEdgePromise extends Promise<DeaneryEdge>, Fragmentable {
+  node: <T = DeaneryPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface DeaneryEdgeSubscription
+  extends Promise<AsyncIterator<DeaneryEdge>>,
+    Fragmentable {
+  node: <T = DeanerySubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface Diocese {
+  id: ID_Output;
+  name: String;
+  shortName?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface DiocesePromise extends Promise<Diocese>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  shortName: () => Promise<String>;
+  deaneries: <T = FragmentableArray<Deanery>>(args?: {
+    where?: DeaneryWhereInput;
+    orderBy?: DeaneryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface DioceseSubscription
+  extends Promise<AsyncIterator<Diocese>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  shortName: () => Promise<AsyncIterator<String>>;
+  deaneries: <T = Promise<AsyncIterator<DeanerySubscription>>>(args?: {
+    where?: DeaneryWhereInput;
+    orderBy?: DeaneryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface DioceseNullablePromise
+  extends Promise<Diocese | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  shortName: () => Promise<String>;
+  deaneries: <T = FragmentableArray<Deanery>>(args?: {
+    where?: DeaneryWhereInput;
+    orderBy?: DeaneryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface DeaneryConnection {
+  pageInfo: PageInfo;
+  edges: DeaneryEdge[];
+}
+
+export interface DeaneryConnectionPromise
+  extends Promise<DeaneryConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<DeaneryEdge>>() => T;
+  aggregate: <T = AggregateDeaneryPromise>() => T;
+}
+
+export interface DeaneryConnectionSubscription
+  extends Promise<AsyncIterator<DeaneryConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<DeaneryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateDeanerySubscription>() => T;
+}
+
+export interface AggregateCategory {
+  count: Int;
+}
+
+export interface AggregateCategoryPromise
+  extends Promise<AggregateCategory>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCategorySubscription
+  extends Promise<AsyncIterator<AggregateCategory>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface BatchPayload {
@@ -1862,126 +2654,60 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface AggregateAlbum {
+export interface AggregateUser {
   count: Int;
 }
 
-export interface AggregateAlbumPromise
-  extends Promise<AggregateAlbum>,
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateAlbumSubscription
-  extends Promise<AsyncIterator<AggregateAlbum>>,
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface PostSubscriptionPayload {
-  mutation: MutationType;
-  node: Post;
-  updatedFields: String[];
-  previousValues: PostPreviousValues;
-}
-
-export interface PostSubscriptionPayloadPromise
-  extends Promise<PostSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = PostPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = PostPreviousValuesPromise>() => T;
-}
-
-export interface PostSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = PostSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = PostPreviousValuesSubscription>() => T;
-}
-
-export interface AlbumEdge {
-  node: Album;
+export interface CategoryEdge {
+  node: Category;
   cursor: String;
 }
 
-export interface AlbumEdgePromise extends Promise<AlbumEdge>, Fragmentable {
-  node: <T = AlbumPromise>() => T;
+export interface CategoryEdgePromise
+  extends Promise<CategoryEdge>,
+    Fragmentable {
+  node: <T = CategoryPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface AlbumEdgeSubscription
-  extends Promise<AsyncIterator<AlbumEdge>>,
+export interface CategoryEdgeSubscription
+  extends Promise<AsyncIterator<CategoryEdge>>,
     Fragmentable {
-  node: <T = AlbumSubscription>() => T;
+  node: <T = CategorySubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  email: String;
-  name?: String;
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
 }
 
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
     Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  name: () => Promise<String>;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
 }
 
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -2007,215 +2733,142 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregatePost {
+export interface AggregatePoster {
   count: Int;
 }
 
-export interface AggregatePostPromise
-  extends Promise<AggregatePost>,
+export interface AggregatePosterPromise
+  extends Promise<AggregatePoster>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregatePostSubscription
-  extends Promise<AsyncIterator<AggregatePost>>,
+export interface AggregatePosterSubscription
+  extends Promise<AsyncIterator<AggregatePoster>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface AlbumConnection {
+export interface CategoryConnection {
   pageInfo: PageInfo;
-  edges: AlbumEdge[];
+  edges: CategoryEdge[];
 }
 
-export interface AlbumConnectionPromise
-  extends Promise<AlbumConnection>,
+export interface CategoryConnectionPromise
+  extends Promise<CategoryConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<AlbumEdge>>() => T;
-  aggregate: <T = AggregateAlbumPromise>() => T;
+  edges: <T = FragmentableArray<CategoryEdge>>() => T;
+  aggregate: <T = AggregateCategoryPromise>() => T;
 }
 
-export interface AlbumConnectionSubscription
-  extends Promise<AsyncIterator<AlbumConnection>>,
+export interface CategoryConnectionSubscription
+  extends Promise<AsyncIterator<CategoryConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<AlbumEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateAlbumSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CategoryEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCategorySubscription>() => T;
 }
 
-export interface PostConnection {
+export interface PosterConnection {
   pageInfo: PageInfo;
-  edges: PostEdge[];
+  edges: PosterEdge[];
 }
 
-export interface PostConnectionPromise
-  extends Promise<PostConnection>,
+export interface PosterConnectionPromise
+  extends Promise<PosterConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PostEdge>>() => T;
-  aggregate: <T = AggregatePostPromise>() => T;
+  edges: <T = FragmentableArray<PosterEdge>>() => T;
+  aggregate: <T = AggregatePosterPromise>() => T;
 }
 
-export interface PostConnectionSubscription
-  extends Promise<AsyncIterator<PostConnection>>,
+export interface PosterConnectionSubscription
+  extends Promise<AsyncIterator<PosterConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePostSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PosterEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePosterSubscription>() => T;
 }
 
-export interface Image {
+export interface Category {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
-  name?: String;
-  picture?: String;
-  thumbnail?: String;
-  description?: String;
-}
-
-export interface ImagePromise extends Promise<Image>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
-  picture: () => Promise<String>;
-  thumbnail: () => Promise<String>;
-  description: () => Promise<String>;
-  album: <T = AlbumPromise>() => T;
-}
-
-export interface ImageSubscription
-  extends Promise<AsyncIterator<Image>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  name: () => Promise<AsyncIterator<String>>;
-  picture: () => Promise<AsyncIterator<String>>;
-  thumbnail: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  album: <T = AlbumSubscription>() => T;
-}
-
-export interface ImageNullablePromise
-  extends Promise<Image | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
-  picture: () => Promise<String>;
-  thumbnail: () => Promise<String>;
-  description: () => Promise<String>;
-  album: <T = AlbumPromise>() => T;
-}
-
-export interface Post {
-  id: ID_Output;
+  name: String;
+  published: Boolean;
+  title?: String;
+  content?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
 }
 
-export interface PostPromise extends Promise<Post>, Fragmentable {
+export interface CategoryPromise extends Promise<Category>, Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
   published: () => Promise<Boolean>;
   title: () => Promise<String>;
   content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
+  parish: <T = ParishPromise>() => T;
+  posters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAuthor: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAuthor: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface PostSubscription
-  extends Promise<AsyncIterator<Post>>,
+export interface CategorySubscription
+  extends Promise<AsyncIterator<Category>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
   published: () => Promise<AsyncIterator<Boolean>>;
   title: () => Promise<AsyncIterator<String>>;
   content: () => Promise<AsyncIterator<String>>;
-  author: <T = UserSubscription>() => T;
+  parish: <T = ParishSubscription>() => T;
+  posters: <T = Promise<AsyncIterator<PosterSubscription>>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAuthor: <T = UserSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAuthor: <T = UserSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface PostNullablePromise
-  extends Promise<Post | null>,
+export interface CategoryNullablePromise
+  extends Promise<Category | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
   published: () => Promise<Boolean>;
   title: () => Promise<String>;
   content: () => Promise<String>;
-  author: <T = UserPromise>() => T;
-}
-
-export interface Diocese {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
-  name: String;
-  shortName: String;
-}
-
-export interface DiocesePromise extends Promise<Diocese>, Fragmentable {
-  id: () => Promise<ID_Output>;
+  parish: <T = ParishPromise>() => T;
+  posters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAuthor: <T = UserPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
-  shortName: () => Promise<String>;
-  deanery: <T = FragmentableArray<Deanery>>(args?: {
-    where?: DeaneryWhereInput;
-    orderBy?: DeaneryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface DioceseSubscription
-  extends Promise<AsyncIterator<Diocese>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  name: () => Promise<AsyncIterator<String>>;
-  shortName: () => Promise<AsyncIterator<String>>;
-  deanery: <T = Promise<AsyncIterator<DeanerySubscription>>>(args?: {
-    where?: DeaneryWhereInput;
-    orderBy?: DeaneryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface DioceseNullablePromise
-  extends Promise<Diocese | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
-  shortName: () => Promise<String>;
-  deanery: <T = FragmentableArray<Deanery>>(args?: {
-    where?: DeaneryWhereInput;
-    orderBy?: DeaneryOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  updatedAuthor: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ParishEdge {
@@ -2235,170 +2888,260 @@ export interface ParishEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AlbumSubscriptionPayload {
+export interface CategorySubscriptionPayload {
   mutation: MutationType;
-  node: Album;
+  node: Category;
   updatedFields: String[];
-  previousValues: AlbumPreviousValues;
+  previousValues: CategoryPreviousValues;
 }
 
-export interface AlbumSubscriptionPayloadPromise
-  extends Promise<AlbumSubscriptionPayload>,
+export interface CategorySubscriptionPayloadPromise
+  extends Promise<CategorySubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = AlbumPromise>() => T;
+  node: <T = CategoryPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = AlbumPreviousValuesPromise>() => T;
+  previousValues: <T = CategoryPreviousValuesPromise>() => T;
 }
 
-export interface AlbumSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<AlbumSubscriptionPayload>>,
+export interface CategorySubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CategorySubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = AlbumSubscription>() => T;
+  node: <T = CategorySubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = AlbumPreviousValuesSubscription>() => T;
+  previousValues: <T = CategoryPreviousValuesSubscription>() => T;
 }
 
-export interface AggregateImage {
+export interface AggregateImageType {
   count: Int;
 }
 
-export interface AggregateImagePromise
-  extends Promise<AggregateImage>,
+export interface AggregateImageTypePromise
+  extends Promise<AggregateImageType>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateImageSubscription
-  extends Promise<AsyncIterator<AggregateImage>>,
+export interface AggregateImageTypeSubscription
+  extends Promise<AsyncIterator<AggregateImageType>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface AlbumPreviousValues {
+export interface CategoryPreviousValues {
   id: ID_Output;
   name: String;
+  published: Boolean;
+  title?: String;
+  content?: String;
   createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface AlbumPreviousValuesPromise
-  extends Promise<AlbumPreviousValues>,
+export interface CategoryPreviousValuesPromise
+  extends Promise<CategoryPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  published: () => Promise<Boolean>;
+  title: () => Promise<String>;
+  content: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface AlbumPreviousValuesSubscription
-  extends Promise<AsyncIterator<AlbumPreviousValues>>,
+export interface CategoryPreviousValuesSubscription
+  extends Promise<AsyncIterator<CategoryPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
+  title: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface ImageConnection {
+export interface ImageTypeConnection {
   pageInfo: PageInfo;
-  edges: ImageEdge[];
+  edges: ImageTypeEdge[];
 }
 
-export interface ImageConnectionPromise
-  extends Promise<ImageConnection>,
+export interface ImageTypeConnectionPromise
+  extends Promise<ImageTypeConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ImageEdge>>() => T;
-  aggregate: <T = AggregateImagePromise>() => T;
+  edges: <T = FragmentableArray<ImageTypeEdge>>() => T;
+  aggregate: <T = AggregateImageTypePromise>() => T;
 }
 
-export interface ImageConnectionSubscription
-  extends Promise<AsyncIterator<ImageConnection>>,
+export interface ImageTypeConnectionSubscription
+  extends Promise<AsyncIterator<ImageTypeConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ImageEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateImageSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ImageTypeEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateImageTypeSubscription>() => T;
 }
 
-export interface Album {
+export interface User {
   id: ID_Output;
-  name: String;
+  email: String;
+  name?: String;
   createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface AlbumPromise extends Promise<Album>, Fragmentable {
+export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
   name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  parish: <T = ParishPromise>() => T;
-  image: <T = FragmentableArray<Image>>(args?: {
-    where?: ImageWhereInput;
-    orderBy?: ImageOrderByInput;
+  createdPosters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
+  createdCategories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedPosters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedCategories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface AlbumSubscription
-  extends Promise<AsyncIterator<Album>>,
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  email: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  parish: <T = ParishSubscription>() => T;
-  image: <T = Promise<AsyncIterator<ImageSubscription>>>(args?: {
-    where?: ImageWhereInput;
-    orderBy?: ImageOrderByInput;
+  createdPosters: <T = Promise<AsyncIterator<PosterSubscription>>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
+  createdCategories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedPosters: <T = Promise<AsyncIterator<PosterSubscription>>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedCategories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AlbumNullablePromise
-  extends Promise<Album | null>,
+export interface UserNullablePromise
+  extends Promise<User | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
+  email: () => Promise<String>;
   name: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  parish: <T = ParishPromise>() => T;
-  image: <T = FragmentableArray<Image>>(args?: {
-    where?: ImageWhereInput;
-    orderBy?: ImageOrderByInput;
+  createdPosters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
+  createdCategories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedPosters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedCategories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DioceseEdge {
-  node: Diocese;
-  cursor: String;
+export interface AggregateDiocese {
+  count: Int;
 }
 
-export interface DioceseEdgePromise extends Promise<DioceseEdge>, Fragmentable {
-  node: <T = DiocesePromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface DioceseEdgeSubscription
-  extends Promise<AsyncIterator<DioceseEdge>>,
+export interface AggregateDiocesePromise
+  extends Promise<AggregateDiocese>,
     Fragmentable {
-  node: <T = DioceseSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateDioceseSubscription
+  extends Promise<AsyncIterator<AggregateDiocese>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface DeanerySubscriptionPayload {
@@ -2426,6 +3169,55 @@ export interface DeanerySubscriptionPayloadSubscription
   previousValues: <T = DeaneryPreviousValuesSubscription>() => T;
 }
 
+export interface DioceseConnection {
+  pageInfo: PageInfo;
+  edges: DioceseEdge[];
+}
+
+export interface DioceseConnectionPromise
+  extends Promise<DioceseConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<DioceseEdge>>() => T;
+  aggregate: <T = AggregateDiocesePromise>() => T;
+}
+
+export interface DioceseConnectionSubscription
+  extends Promise<AsyncIterator<DioceseConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<DioceseEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateDioceseSubscription>() => T;
+}
+
+export interface DeaneryPreviousValues {
+  id: ID_Output;
+  name: String;
+  shortName?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface DeaneryPreviousValuesPromise
+  extends Promise<DeaneryPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  shortName: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface DeaneryPreviousValuesSubscription
+  extends Promise<AsyncIterator<DeaneryPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  shortName: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface AggregateDeanery {
   count: Int;
 }
@@ -2442,140 +3234,80 @@ export interface AggregateDeanerySubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface DeaneryPreviousValues {
+export interface ImageType {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
   name: String;
-  shortName: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface DeaneryPreviousValuesPromise
-  extends Promise<DeaneryPreviousValues>,
-    Fragmentable {
+export interface ImageTypePromise extends Promise<ImageType>, Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  shortName: () => Promise<String>;
+  posters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DeaneryPreviousValuesSubscription
-  extends Promise<AsyncIterator<DeaneryPreviousValues>>,
+export interface ImageTypeSubscription
+  extends Promise<AsyncIterator<ImageType>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
-  shortName: () => Promise<AsyncIterator<String>>;
-}
-
-export interface DeaneryConnection {
-  pageInfo: PageInfo;
-  edges: DeaneryEdge[];
-}
-
-export interface DeaneryConnectionPromise
-  extends Promise<DeaneryConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<DeaneryEdge>>() => T;
-  aggregate: <T = AggregateDeaneryPromise>() => T;
-}
-
-export interface DeaneryConnectionSubscription
-  extends Promise<AsyncIterator<DeaneryConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<DeaneryEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateDeanerySubscription>() => T;
-}
-
-export interface Deanery {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
-  name: String;
-  shortName: String;
-}
-
-export interface DeaneryPromise extends Promise<Deanery>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
-  name: () => Promise<String>;
-  shortName: () => Promise<String>;
-  parish: <T = FragmentableArray<Parish>>(args?: {
-    where?: ParishWhereInput;
-    orderBy?: ParishOrderByInput;
+  posters: <T = Promise<AsyncIterator<PosterSubscription>>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  diocese: <T = DiocesePromise>() => T;
-}
-
-export interface DeanerySubscription
-  extends Promise<AsyncIterator<Deanery>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  name: () => Promise<AsyncIterator<String>>;
-  shortName: () => Promise<AsyncIterator<String>>;
-  parish: <T = Promise<AsyncIterator<ParishSubscription>>>(args?: {
-    where?: ParishWhereInput;
-    orderBy?: ParishOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-  diocese: <T = DioceseSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface DeaneryNullablePromise
-  extends Promise<Deanery | null>,
+export interface ImageTypeNullablePromise
+  extends Promise<ImageType | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  shortName: () => Promise<String>;
-  parish: <T = FragmentableArray<Parish>>(args?: {
-    where?: ParishWhereInput;
-    orderBy?: ParishOrderByInput;
+  posters: <T = FragmentableArray<Poster>>(args?: {
+    where?: PosterWhereInput;
+    orderBy?: PosterOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
   }) => T;
-  diocese: <T = DiocesePromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
+export interface UserEdge {
+  node: User;
+  cursor: String;
 }
 
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface DioceseSubscriptionPayload {
@@ -2603,87 +3335,49 @@ export interface DioceseSubscriptionPayloadSubscription
   previousValues: <T = DiocesePreviousValuesSubscription>() => T;
 }
 
-export interface User {
-  id: ID_Output;
-  email: String;
-  name?: String;
+export interface PosterEdge {
+  node: Poster;
+  cursor: String;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+export interface PosterEdgePromise extends Promise<PosterEdge>, Fragmentable {
+  node: <T = PosterPromise>() => T;
+  cursor: () => Promise<String>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface PosterEdgeSubscription
+  extends Promise<AsyncIterator<PosterEdge>>,
     Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  email: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
-}
-
-export interface UserNullablePromise
-  extends Promise<User | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  email: () => Promise<String>;
-  name: () => Promise<String>;
-  posts: <T = FragmentableArray<Post>>(args?: {
-    where?: PostWhereInput;
-    orderBy?: PostOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => T;
+  node: <T = PosterSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
 }
 
 export interface DiocesePreviousValues {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
   name: String;
-  shortName: String;
+  shortName?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface DiocesePreviousValuesPromise
   extends Promise<DiocesePreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
   shortName: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface DiocesePreviousValuesSubscription
   extends Promise<AsyncIterator<DiocesePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
   shortName: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ParishConnection {
@@ -2707,142 +3401,259 @@ export interface ParishConnectionSubscription
   aggregate: <T = AggregateParishSubscription>() => T;
 }
 
+export interface Poster {
+  id: ID_Output;
+  name: String;
+  image?: String;
+  thumbnail?: String;
+  description?: String;
+  published: Boolean;
+  title?: String;
+  content?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface PosterPromise extends Promise<Poster>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  thumbnail: () => Promise<String>;
+  description: () => Promise<String>;
+  published: () => Promise<Boolean>;
+  title: () => Promise<String>;
+  content: () => Promise<String>;
+  imageType: <T = ImageTypePromise>() => T;
+  category: <T = CategoryPromise>() => T;
+  createdAuthor: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAuthor: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PosterSubscription
+  extends Promise<AsyncIterator<Poster>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
+  title: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
+  imageType: <T = ImageTypeSubscription>() => T;
+  category: <T = CategorySubscription>() => T;
+  createdAuthor: <T = UserSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAuthor: <T = UserSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface PosterNullablePromise
+  extends Promise<Poster | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  thumbnail: () => Promise<String>;
+  description: () => Promise<String>;
+  published: () => Promise<Boolean>;
+  title: () => Promise<String>;
+  content: () => Promise<String>;
+  imageType: <T = ImageTypePromise>() => T;
+  category: <T = CategoryPromise>() => T;
+  createdAuthor: <T = UserPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAuthor: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PosterSubscriptionPayload {
+  mutation: MutationType;
+  node: Poster;
+  updatedFields: String[];
+  previousValues: PosterPreviousValues;
+}
+
+export interface PosterSubscriptionPayloadPromise
+  extends Promise<PosterSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PosterPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PosterPreviousValuesPromise>() => T;
+}
+
+export interface PosterSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PosterSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PosterSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PosterPreviousValuesSubscription>() => T;
+}
+
+export interface ImageTypeSubscriptionPayload {
+  mutation: MutationType;
+  node: ImageType;
+  updatedFields: String[];
+  previousValues: ImageTypePreviousValues;
+}
+
+export interface ImageTypeSubscriptionPayloadPromise
+  extends Promise<ImageTypeSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ImageTypePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ImageTypePreviousValuesPromise>() => T;
+}
+
+export interface ImageTypeSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ImageTypeSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ImageTypeSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ImageTypePreviousValuesSubscription>() => T;
+}
+
 export interface Parish {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
   name: String;
+  shortName?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface ParishPromise extends Promise<Parish>, Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
+  shortName: () => Promise<String>;
   deanery: <T = DeaneryPromise>() => T;
-  Album: <T = AlbumPromise>() => T;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ParishSubscription
   extends Promise<AsyncIterator<Parish>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
+  shortName: () => Promise<AsyncIterator<String>>;
   deanery: <T = DeanerySubscription>() => T;
-  Album: <T = AlbumSubscription>() => T;
+  categories: <T = Promise<AsyncIterator<CategorySubscription>>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ParishNullablePromise
   extends Promise<Parish | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
+  shortName: () => Promise<String>;
   deanery: <T = DeaneryPromise>() => T;
-  Album: <T = AlbumPromise>() => T;
+  categories: <T = FragmentableArray<Category>>(args?: {
+    where?: CategoryWhereInput;
+    orderBy?: CategoryOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface AggregateDiocese {
-  count: Int;
+export interface PosterPreviousValues {
+  id: ID_Output;
+  name: String;
+  image?: String;
+  thumbnail?: String;
+  description?: String;
+  published: Boolean;
+  title?: String;
+  content?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface AggregateDiocesePromise
-  extends Promise<AggregateDiocese>,
+export interface PosterPreviousValuesPromise
+  extends Promise<PosterPreviousValues>,
     Fragmentable {
-  count: () => Promise<Int>;
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  image: () => Promise<String>;
+  thumbnail: () => Promise<String>;
+  description: () => Promise<String>;
+  published: () => Promise<Boolean>;
+  title: () => Promise<String>;
+  content: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface AggregateDioceseSubscription
-  extends Promise<AsyncIterator<AggregateDiocese>>,
+export interface PosterPreviousValuesSubscription
+  extends Promise<AsyncIterator<PosterPreviousValues>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface ImageSubscriptionPayload {
-  mutation: MutationType;
-  node: Image;
-  updatedFields: String[];
-  previousValues: ImagePreviousValues;
-}
-
-export interface ImageSubscriptionPayloadPromise
-  extends Promise<ImageSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = ImagePromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = ImagePreviousValuesPromise>() => T;
-}
-
-export interface ImageSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ImageSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ImageSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ImagePreviousValuesSubscription>() => T;
-}
-
-export interface DeaneryEdge {
-  node: Deanery;
-  cursor: String;
-}
-
-export interface DeaneryEdgePromise extends Promise<DeaneryEdge>, Fragmentable {
-  node: <T = DeaneryPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface DeaneryEdgeSubscription
-  extends Promise<AsyncIterator<DeaneryEdge>>,
-    Fragmentable {
-  node: <T = DeanerySubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PostEdge {
-  node: Post;
-  cursor: String;
-}
-
-export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
-  node: <T = PostPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface PostEdgeSubscription
-  extends Promise<AsyncIterator<PostEdge>>,
-    Fragmentable {
-  node: <T = PostSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  thumbnail: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
+  title: () => Promise<AsyncIterator<String>>;
+  content: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ParishPreviousValues {
   id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
   name: String;
+  shortName?: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface ParishPreviousValuesPromise
   extends Promise<ParishPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
+  shortName: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface ParishPreviousValuesSubscription
   extends Promise<AsyncIterator<ParishPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
+  shortName: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface ParishSubscriptionPayload {
@@ -2870,69 +3681,95 @@ export interface ParishSubscriptionPayloadSubscription
   previousValues: <T = ParishPreviousValuesSubscription>() => T;
 }
 
-export interface PostPreviousValues {
+export interface Deanery {
   id: ID_Output;
+  name: String;
+  shortName?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
-  published: Boolean;
-  title: String;
-  content?: String;
 }
 
-export interface PostPreviousValuesPromise
-  extends Promise<PostPreviousValues>,
-    Fragmentable {
+export interface DeaneryPromise extends Promise<Deanery>, Fragmentable {
   id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  shortName: () => Promise<String>;
+  parishes: <T = FragmentableArray<Parish>>(args?: {
+    where?: ParishWhereInput;
+    orderBy?: ParishOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  diocese: <T = DiocesePromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-  published: () => Promise<Boolean>;
-  title: () => Promise<String>;
-  content: () => Promise<String>;
 }
 
-export interface PostPreviousValuesSubscription
-  extends Promise<AsyncIterator<PostPreviousValues>>,
+export interface DeanerySubscription
+  extends Promise<AsyncIterator<Deanery>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  shortName: () => Promise<AsyncIterator<String>>;
+  parishes: <T = Promise<AsyncIterator<ParishSubscription>>>(args?: {
+    where?: ParishWhereInput;
+    orderBy?: ParishOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  diocese: <T = DioceseSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  published: () => Promise<AsyncIterator<Boolean>>;
-  title: () => Promise<AsyncIterator<String>>;
-  content: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ImagePreviousValues {
-  id: ID_Output;
-  createdAt: DateTimeOutput;
-  updateAt?: DateTimeOutput;
-  name?: String;
-  picture?: String;
-  thumbnail?: String;
-  description?: String;
-}
-
-export interface ImagePreviousValuesPromise
-  extends Promise<ImagePreviousValues>,
+export interface DeaneryNullablePromise
+  extends Promise<Deanery | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updateAt: () => Promise<DateTimeOutput>;
   name: () => Promise<String>;
-  picture: () => Promise<String>;
-  thumbnail: () => Promise<String>;
-  description: () => Promise<String>;
+  shortName: () => Promise<String>;
+  parishes: <T = FragmentableArray<Parish>>(args?: {
+    where?: ParishWhereInput;
+    orderBy?: ParishOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  diocese: <T = DiocesePromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ImagePreviousValuesSubscription
-  extends Promise<AsyncIterator<ImagePreviousValues>>,
+export interface ImageTypePreviousValues {
+  id: ID_Output;
+  name: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ImageTypePreviousValuesPromise
+  extends Promise<ImageTypePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ImageTypePreviousValuesSubscription
+  extends Promise<AsyncIterator<ImageTypePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updateAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   name: () => Promise<AsyncIterator<String>>;
-  picture: () => Promise<AsyncIterator<String>>;
-  thumbnail: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface AggregateParish {
@@ -2951,64 +3788,76 @@ export interface AggregateParishSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface AggregateUser {
-  count: Int;
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
     Fragmentable {
-  count: () => Promise<Int>;
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface DioceseConnection {
-  pageInfo: PageInfo;
-  edges: DioceseEdge[];
-}
-
-export interface DioceseConnectionPromise
-  extends Promise<DioceseConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<DioceseEdge>>() => T;
-  aggregate: <T = AggregateDiocesePromise>() => T;
-}
-
-export interface DioceseConnectionSubscription
-  extends Promise<AsyncIterator<DioceseConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<DioceseEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateDioceseSubscription>() => T;
-}
-
-export interface ImageEdge {
-  node: Image;
+export interface DioceseEdge {
+  node: Diocese;
   cursor: String;
 }
 
-export interface ImageEdgePromise extends Promise<ImageEdge>, Fragmentable {
-  node: <T = ImagePromise>() => T;
+export interface DioceseEdgePromise extends Promise<DioceseEdge>, Fragmentable {
+  node: <T = DiocesePromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface ImageEdgeSubscription
-  extends Promise<AsyncIterator<ImageEdge>>,
+export interface DioceseEdgeSubscription
+  extends Promise<AsyncIterator<DioceseEdge>>,
     Fragmentable {
-  node: <T = ImageSubscription>() => T;
+  node: <T = DioceseSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ImageTypeEdge {
+  node: ImageType;
+  cursor: String;
+}
+
+export interface ImageTypeEdgePromise
+  extends Promise<ImageTypeEdge>,
+    Fragmentable {
+  node: <T = ImageTypePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ImageTypeEdgeSubscription
+  extends Promise<AsyncIterator<ImageTypeEdge>>,
+    Fragmentable {
+  node: <T = ImageTypeSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+DateTime scalar input type, allowing Date
 */
-export type Boolean = boolean;
+export type DateTimeInput = Date | string;
+
+/*
+DateTime scalar output type, which is always a string
+*/
+export type DateTimeOutput = string;
 
 export type Long = string;
 
@@ -3024,19 +3873,14 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 export type Int = number;
 
 /*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string;
-
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string;
-
-/*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string;
+
+/*
+The `Boolean` scalar type represents `true` or `false`.
+*/
+export type Boolean = boolean;
 
 /**
  * Model Metadata
@@ -3044,19 +3888,15 @@ export type String = string;
 
 export const models: Model[] = [
   {
-    name: "Image",
+    name: "Poster",
     embedded: false
   },
   {
-    name: "Album",
+    name: "ImageType",
     embedded: false
   },
   {
-    name: "Diocese",
-    embedded: false
-  },
-  {
-    name: "Deanery",
+    name: "Category",
     embedded: false
   },
   {
@@ -3064,11 +3904,15 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "User",
+    name: "Deanery",
     embedded: false
   },
   {
-    name: "Post",
+    name: "Diocese",
+    embedded: false
+  },
+  {
+    name: "User",
     embedded: false
   }
 ];

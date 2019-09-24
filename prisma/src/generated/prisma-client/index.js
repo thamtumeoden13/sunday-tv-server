@@ -5,19 +5,15 @@ var typeDefs = require("./prisma-schema").typeDefs;
 
 var models = [
   {
-    name: "Image",
+    name: "Poster",
     embedded: false
   },
   {
-    name: "Album",
+    name: "ImageType",
     embedded: false
   },
   {
-    name: "Diocese",
-    embedded: false
-  },
-  {
-    name: "Deanery",
+    name: "Category",
     embedded: false
   },
   {
@@ -25,11 +21,15 @@ var models = [
     embedded: false
   },
   {
-    name: "User",
+    name: "Deanery",
     embedded: false
   },
   {
-    name: "Post",
+    name: "Diocese",
+    embedded: false
+  },
+  {
+    name: "User",
     embedded: false
   }
 ];
