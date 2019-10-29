@@ -20,6 +20,7 @@ type ImageType {
     id: ID! @id
     name: String! @default(value: "")
     posters: [Poster!]! @relation(onDelete: CASCADE)
+    published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }
@@ -44,6 +45,7 @@ type Parish {
     shortName: String @default(value: "")
     deanery: Deanery @relation(onDelete: SET_NULL)
     categories: [Category!]! @relation(onDelete: CASCADE)
+    published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }
@@ -54,6 +56,7 @@ type Deanery {
     shortName: String @default(value: "")
     parishes: [Parish!]! @relation(onDelete: CASCADE)
     diocese: Diocese  @relation(onDelete: SET_NULL)
+    published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }
@@ -63,18 +66,21 @@ type Diocese {
     name: String! @default(value: "")
     shortName: String @default(value: "")
     deaneries: [Deanery!]! @relation(onDelete: CASCADE)
+    published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }
   
 type User {
-  id: ID! @id
-  email: String! @unique @default(value: "")
-  name: String @default(value: "")
-  createdPosters: [Poster!]! @relation(name: "CreatedPosters", onDelete: CASCADE)
-  createdCategories: [Category!]!  @relation(name: "CreatedCategory", onDelete: CASCADE)
-  createdAt: DateTime! @createdAt
-  updatedPosters: [Poster!]! @relation(name: "UpdatedPoster", onDelete: CASCADE)
-  updatedCategories: [Category!]!  @relation(name: "UpdatedCategory", onDelete: CASCADE)
-  updatedAt: DateTime! @updatedAt
+    id: ID! @id
+    email: String! @unique @default(value: "")
+    password: String @default(value: "")
+    name: String @default(value: "")
+    published: Boolean! @default(value: false)
+    createdPosters: [Poster!]! @relation(name: "CreatedPosters", onDelete: CASCADE)
+    createdCategories: [Category!]!  @relation(name: "CreatedCategory", onDelete: CASCADE)
+    createdAt: DateTime! @createdAt
+    updatedPosters: [Poster!]! @relation(name: "UpdatedPoster", onDelete: CASCADE)
+    updatedCategories: [Category!]!  @relation(name: "UpdatedCategory", onDelete: CASCADE)
+    updatedAt: DateTime! @updatedAt
 }

@@ -512,6 +512,7 @@ type Deanery {
   shortName: String
   parishes(where: ParishWhereInput, orderBy: ParishOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Parish!]
   diocese: Diocese
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -528,6 +529,7 @@ input DeaneryCreateInput {
   shortName: String
   parishes: ParishCreateManyWithoutDeaneryInput
   diocese: DioceseCreateOneWithoutDeaneriesInput
+  published: Boolean
 }
 
 input DeaneryCreateManyWithoutDioceseInput {
@@ -545,6 +547,7 @@ input DeaneryCreateWithoutDioceseInput {
   name: String
   shortName: String
   parishes: ParishCreateManyWithoutDeaneryInput
+  published: Boolean
 }
 
 input DeaneryCreateWithoutParishesInput {
@@ -552,6 +555,7 @@ input DeaneryCreateWithoutParishesInput {
   name: String
   shortName: String
   diocese: DioceseCreateOneWithoutDeaneriesInput
+  published: Boolean
 }
 
 type DeaneryEdge {
@@ -566,6 +570,8 @@ enum DeaneryOrderByInput {
   name_DESC
   shortName_ASC
   shortName_DESC
+  published_ASC
+  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -576,6 +582,7 @@ type DeaneryPreviousValues {
   id: ID!
   name: String!
   shortName: String
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -623,6 +630,8 @@ input DeaneryScalarWhereInput {
   shortName_not_starts_with: String
   shortName_ends_with: String
   shortName_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -667,16 +676,19 @@ input DeaneryUpdateInput {
   shortName: String
   parishes: ParishUpdateManyWithoutDeaneryInput
   diocese: DioceseUpdateOneWithoutDeaneriesInput
+  published: Boolean
 }
 
 input DeaneryUpdateManyDataInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input DeaneryUpdateManyMutationInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input DeaneryUpdateManyWithoutDioceseInput {
@@ -709,12 +721,14 @@ input DeaneryUpdateWithoutDioceseDataInput {
   name: String
   shortName: String
   parishes: ParishUpdateManyWithoutDeaneryInput
+  published: Boolean
 }
 
 input DeaneryUpdateWithoutParishesDataInput {
   name: String
   shortName: String
   diocese: DioceseUpdateOneWithoutDeaneriesInput
+  published: Boolean
 }
 
 input DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
@@ -780,6 +794,8 @@ input DeaneryWhereInput {
   parishes_some: ParishWhereInput
   parishes_none: ParishWhereInput
   diocese: DioceseWhereInput
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -810,6 +826,7 @@ type Diocese {
   name: String!
   shortName: String
   deaneries(where: DeaneryWhereInput, orderBy: DeaneryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Deanery!]
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -825,6 +842,7 @@ input DioceseCreateInput {
   name: String
   shortName: String
   deaneries: DeaneryCreateManyWithoutDioceseInput
+  published: Boolean
 }
 
 input DioceseCreateOneWithoutDeaneriesInput {
@@ -836,6 +854,7 @@ input DioceseCreateWithoutDeaneriesInput {
   id: ID
   name: String
   shortName: String
+  published: Boolean
 }
 
 type DioceseEdge {
@@ -850,6 +869,8 @@ enum DioceseOrderByInput {
   name_DESC
   shortName_ASC
   shortName_DESC
+  published_ASC
+  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -860,6 +881,7 @@ type DiocesePreviousValues {
   id: ID!
   name: String!
   shortName: String
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -886,11 +908,13 @@ input DioceseUpdateInput {
   name: String
   shortName: String
   deaneries: DeaneryUpdateManyWithoutDioceseInput
+  published: Boolean
 }
 
 input DioceseUpdateManyMutationInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input DioceseUpdateOneWithoutDeaneriesInput {
@@ -905,6 +929,7 @@ input DioceseUpdateOneWithoutDeaneriesInput {
 input DioceseUpdateWithoutDeaneriesDataInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input DioceseUpsertWithoutDeaneriesInput {
@@ -958,6 +983,8 @@ input DioceseWhereInput {
   deaneries_every: DeaneryWhereInput
   deaneries_some: DeaneryWhereInput
   deaneries_none: DeaneryWhereInput
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -987,6 +1014,7 @@ type ImageType {
   id: ID!
   name: String!
   posters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1001,6 +1029,7 @@ input ImageTypeCreateInput {
   id: ID
   name: String
   posters: PosterCreateManyWithoutImageTypeInput
+  published: Boolean
 }
 
 input ImageTypeCreateOneWithoutPostersInput {
@@ -1011,6 +1040,7 @@ input ImageTypeCreateOneWithoutPostersInput {
 input ImageTypeCreateWithoutPostersInput {
   id: ID
   name: String
+  published: Boolean
 }
 
 type ImageTypeEdge {
@@ -1023,6 +1053,8 @@ enum ImageTypeOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  published_ASC
+  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1032,6 +1064,7 @@ enum ImageTypeOrderByInput {
 type ImageTypePreviousValues {
   id: ID!
   name: String!
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1057,10 +1090,12 @@ input ImageTypeSubscriptionWhereInput {
 input ImageTypeUpdateInput {
   name: String
   posters: PosterUpdateManyWithoutImageTypeInput
+  published: Boolean
 }
 
 input ImageTypeUpdateManyMutationInput {
   name: String
+  published: Boolean
 }
 
 input ImageTypeUpdateOneWithoutPostersInput {
@@ -1074,6 +1109,7 @@ input ImageTypeUpdateOneWithoutPostersInput {
 
 input ImageTypeUpdateWithoutPostersDataInput {
   name: String
+  published: Boolean
 }
 
 input ImageTypeUpsertWithoutPostersInput {
@@ -1113,6 +1149,8 @@ input ImageTypeWhereInput {
   posters_every: PosterWhereInput
   posters_some: PosterWhereInput
   posters_none: PosterWhereInput
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1208,6 +1246,7 @@ type Parish {
   shortName: String
   deanery: Deanery
   categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1224,6 +1263,7 @@ input ParishCreateInput {
   shortName: String
   deanery: DeaneryCreateOneWithoutParishesInput
   categories: CategoryCreateManyWithoutParishInput
+  published: Boolean
 }
 
 input ParishCreateManyWithoutDeaneryInput {
@@ -1241,6 +1281,7 @@ input ParishCreateWithoutCategoriesInput {
   name: String
   shortName: String
   deanery: DeaneryCreateOneWithoutParishesInput
+  published: Boolean
 }
 
 input ParishCreateWithoutDeaneryInput {
@@ -1248,6 +1289,7 @@ input ParishCreateWithoutDeaneryInput {
   name: String
   shortName: String
   categories: CategoryCreateManyWithoutParishInput
+  published: Boolean
 }
 
 type ParishEdge {
@@ -1262,6 +1304,8 @@ enum ParishOrderByInput {
   name_DESC
   shortName_ASC
   shortName_DESC
+  published_ASC
+  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1272,6 +1316,7 @@ type ParishPreviousValues {
   id: ID!
   name: String!
   shortName: String
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1319,6 +1364,8 @@ input ParishScalarWhereInput {
   shortName_not_starts_with: String
   shortName_ends_with: String
   shortName_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -1363,16 +1410,19 @@ input ParishUpdateInput {
   shortName: String
   deanery: DeaneryUpdateOneWithoutParishesInput
   categories: CategoryUpdateManyWithoutParishInput
+  published: Boolean
 }
 
 input ParishUpdateManyDataInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input ParishUpdateManyMutationInput {
   name: String
   shortName: String
+  published: Boolean
 }
 
 input ParishUpdateManyWithoutDeaneryInput {
@@ -1405,12 +1455,14 @@ input ParishUpdateWithoutCategoriesDataInput {
   name: String
   shortName: String
   deanery: DeaneryUpdateOneWithoutParishesInput
+  published: Boolean
 }
 
 input ParishUpdateWithoutDeaneryDataInput {
   name: String
   shortName: String
   categories: CategoryUpdateManyWithoutParishInput
+  published: Boolean
 }
 
 input ParishUpdateWithWhereUniqueWithoutDeaneryInput {
@@ -1476,6 +1528,8 @@ input ParishWhereInput {
   categories_every: CategoryWhereInput
   categories_some: CategoryWhereInput
   categories_none: CategoryWhereInput
+  published: Boolean
+  published_not: Boolean
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -2134,7 +2188,9 @@ type Subscription {
 type User {
   id: ID!
   email: String!
+  password: String
   name: String
+  published: Boolean!
   createdPosters(where: PosterWhereInput, orderBy: PosterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Poster!]
   createdCategories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category!]
   createdAt: DateTime!
@@ -2152,7 +2208,9 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterCreateManyInput
   createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
   updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
@@ -2182,7 +2240,9 @@ input UserCreateOneWithoutUpdatedPostersInput {
 input UserCreateWithoutCreatedCategoriesInput {
   id: ID
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterCreateManyInput
   updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
   updatedCategories: CategoryCreateManyWithoutUpdatedAuthorInput
@@ -2191,7 +2251,9 @@ input UserCreateWithoutCreatedCategoriesInput {
 input UserCreateWithoutUpdatedCategoriesInput {
   id: ID
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterCreateManyInput
   createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
   updatedPosters: PosterCreateManyWithoutUpdatedAuthorInput
@@ -2200,7 +2262,9 @@ input UserCreateWithoutUpdatedCategoriesInput {
 input UserCreateWithoutUpdatedPostersInput {
   id: ID
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterCreateManyInput
   createdCategories: CategoryCreateManyWithoutCreatedAuthorInput
   updatedCategories: CategoryCreateManyWithoutUpdatedAuthorInput
@@ -2216,8 +2280,12 @@ enum UserOrderByInput {
   id_DESC
   email_ASC
   email_DESC
+  password_ASC
+  password_DESC
   name_ASC
   name_DESC
+  published_ASC
+  published_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -2227,7 +2295,9 @@ enum UserOrderByInput {
 type UserPreviousValues {
   id: ID!
   email: String!
+  password: String
   name: String
+  published: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2252,7 +2322,9 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateDataInput {
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterUpdateManyInput
   createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
   updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
@@ -2261,7 +2333,9 @@ input UserUpdateDataInput {
 
 input UserUpdateInput {
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterUpdateManyInput
   createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
   updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
@@ -2270,7 +2344,9 @@ input UserUpdateInput {
 
 input UserUpdateManyMutationInput {
   email: String
+  password: String
   name: String
+  published: Boolean
 }
 
 input UserUpdateOneInput {
@@ -2311,7 +2387,9 @@ input UserUpdateOneWithoutUpdatedPostersInput {
 
 input UserUpdateWithoutCreatedCategoriesDataInput {
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterUpdateManyInput
   updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
   updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
@@ -2319,7 +2397,9 @@ input UserUpdateWithoutCreatedCategoriesDataInput {
 
 input UserUpdateWithoutUpdatedCategoriesDataInput {
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterUpdateManyInput
   createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
   updatedPosters: PosterUpdateManyWithoutUpdatedAuthorInput
@@ -2327,7 +2407,9 @@ input UserUpdateWithoutUpdatedCategoriesDataInput {
 
 input UserUpdateWithoutUpdatedPostersDataInput {
   email: String
+  password: String
   name: String
+  published: Boolean
   createdPosters: PosterUpdateManyInput
   createdCategories: CategoryUpdateManyWithoutCreatedAuthorInput
   updatedCategories: CategoryUpdateManyWithoutUpdatedAuthorInput
@@ -2382,6 +2464,20 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -2396,6 +2492,8 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  published: Boolean
+  published_not: Boolean
   createdPosters_every: PosterWhereInput
   createdPosters_some: PosterWhereInput
   createdPosters_none: PosterWhereInput

@@ -14,9 +14,11 @@
   "dependencies": {
     "apollo-boost": "^0.4.4",
     "apollo-server": "^2.2.6",
+    "bcryptjs": "^2.4.3",
     "global": "^4.4.0",
     "graphql": "^14.5.4",
     "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
     "prisma": "^1.23.0",
     "prisma-client-lib": "^1.34.8",
     "react-apollo": "^3.1.0",

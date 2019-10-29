@@ -342,6 +342,8 @@ export type ParishOrderByInput =
   | "name_DESC"
   | "shortName_ASC"
   | "shortName_DESC"
+  | "published_ASC"
+  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -354,6 +356,8 @@ export type DeaneryOrderByInput =
   | "name_DESC"
   | "shortName_ASC"
   | "shortName_DESC"
+  | "published_ASC"
+  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -404,6 +408,8 @@ export type DioceseOrderByInput =
   | "name_DESC"
   | "shortName_ASC"
   | "shortName_DESC"
+  | "published_ASC"
+  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -414,6 +420,8 @@ export type ImageTypeOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "published_ASC"
+  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -424,8 +432,12 @@ export type UserOrderByInput =
   | "id_DESC"
   | "email_ASC"
   | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
   | "name_ASC"
   | "name_DESC"
+  | "published_ASC"
+  | "published_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -465,12 +477,14 @@ export interface DioceseCreateInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   deaneries?: Maybe<DeaneryCreateManyWithoutDioceseInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishUpdateWithoutCategoriesDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   deanery?: Maybe<DeaneryUpdateOneWithoutParishesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterUpdateManyWithoutUpdatedAuthorInput {
@@ -538,6 +552,8 @@ export interface ImageTypeWhereInput {
   posters_every?: Maybe<PosterWhereInput>;
   posters_some?: Maybe<PosterWhereInput>;
   posters_none?: Maybe<PosterWhereInput>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -563,6 +579,7 @@ export interface DeaneryUpdateWithoutParishesDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   diocese?: Maybe<DioceseUpdateOneWithoutDeaneriesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface DioceseWhereInput {
@@ -611,6 +628,8 @@ export interface DioceseWhereInput {
   deaneries_every?: Maybe<DeaneryWhereInput>;
   deaneries_some?: Maybe<DeaneryWhereInput>;
   deaneries_none?: Maybe<DeaneryWhereInput>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -655,6 +674,7 @@ export interface PosterSubscriptionWhereInput {
 export interface DioceseUpdateWithoutDeaneriesDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishWhereInput {
@@ -704,6 +724,8 @@ export interface ParishWhereInput {
   categories_every?: Maybe<CategoryWhereInput>;
   categories_some?: Maybe<CategoryWhereInput>;
   categories_none?: Maybe<CategoryWhereInput>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -770,7 +792,9 @@ export interface ParishUpsertWithoutCategoriesInput {
 
 export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterUpdateManyWithoutCategoryInput {
@@ -843,6 +867,7 @@ export interface ParishUpdateInput {
   shortName?: Maybe<String>;
   deanery?: Maybe<DeaneryUpdateOneWithoutParishesInput>;
   categories?: Maybe<CategoryUpdateManyWithoutParishInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ImageTypeUpdateOneWithoutPostersInput {
@@ -860,10 +885,12 @@ export interface ParishCreateInput {
   shortName?: Maybe<String>;
   deanery?: Maybe<DeaneryCreateOneWithoutParishesInput>;
   categories?: Maybe<CategoryCreateManyWithoutParishInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ImageTypeUpdateWithoutPostersDataInput {
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterUpsertWithWhereUniqueWithoutImageTypeInput {
@@ -915,7 +942,9 @@ export interface PosterUpdateManyWithoutImageTypeInput {
 
 export interface UserUpdateDataInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterUpdateManyInput>;
   createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
   updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
@@ -972,17 +1001,20 @@ export interface PosterUpdateWithWhereUniqueNestedInput {
 export interface DioceseUpdateManyMutationInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface DioceseUpdateInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   deaneries?: Maybe<DeaneryUpdateManyWithoutDioceseInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface DeaneryUpdateManyDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface CategoryUpdateOneWithoutPostersInput {
@@ -1037,6 +1069,8 @@ export interface DeaneryScalarWhereInput {
   shortName_not_starts_with?: Maybe<String>;
   shortName_ends_with?: Maybe<String>;
   shortName_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1090,7 +1124,9 @@ export interface DeaneryUpdateWithWhereUniqueWithoutDioceseInput {
 
 export interface UserUpdateWithoutCreatedCategoriesDataInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterUpdateManyInput>;
   updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
   updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
@@ -1606,6 +1642,20 @@ export interface UserWhereInput {
   email_not_starts_with?: Maybe<String>;
   email_ends_with?: Maybe<String>;
   email_not_ends_with?: Maybe<String>;
+  password?: Maybe<String>;
+  password_not?: Maybe<String>;
+  password_in?: Maybe<String[] | String>;
+  password_not_in?: Maybe<String[] | String>;
+  password_lt?: Maybe<String>;
+  password_lte?: Maybe<String>;
+  password_gt?: Maybe<String>;
+  password_gte?: Maybe<String>;
+  password_contains?: Maybe<String>;
+  password_not_contains?: Maybe<String>;
+  password_starts_with?: Maybe<String>;
+  password_not_starts_with?: Maybe<String>;
+  password_ends_with?: Maybe<String>;
+  password_not_ends_with?: Maybe<String>;
   name?: Maybe<String>;
   name_not?: Maybe<String>;
   name_in?: Maybe<String[] | String>;
@@ -1620,6 +1670,8 @@ export interface UserWhereInput {
   name_not_starts_with?: Maybe<String>;
   name_ends_with?: Maybe<String>;
   name_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdPosters_every?: Maybe<PosterWhereInput>;
   createdPosters_some?: Maybe<PosterWhereInput>;
   createdPosters_none?: Maybe<PosterWhereInput>;
@@ -1709,6 +1761,8 @@ export interface DeaneryWhereInput {
   parishes_some?: Maybe<ParishWhereInput>;
   parishes_none?: Maybe<ParishWhereInput>;
   diocese?: Maybe<DioceseWhereInput>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1732,7 +1786,9 @@ export interface DeaneryWhereInput {
 
 export interface UserUpdateWithoutUpdatedCategoriesDataInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterUpdateManyInput>;
   createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
   updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
@@ -1775,7 +1831,9 @@ export interface CategoryUpdateManyWithoutCreatedAuthorInput {
 
 export interface UserUpdateInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterUpdateManyInput>;
   createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
   updatedPosters?: Maybe<PosterUpdateManyWithoutUpdatedAuthorInput>;
@@ -1790,6 +1848,7 @@ export interface CategoryUpdateWithWhereUniqueWithoutCreatedAuthorInput {
 export interface ParishUpdateManyMutationInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface CategoryUpdateWithoutCreatedAuthorDataInput {
@@ -1804,6 +1863,7 @@ export interface CategoryUpdateWithoutCreatedAuthorDataInput {
 
 export interface ImageTypeUpdateManyMutationInput {
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface CategoryUpsertWithWhereUniqueWithoutCreatedAuthorInput {
@@ -1851,7 +1911,9 @@ export type UserWhereUniqueInput = AtLeastOne<{
 
 export interface UserUpdateWithoutUpdatedPostersDataInput {
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterUpdateManyInput>;
   createdCategories?: Maybe<CategoryUpdateManyWithoutCreatedAuthorInput>;
   updatedCategories?: Maybe<CategoryUpdateManyWithoutUpdatedAuthorInput>;
@@ -1890,6 +1952,7 @@ export interface ParishCreateWithoutCategoriesInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   deanery?: Maybe<DeaneryCreateOneWithoutParishesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterUpsertWithWhereUniqueNestedInput {
@@ -1902,6 +1965,7 @@ export interface DioceseCreateWithoutDeaneriesInput {
   id?: Maybe<ID_Input>;
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface UserUpsertNestedInput {
@@ -1912,6 +1976,7 @@ export interface UserUpsertNestedInput {
 export interface ImageTypeCreateWithoutPostersInput {
   id?: Maybe<ID_Input>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterUpsertWithWhereUniqueWithoutCategoryInput {
@@ -1945,7 +2010,9 @@ export interface CategoryUpdateManyMutationInput {
 export interface UserCreateWithoutCreatedCategoriesInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterCreateManyInput>;
   updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
   updatedCategories?: Maybe<CategoryCreateManyWithoutUpdatedAuthorInput>;
@@ -1956,6 +2023,7 @@ export interface DeaneryCreateWithoutDioceseInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   parishes?: Maybe<ParishCreateManyWithoutDeaneryInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface CategoryCreateWithoutUpdatedAuthorInput {
@@ -1993,6 +2061,7 @@ export interface DeaneryCreateInput {
   shortName?: Maybe<String>;
   parishes?: Maybe<ParishCreateManyWithoutDeaneryInput>;
   diocese?: Maybe<DioceseCreateOneWithoutDeaneriesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterWhereInput {
@@ -2144,6 +2213,7 @@ export interface ParishCreateWithoutDeaneryInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   categories?: Maybe<CategoryCreateManyWithoutParishInput>;
+  published?: Maybe<Boolean>;
 }
 
 export type DeaneryWhereUniqueInput = AtLeastOne<{
@@ -2185,6 +2255,7 @@ export interface ImageTypeCreateInput {
   id?: Maybe<ID_Input>;
   name?: Maybe<String>;
   posters?: Maybe<PosterCreateManyWithoutImageTypeInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface DeaneryUpdateInput {
@@ -2192,12 +2263,14 @@ export interface DeaneryUpdateInput {
   shortName?: Maybe<String>;
   parishes?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
   diocese?: Maybe<DioceseUpdateOneWithoutDeaneriesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface DeaneryUpdateWithoutDioceseDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   parishes?: Maybe<ParishUpdateManyWithoutDeaneryInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishUpdateManyWithoutDeaneryInput {
@@ -2228,6 +2301,7 @@ export interface DeaneryCreateWithoutParishesInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   diocese?: Maybe<DioceseCreateOneWithoutDeaneriesInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishUpdateWithWhereUniqueWithoutDeaneryInput {
@@ -2238,7 +2312,9 @@ export interface ParishUpdateWithWhereUniqueWithoutDeaneryInput {
 export interface UserCreateInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterCreateManyInput>;
   createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
   updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
@@ -2249,6 +2325,7 @@ export interface ParishUpdateWithoutDeaneryDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
   categories?: Maybe<CategoryUpdateManyWithoutParishInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface PosterCreateWithoutUpdatedAuthorInput {
@@ -2291,7 +2368,9 @@ export interface CategoryUpdateManyWithoutParishInput {
 export interface UserCreateWithoutUpdatedPostersInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterCreateManyInput>;
   createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
   updatedCategories?: Maybe<CategoryCreateManyWithoutUpdatedAuthorInput>;
@@ -2330,6 +2409,7 @@ export interface CategoryUpdateWithoutParishDataInput {
 export interface ImageTypeUpdateInput {
   name?: Maybe<String>;
   posters?: Maybe<PosterUpdateManyWithoutImageTypeInput>;
+  published?: Maybe<Boolean>;
 }
 
 export interface CategoryUpsertWithWhereUniqueWithoutParishInput {
@@ -2370,11 +2450,13 @@ export interface CategoryCreateWithoutPostersInput {
 export interface DeaneryUpdateManyMutationInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishUpdateManyDataInput {
   name?: Maybe<String>;
   shortName?: Maybe<String>;
+  published?: Maybe<Boolean>;
 }
 
 export interface ParishUpdateManyWithWhereNestedInput {
@@ -2425,6 +2507,8 @@ export interface ParishScalarWhereInput {
   shortName_not_starts_with?: Maybe<String>;
   shortName_ends_with?: Maybe<String>;
   shortName_not_ends_with?: Maybe<String>;
+  published?: Maybe<Boolean>;
+  published_not?: Maybe<Boolean>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -2449,7 +2533,9 @@ export interface ParishScalarWhereInput {
 export interface UserCreateWithoutUpdatedCategoriesInput {
   id?: Maybe<ID_Input>;
   email?: Maybe<String>;
+  password?: Maybe<String>;
   name?: Maybe<String>;
+  published?: Maybe<Boolean>;
   createdPosters?: Maybe<PosterCreateManyInput>;
   createdCategories?: Maybe<CategoryCreateManyWithoutCreatedAuthorInput>;
   updatedPosters?: Maybe<PosterCreateManyWithoutUpdatedAuthorInput>;
@@ -2496,7 +2582,9 @@ export interface NodeNode {
 export interface UserPreviousValues {
   id: ID_Output;
   email: String;
+  password?: String;
   name?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -2506,7 +2594,9 @@ export interface UserPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  password: () => Promise<String>;
   name: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -2516,7 +2606,9 @@ export interface UserPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2542,6 +2634,7 @@ export interface Diocese {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -2559,6 +2652,7 @@ export interface DiocesePromise extends Promise<Diocese>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -2578,6 +2672,7 @@ export interface DioceseSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -2597,6 +2692,7 @@ export interface DioceseNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -2987,7 +3083,9 @@ export interface ImageTypeConnectionSubscription
 export interface User {
   id: ID_Output;
   email: String;
+  password?: String;
   name?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -2995,7 +3093,9 @@ export interface User {
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  password: () => Promise<String>;
   name: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdPosters: <T = FragmentableArray<Poster>>(args?: {
     where?: PosterWhereInput;
     orderBy?: PosterOrderByInput;
@@ -3041,7 +3141,9 @@ export interface UserSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
   name: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdPosters: <T = Promise<AsyncIterator<PosterSubscription>>>(args?: {
     where?: PosterWhereInput;
     orderBy?: PosterOrderByInput;
@@ -3087,7 +3189,9 @@ export interface UserNullablePromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   email: () => Promise<String>;
+  password: () => Promise<String>;
   name: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdPosters: <T = FragmentableArray<Poster>>(args?: {
     where?: PosterWhereInput;
     orderBy?: PosterOrderByInput;
@@ -3194,6 +3298,7 @@ export interface DeaneryPreviousValues {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3204,6 +3309,7 @@ export interface DeaneryPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   shortName: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3214,6 +3320,7 @@ export interface DeaneryPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   shortName: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3237,6 +3344,7 @@ export interface AggregateDeanerySubscription
 export interface ImageType {
   id: ID_Output;
   name: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3253,6 +3361,7 @@ export interface ImageTypePromise extends Promise<ImageType>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3271,6 +3380,7 @@ export interface ImageTypeSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3289,6 +3399,7 @@ export interface ImageTypeNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3356,6 +3467,7 @@ export interface DiocesePreviousValues {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3366,6 +3478,7 @@ export interface DiocesePreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   shortName: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3376,6 +3489,7 @@ export interface DiocesePreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   shortName: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3523,6 +3637,7 @@ export interface Parish {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3541,6 +3656,7 @@ export interface ParishPromise extends Promise<Parish>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3561,6 +3677,7 @@ export interface ParishSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3581,6 +3698,7 @@ export interface ParishNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3632,6 +3750,7 @@ export interface ParishPreviousValues {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3642,6 +3761,7 @@ export interface ParishPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   shortName: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3652,6 +3772,7 @@ export interface ParishPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   shortName: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3685,6 +3806,7 @@ export interface Deanery {
   id: ID_Output;
   name: String;
   shortName?: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3703,6 +3825,7 @@ export interface DeaneryPromise extends Promise<Deanery>, Fragmentable {
     last?: Int;
   }) => T;
   diocese: <T = DiocesePromise>() => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3723,6 +3846,7 @@ export interface DeanerySubscription
     last?: Int;
   }) => T;
   diocese: <T = DioceseSubscription>() => T;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -3743,6 +3867,7 @@ export interface DeaneryNullablePromise
     last?: Int;
   }) => T;
   diocese: <T = DiocesePromise>() => T;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3750,6 +3875,7 @@ export interface DeaneryNullablePromise
 export interface ImageTypePreviousValues {
   id: ID_Output;
   name: String;
+  published: Boolean;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
@@ -3759,6 +3885,7 @@ export interface ImageTypePreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
+  published: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
@@ -3768,6 +3895,7 @@ export interface ImageTypePreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
+  published: () => Promise<AsyncIterator<Boolean>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }

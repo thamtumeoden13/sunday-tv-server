@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 const resolvers = {
     Query: {
         // info: () => `This is the API of a Hackernews Clone`, 
@@ -55,6 +57,14 @@ const resolvers = {
             }
             return context.prisma.diocese({ id: args.dioceseId, })
         },
+        currentUser: (parent, args, { user, prisma }) => {
+            // this if statement is our authentication check
+            if (!user) {
+                throw new Error('Not Authenticated')
+            }
+            return prisma.user({ id: user.id })
+        },
+
     },
     Mutation: {
         // createUser: (root, args, context) => {
@@ -87,6 +97,70 @@ const resolvers = {
         createDiocese: (root, args, context) => {
             return context.prisma.createDiocese({ name: args.name, shortName: args.shortName })
         },
+        signUp: async (parent, { email, password }, ctx, info) => {
+            const hashedPassword = await bcrypt.hash(password, 10)
+            const user = await ctx.prisma.createUser({
+                email,
+                password: hashedPassword,
+            })
+            return user
+        },
+        signIn: async (parent, { email, password }, ctx, info) => {
+            const user = await ctx.prisma.user({ email })
+            console.log("user", { user, email, password })
+            if (!user) {
+                throw new Error('Invalid Login')
+            }
+
+            const passwordMatch = await bcrypt.compare(password, user.password)
+
+            if (!passwordMatch) {
+                throw new Error('Invalid Login')
+            }
+
+            const token = jwt.sign(
+                {
+                    id: user.id,
+                    email: user.email,
+                },
+                'my-secret-from-env-file-in-prod',
+                {
+                    expiresIn: '30d', // token will expire in 30days
+                },
+            )
+            return {
+                token,
+                user,
+            }
+        },
+        signOut: async (parent, { email }, ctx, info) => {
+            // const user = await ctx.prisma.user({ email })
+
+            // if (!user) {
+            //     throw new Error('Invalid Login')
+            // }
+
+            // const passwordMatch = await bcrypt.compare(password, user.password)
+
+            // if (!passwordMatch) {
+            //     throw new Error('Invalid Login')
+            // }
+
+            // const token = jwt.sign(
+            //     {
+            //         id: user.id,
+            //         email: user.email,
+            //     },
+            //     'my-secret-from-env-file-in-prod',
+            //     {
+            //         expiresIn: '30d', // token will expire in 30days
+            //     },
+            // )
+            // return {
+            //     token,
+            //     user,
+            // }
+        }
     },
     Diocese: {
         deaneries: (root, args, context) => {
@@ -106,6 +180,7 @@ const resolvers = {
                 .diocese()
         },
     },
+
 }
 
 module.exports = resolvers

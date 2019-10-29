@@ -14,6 +14,7 @@ const typeDefs = gql`
         dioceses:[Diocese!]!
         diocese(dioceseId: ID!): Diocese
         deaneriesOfDiocese(dioceseId: ID!): Diocese
+        currentUser: User!
     }
 
     type Mutation {
@@ -23,6 +24,9 @@ const typeDefs = gql`
         # publish(postId: ID!): Post
         createDeanery(name: String!, shortName: String, dioceseId: ID!): Deanery
         createDiocese(name: String!, shortName: String): Diocese
+        signUp(email: String!, password: String!): User!
+        signIn(email: String!, password: String!): LoginResponse!
+        signOut(email: String!): LoginResponse!
     }
 
     type Deanery {
@@ -37,14 +41,18 @@ const typeDefs = gql`
         shortName: String
         deaneries: [Deanery]
     }
-    # type User {
-    #     id: ID!
-    #     email: String!
-    #     name: String
-    #     postersCreate:[Poster]
-    #     postersUpdate:[Poster]
-    # }
-
+    type User {
+        id: ID!
+        email: String!
+        name: String
+        password: String
+        # postersCreate:[Poster]
+        # postersUpdate:[Poster]
+    }
+    type LoginResponse {
+        token: String
+        user: User
+    }
     # type Poster {
     #     id: ID!
     #     name: String!
