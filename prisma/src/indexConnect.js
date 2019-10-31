@@ -1,6 +1,16 @@
+// require both the firebase function package to define function   // behavior and your local server config function
+// const functions = require("firebase-functions");
+// const configureServer = require("./server");
+// //initialize the server
+// const server = configureServer();
+// // create and export the api
+// const api = functions.https.onRequest(server);
 
-const express = require('express');
+// module.exports = { api };
+
+const connect = require('connect');
 const { ApolloServer, gql } = require('apollo-server-express');
+const query = require('qs-middleware');
 
 
 const typeDefs = require('./schema');
@@ -31,8 +41,11 @@ const server = new ApolloServer({
         }
     }
 });
-const app = express();
-server.applyMiddleware({ app, path: '/' });
+const app = connect();
+const path = '/';
+
+app.use(query());
+server.applyMiddleware({ app, path });
 
 app.listen({ port: 8383 }, () =>
     console.log(`🚀 Server ready at http://localhost:8383${server.graphqlPath}`)

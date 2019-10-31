@@ -1,6 +1,14 @@
+// require both the firebase function package to define function   // behavior and your local server config function
+// const functions = require("firebase-functions");
+// const configureServer = require("./server");
+// //initialize the server
+// const server = configureServer();
+// // create and export the api
+// const api = functions.https.onRequest(server);
 
-const express = require('express');
-const { ApolloServer, gql } = require('apollo-server-express');
+// module.exports = { api };
+
+const { ApolloServer, gql } = require('apollo-server-cloud-functions');
 
 
 const typeDefs = require('./schema');
@@ -21,6 +29,8 @@ const getUser = token => {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    introspection: true,
+    playground: true,
     context: ({ req }) => {
         const tokenWithBearer = req.headers.authorization || ''
         const token = tokenWithBearer.split(' ')[1]
@@ -31,9 +41,5 @@ const server = new ApolloServer({
         }
     }
 });
-const app = express();
-server.applyMiddleware({ app, path: '/' });
 
-app.listen({ port: 8383 }, () =>
-    console.log(`🚀 Server ready at http://localhost:8383${server.graphqlPath}`)
-);
+exports.handler = server.createHandler();
