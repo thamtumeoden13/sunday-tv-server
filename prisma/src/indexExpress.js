@@ -1,5 +1,7 @@
 
-const { ApolloServer } = require('apollo-server');
+const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
+
 
 const typeDefs = require('./schema');
 const resolvers = require('./resolvers');
@@ -16,7 +18,6 @@ const getUser = token => {
         return null
     }
 }
-
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -30,6 +31,9 @@ const server = new ApolloServer({
         }
     }
 });
+const app = express();
+server.applyMiddleware({ app, path: '/' });
 
-server.listen({ port: 8383 })
-    .then(info => console.log(`Server started on http://localhost:${info.port}`));
+app.listen({ port: 8383 }, () =>
+    console.log(`🚀 Server ready at http://localhost:8383${server.graphqlPath}`)
+);
