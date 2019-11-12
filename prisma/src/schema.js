@@ -1,4 +1,5 @@
-const { gql } = require('apollo-server');
+// const { gql } = require('apollo-server');
+const { gql } = require('apollo-server-lambda');
 
 const typeDefs = gql`
     type Query {
@@ -10,11 +11,11 @@ const typeDefs = gql`
         # posters:[Poster!]!
         # poster(posterId: ID!): Poster
         deaneries:[Deanery!]!
-        deanery(deaneryId: ID!): Deanery
+        deanery(id: ID!): Deanery
         dioceses:[Diocese!]!
-        diocese(dioceseId: ID!): Diocese
-        deaneriesOfDiocese(dioceseId: ID!): Diocese
+        diocese(id: ID!): Diocese
         currentUser: User!
+        users: [User!]!
     }
 
     type Mutation {
@@ -23,24 +24,34 @@ const typeDefs = gql`
         # createDraft(title: String!, userId: ID!): Post
         # publish(postId: ID!): Post
         createDeanery(name: String!, shortName: String, dioceseId: ID!): Deanery
+        updateDeanery(id: ID!, name: String!, shortName: String, dioceseId: ID!): Deanery
         createDiocese(name: String!, shortName: String): Diocese
+        updateDiocese(id: ID!, name: String!, shortName: String): Diocese
         signUp(email: String!, password: String!): User!
         signIn(email: String!, password: String!): LoginResponse!
         signOut(email: String!): LoginResponse!
     }
 
-    type Deanery {
-        id: ID!
-        name: String!
-        shortName: String
-        diocese: Diocese!
-    }
     type Diocese {
         id: ID!
         name: String!
         shortName: String
-        deaneries: [Deanery]
+        deaneries: [Deanery!]!
     }
+    type Deanery {
+        id: ID!
+        name: String!
+        shortName: String
+        diocese: Diocese
+        parishes: [Parish!]!
+    }
+    type Parish {
+        id: ID!
+        name: String!
+        shortName: String
+        deanery: Deanery
+    }
+
     type User {
         id: ID!
         email: String!

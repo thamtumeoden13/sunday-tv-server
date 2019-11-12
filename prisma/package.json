@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "nodemon graphql1.js",
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "deploy": "prisma deploy"
+    "deploy": "prisma deploy",
+    "serverless": "serverless deploy"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +16,8 @@
   "dependencies": {
     "apollo-boost": "^0.4.4",
     "apollo-server": "^2.2.6",
+    "apollo-server-azure-functions": "^2.9.7",
+    "apollo-server-lambda": "^2.9.7",
     "bcryptjs": "^2.4.3",
     "global": "^4.4.0",
     "graphql": "^14.5.4",

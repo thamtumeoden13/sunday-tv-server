@@ -1,10 +1,14 @@
 # Specifies the HTTP endpoint of your Prisma API.
 #endpoint: ''
-endpoint: http://localhost:4466
+# endpoint: http://localhost:4466
+#endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com
+#endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com/prismaserver/dev
+endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma
 
+secret: protecting-my-prisma-server
 # Specifies the language and directory for the generated Prisma client.
 generate:
   - generator: javascript-client

@@ -20,11 +20,12 @@ const getUser = token => {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req }) => {
+    context: ({ req, res }) => {
         const tokenWithBearer = req.headers.authorization || ''
         const token = tokenWithBearer.split(' ')[1]
         const user = getUser(token)
         return {
+            ...res,
             user,
             prisma, // the generated prisma client if you are using it
         }
