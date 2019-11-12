@@ -32,7 +32,6 @@ const server = new ApolloServer({
     //     }
     // },
     context: ({ event, context }) => {
-        console.log("event, context", event, context, prisma)
         const tokenWithBearer = event.headers.authorization || ''
         const token = tokenWithBearer.split(' ')[1]
         const user = getUser(token)
