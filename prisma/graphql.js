@@ -1,6 +1,7 @@
 
 // const { ApolloServer } = require('apollo-server');
-const { ApolloServer, gql } = require('apollo-server-lambda');
+const { ApolloServer, gql,
+    AuthenticationError, } = require('apollo-server-lambda');
 const typeDefs = require('./src/schema');
 const resolvers = require('./src/resolvers');
 const { prisma } = require('./src/generated/prisma-client');
@@ -20,21 +21,12 @@ const getUser = token => {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    // context: ({ event, context }) => {
-    //     console.log("event, context", event, context, prisma)
-    //     const tokenWithBearer = event.headers.authorization || ''
-    //     const token = tokenWithBearer.split(' ')[1]
-    //     const user = getUser(token)
-    //     return {
-    //         ...context.res,
-    //         user,
-    //         prisma, // the generated prisma client if you are using it
-    //     }
-    // },
     context: ({ event, context }) => {
         const tokenWithBearer = event.headers.authorization || ''
         const token = tokenWithBearer.split(' ')[1]
         const user = getUser(token)
+        // optionally block the user
+        // we could also check user roles/permissions here
         return {
             headers: event.headers,
             functionName: context.functionName,

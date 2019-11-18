@@ -27,6 +27,7 @@ const typeDefs = gql`
         updateDeanery(id: ID!, name: String!, shortName: String, dioceseId: ID!): Deanery
         createDiocese(name: String!, shortName: String): Diocese
         updateDiocese(id: ID!, name: String!, shortName: String): Diocese
+        # deleteDioceses(id: ID!): Diocese
         signUp(email: String!, password: String!): User!
         signIn(email: String!, password: String!): LoginResponse!
         signOut(email: String!): LoginResponse!

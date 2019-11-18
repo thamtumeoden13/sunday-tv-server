@@ -96,7 +96,8 @@ const resolvers = {
         //     })
         // },
         createDeanery: (root, args, context) => {
-            console.log("args", args)
+            if (!context.user) return null;
+
             const deanery = context.prisma.createDeanery({
                 name: args.name,
                 shortName: args.shortName,
@@ -105,7 +106,7 @@ const resolvers = {
             return deanery
         },
         updateDeanery: (root, args, context) => {
-            console.log("args", args)
+            if (!context.user) return null;
             const deanery = context.prisma.updateDeanery({
                 data: {
                     name: args.name, shortName: args.shortName,
@@ -116,12 +117,12 @@ const resolvers = {
             return deanery
         },
         createDiocese: (root, args, context) => {
-            console.log("args", args)
+            // if (!context.user) return null;
             const diocese = context.prisma.createDiocese({ name: args.name, shortName: args.shortName })
             return diocese
         },
         updateDiocese: (root, args, context) => {
-            console.log("args", args)
+            if (!context.user) return null;
             const diocese = context.prisma.updateDiocese({
                 data: { name: args.name, shortName: args.shortName },
                 where: { id: args.id }
@@ -135,8 +136,21 @@ const resolvers = {
                 email,
                 password: hashedPassword,
             })
-            console.log({ user })
-            return user
+
+            const token = jwt.sign(
+                {
+                    id: user.id,
+                    email: user.email,
+                },
+                'my-secret-from-env-file-in-prod',
+                {
+                    expiresIn: '30d', // token will expire in 30days
+                },
+            )
+            return {
+                token,
+                user,
+            }
         },
         signIn: async (parent, { email, password }, ctx, info) => {
             const user = await ctx.prisma.user({ email })
@@ -166,34 +180,6 @@ const resolvers = {
                 user,
             }
         },
-        signOut: async (parent, { email }, ctx, info) => {
-            // const user = await ctx.prisma.user({ email })
-
-            // if (!user) {
-            //     throw new Error('Invalid Login')
-            // }
-
-            // const passwordMatch = await bcrypt.compare(password, user.password)
-
-            // if (!passwordMatch) {
-            //     throw new Error('Invalid Login')
-            // }
-
-            // const token = jwt.sign(
-            //     {
-            //         id: user.id,
-            //         email: user.email,
-            //     },
-            //     'my-secret-from-env-file-in-prod',
-            //     {
-            //         expiresIn: '30d', // token will expire in 30days
-            //     },
-            // )
-            // return {
-            //     token,
-            //     user,
-            // }
-        }
     },
     Diocese: {
         deaneries: (root, args, context) => {
