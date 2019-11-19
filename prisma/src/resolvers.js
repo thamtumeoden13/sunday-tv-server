@@ -2,48 +2,18 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const resolvers = {
     Query: {
-        // info: () => `This is the API of a Hackernews Clone`, 
-        // publishedPosts: (root, args, context) => {
-        //     return context.prisma.posts({ where: { published: true } })
-        // },
-        // post: (root, args, context) => {
-        //     return context.prisma.post({ id: args.postId })
-        // },
-        // postersByUser: (root, args, context) => {
-        //     if (!context) {
-        //         throw new Error('Not Authenticated', root, args, context)
-        //     }
-        //     return context.prisma.user({ id: args.userId, }).posters()
-        // },
-        // users: (root, args, context) => {
-        //     if (!context) {
-        //         throw new Error('Not Authenticated', root, args, context)
-        //     }
-        //     return context.prisma.users()
-        // },
-        // user: (root, args, context) => {
-        //     return context.prisma.user({ id: args.userId, })
-        // },
-        // posters: (root, args, context) => {
-        //     if (!context) {
-        //         throw new Error('Not Authenticated', root, args, context)
-        //     }
-        //     return context.prisma.posters()
-        // },
-        // poster: (root, args, context) => {
-        //     return context.prisma.poster({ id: args.posterId, })
-        // },
         deaneries: (root, args, context) => {
             if (!context) {
                 throw new Error('Not Authenticated', root, args, context)
             }
             const deaneries = context.prisma.deaneries()
-            console.log({ deaneries })
             return deaneries;
         },
         deanery: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
             const deanery = context.prisma.deanery({ id: args.id, })
-            console.log({ deanery })
             return deanery;
         },
         dioceses: (root, args, context) => {
@@ -51,12 +21,13 @@ const resolvers = {
                 throw new Error('Not Authenticated')
             }
             const dioceses = context.prisma.dioceses()
-            console.log({ dioceses })
             return dioceses;
         },
         diocese: (root, args, context) => {
-            const diocese = context.prisma.diocese({ id: args.dioceseId, })
-            console.log({ diocese })
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const diocese = context.prisma.diocese({ id: args.id, })
             return diocese;
         },
         currentUser: (parent, args, context) => {
@@ -71,63 +42,68 @@ const resolvers = {
                 throw new Error('Not Authenticated')
             }
             const users = context.prisma.users()
-            console.log({ users })
             return users;
         }
 
     },
     Mutation: {
-        // createUser: (root, args, context) => {
-        //     return context.prisma.createUser({ name: args.name, email: args.email })
-        // },
-        // createPoster: (root, args, context) => {
-        //     return context.prisma.createPoster({
-        //         name: args.name,
-        //         authorCreated: {
-        //             connect: { id: args.userId },
-        //         },
-        //         title: args.title
-        //     })
-        // },
-        // publish: (root, args, context) => {
-        //     return context.prisma.updatePost({
-        //         where: { id: args.postId },
-        //         data: { published: true },
-        //     })
-        // },
         createDeanery: (root, args, context) => {
-            if (!context.user) return null;
+            // if (!context.user) return null;
 
             const deanery = context.prisma.createDeanery({
                 name: args.name,
                 shortName: args.shortName,
+                published: args.published,
                 diocese: { connect: { id: args.dioceseId } }
             })
             return deanery
         },
         updateDeanery: (root, args, context) => {
-            if (!context.user) return null;
+            // if (!context.user) return null;
+
             const deanery = context.prisma.updateDeanery({
                 data: {
-                    name: args.name, shortName: args.shortName,
+                    name: args.name, shortName: args.shortName, published: args.published,
                     diocese: { connect: { id: args.dioceseId } }
                 },
                 where: { id: args.id }
             })
             return deanery
         },
+        deleteDeaneries: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const count = context.prisma.deleteManyDeaneries({
+                id_in: args.ids
+            })
+            return count
+        },
         createDiocese: (root, args, context) => {
             // if (!context.user) return null;
-            const diocese = context.prisma.createDiocese({ name: args.name, shortName: args.shortName })
+
+            const diocese = context.prisma.createDiocese({
+                name: args.name,
+                shortName: args.shortName,
+                published: args.published,
+            })
             return diocese
         },
         updateDiocese: (root, args, context) => {
-            if (!context.user) return null;
+            // if (!context.user) return null;
+
             const diocese = context.prisma.updateDiocese({
-                data: { name: args.name, shortName: args.shortName },
+                data: { name: args.name, shortName: args.shortName, published: args.published, },
                 where: { id: args.id }
             })
             return diocese
+        },
+        deleteDioceses: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const count = context.prisma.deleteManyDioceses({
+                id_in: args.ids
+            })
+            return count
         },
 
         signUp: async (parent, { email, password }, ctx, info) => {
@@ -144,7 +120,7 @@ const resolvers = {
                 },
                 'my-secret-from-env-file-in-prod',
                 {
-                    expiresIn: '30d', // token will expire in 30days
+                    expiresIn: '1m', // token will expire in 30days
                 },
             )
             return {
@@ -154,7 +130,6 @@ const resolvers = {
         },
         signIn: async (parent, { email, password }, ctx, info) => {
             const user = await ctx.prisma.user({ email })
-            console.log("user", { user, email, password })
             if (!user) {
                 throw new Error('Invalid Login')
             }
