@@ -2,6 +2,20 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const resolvers = {
     Query: {
+        dioceses: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const dioceses = context.prisma.dioceses()
+            return dioceses;
+        },
+        diocese: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const diocese = context.prisma.diocese({ id: args.id, })
+            return diocese;
+        },
         deaneries: (root, args, context) => {
             if (!context) {
                 throw new Error('Not Authenticated', root, args, context)
@@ -16,19 +30,33 @@ const resolvers = {
             const deanery = context.prisma.deanery({ id: args.id, })
             return deanery;
         },
-        dioceses: (root, args, context) => {
+        deaneriesByDiocese: (root, args, context) => {
             if (!context) {
                 throw new Error('Not Authenticated')
             }
-            const dioceses = context.prisma.dioceses()
-            return dioceses;
+            const deaneriesByDiocese = context.prisma.diocese({ id: args.dioceseId, })
+            return deaneriesByDiocese;
         },
-        diocese: (root, args, context) => {
+        parishes: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            const parishes = context.prisma.parishes()
+            return parishes;
+        },
+        parish: (root, args, context) => {
             if (!context) {
                 throw new Error('Not Authenticated')
             }
-            const diocese = context.prisma.diocese({ id: args.id, })
-            return diocese;
+            const parish = context.prisma.parish({ id: args.id, })
+            return parish;
+        },
+        parishesByDeanery: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const parishesByDeanery = context.prisma.deanery({ id: args.deaneryId, })
+            return parishesByDeanery;
         },
         currentUser: (parent, args, context) => {
             // this if statement is our authentication check
@@ -47,6 +75,37 @@ const resolvers = {
 
     },
     Mutation: {
+        createDiocese: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const diocese = context.prisma.createDiocese({
+                name: args.name,
+                shortName: args.shortName,
+                published: args.published,
+            })
+            return diocese
+        },
+        updateDiocese: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const diocese = context.prisma.updateDiocese({
+                data: {
+                    name: args.name,
+                    shortName: args.shortName,
+                    published: args.published,
+                },
+                where: { id: args.id }
+            })
+            return diocese
+        },
+        deleteDioceses: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const count = context.prisma.deleteManyDioceses({
+                id_in: args.ids
+            })
+            return count
+        },
         createDeanery: (root, args, context) => {
             // if (!context.user) return null;
 
@@ -63,7 +122,9 @@ const resolvers = {
 
             const deanery = context.prisma.updateDeanery({
                 data: {
-                    name: args.name, shortName: args.shortName, published: args.published,
+                    name: args.name,
+                    shortName: args.shortName,
+                    published: args.published,
                     diocese: { connect: { id: args.dioceseId } }
                 },
                 where: { id: args.id }
@@ -78,41 +139,47 @@ const resolvers = {
             })
             return count
         },
-        createDiocese: (root, args, context) => {
+        createParish: (root, args, context) => {
             // if (!context.user) return null;
 
-            const diocese = context.prisma.createDiocese({
+            const parish = context.prisma.createParish({
                 name: args.name,
                 shortName: args.shortName,
                 published: args.published,
+                deanery: { connect: { id: args.deaneryId } },
+                diocese: { connect: { id: args.dioceseId } }
             })
-            return diocese
+            return parish
         },
-        updateDiocese: (root, args, context) => {
+        updateParish: (root, args, context) => {
             // if (!context.user) return null;
 
-            const diocese = context.prisma.updateDiocese({
-                data: { name: args.name, shortName: args.shortName, published: args.published, },
+            const parish = context.prisma.updateParish({
+                data: {
+                    name: args.name,
+                    shortName: args.shortName,
+                    published: args.published,
+                    deanery: { connect: { id: args.deaneryId } },
+                    diocese: { connect: { id: args.dioceseId } }
+                },
                 where: { id: args.id }
             })
-            return diocese
+            return parish
         },
-        deleteDioceses: (root, args, context) => {
+        deleteParishes: (root, args, context) => {
             // if (!context.user) return null;
 
-            const count = context.prisma.deleteManyDioceses({
+            const count = context.prisma.deleteManyParishes({
                 id_in: args.ids
             })
             return count
         },
-
         signUp: async (parent, { email, password }, ctx, info) => {
             const hashedPassword = await bcrypt.hash(password, 10)
             const user = await ctx.prisma.createUser({
                 email,
                 password: hashedPassword,
             })
-
             const token = jwt.sign(
                 {
                     id: user.id,
@@ -164,6 +231,13 @@ const resolvers = {
                 })
                 .deaneries()
         },
+        parishes: (root, args, context) => {
+            return context.prisma
+                .diocese({
+                    id: root.id,
+                })
+                .parishes()
+        },
     },
     Deanery: {
         diocese: (root, args, context) => {
@@ -179,6 +253,22 @@ const resolvers = {
                     id: root.id,
                 })
                 .parishes()
+        },
+    },
+    Parish: {
+        deanery: (root, args, context) => {
+            return context.prisma
+                .parish({
+                    id: root.id,
+                })
+                .deanery()
+        },
+        diocese: (root, args, context) => {
+            return context.prisma
+                .parish({
+                    id: root.id,
+                })
+                .diocese()
         },
     },
 

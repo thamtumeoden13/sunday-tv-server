@@ -44,6 +44,7 @@ type Parish {
     name: String! @default(value: "")
     shortName: String @default(value: "")
     deanery: Deanery @relation(onDelete: SET_NULL)
+    diocese: Diocese @relation(onDelete: SET_NULL)
     categories: [Category!]! @relation(onDelete: CASCADE)
     published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
@@ -66,6 +67,7 @@ type Diocese {
     name: String! @default(value: "")
     shortName: String @default(value: "")
     deaneries: [Deanery!]! @relation(onDelete: CASCADE)
+    parishes: [Parish!]! @relation(onDelete: CASCADE)
     published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt

@@ -14,7 +14,9 @@ const getUser = token => {
         }
         return null
     } catch (err) {
-        return null
+        throw new AuthenticationError(
+            'Authentication token is invalid, please log in',
+        )
     }
 }
 
