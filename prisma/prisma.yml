@@ -4,6 +4,7 @@
 #endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com
 #endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com/prismaserver/dev
 endpoint: http://prism-Publi-QFLSI7Z8T7FQ-426721346.us-east-1.elb.amazonaws.com
+# endpoint: http://my-pr-Publi-1K8YAODC1A2VM-352440619.eu-west-1.elb.amazonaws.com
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma

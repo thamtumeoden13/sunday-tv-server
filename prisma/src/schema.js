@@ -1,7 +1,9 @@
 // const { gql } = require('apollo-server');
 const { gql } = require('apollo-server-lambda');
+const GraphQLJSON = require('graphql-type-json');
 
 const typeDefs = gql`
+    scalar JSON
     type Query {
         dioceses:[Diocese!]!
         diocese(id: ID!): Diocese
@@ -11,21 +13,27 @@ const typeDefs = gql`
         parishes:[Parish!]!
         parish(id: ID!): Parish
         parishesByDeanery(deaneryId: ID!): Deanery
+        categories:[Category!]!
+        category(id: ID!): Category
+        posters:[Poster!]!
+        poster(id: ID!): Poster
         currentUser: User!
         users: [User!]!
     }
 
     type Mutation {
-        createDiocese(name: String!, shortName: String, published: Boolean): Diocese
-        updateDiocese(id: ID!, name: String!, shortName: String, published: Boolean): Diocese
-        deleteDioceses(ids: [ID!],): deleteDiocesesResponse
-        createDeanery(name: String!, shortName: String, published: Boolean, dioceseId: ID!): Deanery
-        updateDeanery(id: ID!, name: String!, shortName: String,published: Boolean, dioceseId: ID!): Deanery
-        deleteDeaneries(ids: [ID!]): deleteDeaneriesResponse
-        createParish(name: String!, shortName: String, published: Boolean,deaneryId: ID!, dioceseId: ID!): Deanery
-        updateParish(id: ID!, name: String!, shortName: String, published: Boolean, deaneryId: ID!, dioceseId: ID!): Deanery
-        deleteParishes(ids: [ID!]): deleteParishesResponse
-        signUp(email: String!, password: String!): User!
+        createDiocese(input: DioceseInput): Diocese!
+        updateDiocese(id: ID!, input: DioceseInput): Diocese!
+        deleteDioceses(ids: [ID!]!,): deleteDiocesesResponse!
+        createDeanery(input: DeaneryInput): Deanery!
+        updateDeanery(id: ID!, input: DeaneryInput): Deanery!
+        deleteDeaneries(ids: [ID!]!): deleteDeaneriesResponse!
+        createParish(input: ParishInput): Parish!
+        updateParish(id: ID!, input: ParishInput): Parish!
+        deleteParishes(ids: [ID!]!): deleteParishesResponse!
+        createCategory(input: CategoryInput): Category!
+        updateCategory(id: ID!, input: CategoryInput): Category!
+        deleteCategories(ids: [ID!]!): deleteCategoriesResponse!
         signIn(email: String!, password: String!): LoginResponse!
     }
 
@@ -53,7 +61,27 @@ const typeDefs = gql`
         deanery: Deanery
         diocese: Diocese
     }
-
+    type Category {
+        id: ID!
+        name: String!
+        title: String
+        content: String
+        published: Boolean
+        diocese: Diocese
+        deanery: Deanery
+        parish: Parish
+        posters: [Poster!]!
+    }
+    type Poster {
+        id: ID!
+        name: String!
+        image: String
+        thumbnail: String
+        secure_url: String
+        public_id: String
+        published: Boolean
+        category: Category
+    }
     type User {
         id: ID!
         email: String!
@@ -76,18 +104,49 @@ const typeDefs = gql`
     type deleteParishesResponse {
         count: Int
     }
+    type deleteCategoriesResponse {
+        count: Int
+    }
+    type CategoryResponse {
+        category: Category
+        posters: [Poster!]!
+    }
 
-    # type Poster {
-    #     id: ID!
-    #     name: String!
-    #     title: String
-    #     image: String
-    #     thumbnail: String
-    #     description: String
-    #     published: Boolean!
-    #     authorCreate: User
-    #     authorUpdate: User
-    # }
+    input ImageInput {
+        public_id: String
+        secure_url: String
+    }
   
+    input DioceseInput {
+        name: String
+        shortName: String
+        published: Boolean
+    }
+
+    input DeaneryInput {
+        name: String
+        shortName: String
+        published: Boolean
+        dioceseId: ID!
+    }
+
+    input ParishInput {
+        name: String
+        shortName: String
+        published: Boolean
+        deaneryId: ID!
+        dioceseId: ID!
+    }
+
+    input CategoryInput {
+        name: String!
+        title: String
+        content: String
+        published: Boolean
+        dioceseId: ID!
+        deaneryId: ID!
+        parishId: ID!
+        images:[ImageInput]
+    }
 `;
 module.exports = typeDefs;

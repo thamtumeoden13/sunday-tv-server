@@ -34,7 +34,7 @@ const resolvers = {
             if (!context) {
                 throw new Error('Not Authenticated')
             }
-            const deaneriesByDiocese = context.prisma.diocese({ id: args.dioceseId, })
+            const deaneriesByDiocese = context.prisma.diocese({ id: args.dioceseId })
             return deaneriesByDiocese;
         },
         parishes: (root, args, context) => {
@@ -58,6 +58,34 @@ const resolvers = {
             const parishesByDeanery = context.prisma.deanery({ id: args.deaneryId, })
             return parishesByDeanery;
         },
+        posters: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            const posters = context.prisma.posters()
+            return posters;
+        },
+        poster: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const poster = context.prisma.poster({ id: args.id, })
+            return poster;
+        },
+        categories: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated', root, args, context)
+            }
+            const categories = context.prisma.categories()
+            return categories;
+        },
+        category: (root, args, context) => {
+            if (!context) {
+                throw new Error('Not Authenticated')
+            }
+            const category = context.prisma.category({ id: args.id, })
+            return category;
+        },
         currentUser: (parent, args, context) => {
             // this if statement is our authentication check
             if (!context) {
@@ -77,24 +105,24 @@ const resolvers = {
     Mutation: {
         createDiocese: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input } = args
             const diocese = context.prisma.createDiocese({
-                name: args.name,
-                shortName: args.shortName,
-                published: args.published,
+                name: input.name,
+                shortName: input.shortName,
+                published: input.published,
             })
             return diocese
         },
         updateDiocese: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input, id } = args
             const diocese = context.prisma.updateDiocese({
                 data: {
-                    name: args.name,
-                    shortName: args.shortName,
-                    published: args.published,
+                    name: input.name,
+                    shortName: input.shortName,
+                    published: input.published,
                 },
-                where: { id: args.id }
+                where: { id: id }
             })
             return diocese
         },
@@ -108,26 +136,26 @@ const resolvers = {
         },
         createDeanery: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input } = args
             const deanery = context.prisma.createDeanery({
-                name: args.name,
-                shortName: args.shortName,
-                published: args.published,
-                diocese: { connect: { id: args.dioceseId } }
+                name: input.name,
+                shortName: input.shortName,
+                published: input.published,
+                diocese: { connect: { id: input.dioceseId } }
             })
             return deanery
         },
         updateDeanery: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input, id } = args
             const deanery = context.prisma.updateDeanery({
                 data: {
-                    name: args.name,
-                    shortName: args.shortName,
-                    published: args.published,
-                    diocese: { connect: { id: args.dioceseId } }
+                    name: input.name,
+                    shortName: input.shortName,
+                    published: input.published,
+                    diocese: { connect: { id: input.dioceseId } }
                 },
-                where: { id: args.id }
+                where: { id: id }
             })
             return deanery
         },
@@ -141,28 +169,28 @@ const resolvers = {
         },
         createParish: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input } = args
             const parish = context.prisma.createParish({
-                name: args.name,
-                shortName: args.shortName,
-                published: args.published,
-                deanery: { connect: { id: args.deaneryId } },
-                diocese: { connect: { id: args.dioceseId } }
+                name: input.name,
+                shortName: input.shortName,
+                published: input.published,
+                deanery: { connect: { id: input.deaneryId } },
+                diocese: { connect: { id: input.dioceseId } }
             })
             return parish
         },
         updateParish: (root, args, context) => {
             // if (!context.user) return null;
-
+            const { input, id } = args
             const parish = context.prisma.updateParish({
                 data: {
-                    name: args.name,
-                    shortName: args.shortName,
-                    published: args.published,
-                    deanery: { connect: { id: args.deaneryId } },
-                    diocese: { connect: { id: args.dioceseId } }
+                    name: input.name,
+                    shortName: input.shortName,
+                    published: input.published,
+                    deanery: { connect: { id: input.deaneryId } },
+                    diocese: { connect: { id: input.dioceseId } }
                 },
-                where: { id: args.id }
+                where: { id: id }
             })
             return parish
         },
@@ -174,26 +202,74 @@ const resolvers = {
             })
             return count
         },
-        signUp: async (parent, { email, password }, ctx, info) => {
-            const hashedPassword = await bcrypt.hash(password, 10)
-            const user = await ctx.prisma.createUser({
-                email,
-                password: hashedPassword,
-            })
-            const token = jwt.sign(
-                {
-                    id: user.id,
-                    email: user.email,
-                },
-                'my-secret-from-env-file-in-prod',
-                {
-                    expiresIn: '1m', // token will expire in 30days
-                },
-            )
-            return {
-                token,
-                user,
+        createCategory: async (root, args, context) => {
+            // if (!context.user) return null;
+            const { input } = args
+            let posters = []
+            if (input.images && input.images.length > 0) {
+                input.images.map((image, i) => {
+                    const poster = {
+                        name: input.name,
+                        image: image.secure_url,
+                        thumbnail: image.secure_url,
+                        secure_url: image.secure_url,
+                        public_id: image.public_id
+                    }
+                    posters.push(poster)
+                })
             }
+            const category = await context.prisma.createCategory({
+                name: input.name,
+                title: input.title,
+                content: input.content,
+                published: input.published,
+                diocese: { connect: { id: input.dioceseId } },
+                deanery: { connect: { id: input.deaneryId } },
+                parish: { connect: { id: input.parishId } },
+                posters: { create: posters }
+            })
+            return category
+        },
+        updateCategory: async (root, args, context) => {
+            // if (!context.user) return null;
+            const { input, id } = args
+            let posters = []
+            if (input.images && input.images.length > 0) {
+                input.images.map((image, i) => {
+                    const poster = {
+                        name: input.name,
+                        image: image.secure_url,
+                        thumbnail: image.secure_url,
+                        secure_url: image.secure_url,
+                        public_id: image.public_id
+                    }
+                    posters.push(poster)
+                })
+            }
+            const category = await context.prisma.updateCategory({
+                data: {
+                    name: input.name,
+                    title: input.title,
+                    content: input.content,
+                    published: input.published,
+                    diocese: { connect: { id: input.dioceseId } },
+                    deanery: { connect: { id: input.deaneryId } },
+                    parish: { connect: { id: input.parishId } },
+                    posters: {
+                        update: posters
+                    }
+                },
+                where: { id: id }
+            })
+            return category
+        },
+        deleteCategories: (root, args, context) => {
+            // if (!context.user) return null;
+
+            const count = context.prisma.deleteManyCategories({
+                id_in: args.ids
+            })
+            return count
         },
         signIn: async (parent, { email, password }, ctx, info) => {
             const user = await ctx.prisma.user({ email })
@@ -269,6 +345,45 @@ const resolvers = {
                     id: root.id,
                 })
                 .diocese()
+        },
+    },
+    Category: {
+        diocese: (root, args, context) => {
+            return context.prisma
+                .category({
+                    id: root.id,
+                })
+                .diocese()
+        },
+        deanery: (root, args, context) => {
+            return context.prisma
+                .category({
+                    id: root.id,
+                })
+                .deanery()
+        },
+        parish: (root, args, context) => {
+            return context.prisma
+                .category({
+                    id: root.id,
+                })
+                .parish()
+        },
+        posters: (root, args, context) => {
+            return context.prisma
+                .category({
+                    id: root.id,
+                })
+                .posters()
+        },
+    },
+    Poster: {
+        category: (root, args, context) => {
+            return context.prisma
+                .poster({
+                    id: root.id,
+                })
+                .category()
         },
     },
 

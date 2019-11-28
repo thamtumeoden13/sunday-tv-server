@@ -13,6 +13,9 @@
               }
             }
           ]
+        },
+        "AccelerateConfiguration": {
+          "AccelerationStatus": "Enabled"
         }
       }
     },
@@ -59,7 +62,7 @@
     "GraphqlLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/apollo-lambda-dev-graphql"
+        "LogGroupName": "/aws/lambda/apollo-lambda-production-graphql"
       }
     },
     "IamRoleLambdaExecution": {
@@ -87,7 +90,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "dev",
+                  "production",
                   "apollo-lambda",
                   "lambda"
                 ]
@@ -103,7 +106,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-dev*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-production*:*"
                     }
                   ]
                 },
@@ -114,7 +117,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-dev*:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-production*:*:*"
                     }
                   ]
                 }
@@ -128,7 +131,7 @@
             "-",
             [
               "apollo-lambda",
-              "dev",
+              "production",
               {
                 "Ref": "AWS::Region"
               },
@@ -145,9 +148,9 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/apollo-lambda/dev/1574311115665-2019-11-21T04:38:35.665Z/apollo-lambda.zip"
+          "S3Key": "serverless/apollo-lambda/production/1574926381571-2019-11-28T07:33:01.571Z/apollo-lambda.zip"
         },
-        "FunctionName": "apollo-lambda-dev-graphql",
+        "FunctionName": "apollo-lambda-production-graphql",
         "Handler": "graphql.graphqlHandler",
         "MemorySize": 1024,
         "Role": {
@@ -164,20 +167,20 @@
         "IamRoleLambdaExecution"
       ]
     },
-    "GraphqlLambdaVersion4bwgZHJboJX0IVsC7dssXnMzrdVKZi9PlwUuX4LxYA": {
+    "GraphqlLambdaVersiony0ew9ePUDyWmkl0gDKn3CSGaGf27EUpq5FTuUIi6EhY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GraphqlLambdaFunction"
         },
-        "CodeSha256": "zktrAczWluhLlgY3M6lbodKOUWDvW/Wo+t0JMAwzvvg="
+        "CodeSha256": "mtBtgUlfkx5nRL5iemFZwz7cyDMScZjyuOxetfxSgSA="
       }
     },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
-        "Name": "dev-apollo-lambda",
+        "Name": "production-apollo-lambda",
         "EndpointConfiguration": {
           "Types": [
             "EDGE"
@@ -333,13 +336,13 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1574311092026": {
+    "ApiGatewayDeployment1574926360809": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         },
-        "StageName": "dev"
+        "StageName": "production"
       },
       "DependsOn": [
         "ApiGatewayMethodGraphqlOptions",
@@ -391,10 +394,13 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
+    "ServerlessDeploymentBucketAccelerated": {
+      "Value": true
+    },
     "GraphqlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GraphqlLambdaVersion4bwgZHJboJX0IVsC7dssXnMzrdVKZi9PlwUuX4LxYA"
+        "Ref": "GraphqlLambdaVersiony0ew9ePUDyWmkl0gDKn3CSGaGf27EUpq5FTuUIi6EhY"
       }
     },
     "ServiceEndpoint": {
@@ -415,7 +421,7 @@
             {
               "Ref": "AWS::URLSuffix"
             },
-            "/dev"
+            "/production"
           ]
         ]
       }
