@@ -9,7 +9,7 @@
       "variableSyntax": "\\${([ ~:a-zA-Z0-9._@'\",\\-\\/\\(\\)*?]+?)}",
       "name": "aws",
       "runtime": "nodejs8.10",
-      "region": "eu-west-1",
+      "region": "us-east-1",
       "versionFunctions": true,
       "remoteFunctionData": null,
       "compiledCloudFormationTemplate": {
@@ -76,7 +76,7 @@
           "GraphqlLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/apollo-lambda-production-graphql"
+              "LogGroupName": "/aws/lambda/apollo-lambda-dev-graphql"
             }
           },
           "IamRoleLambdaExecution": {
@@ -104,7 +104,7 @@
                     "Fn::Join": [
                       "-",
                       [
-                        "production",
+                        "dev",
                         "apollo-lambda",
                         "lambda"
                       ]
@@ -120,7 +120,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-production*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-dev*:*"
                           }
                         ]
                       },
@@ -131,7 +131,7 @@
                         ],
                         "Resource": [
                           {
-                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-production*:*:*"
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/apollo-lambda-dev*:*:*"
                           }
                         ]
                       }
@@ -145,7 +145,7 @@
                   "-",
                   [
                     "apollo-lambda",
-                    "production",
+                    "dev",
                     {
                       "Ref": "AWS::Region"
                     },
@@ -162,9 +162,9 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/apollo-lambda/production/1574926381571-2019-11-28T07:33:01.571Z/apollo-lambda.zip"
+                "S3Key": "serverless/apollo-lambda/dev/1574931766183-2019-11-28T09:02:46.183Z/apollo-lambda.zip"
               },
-              "FunctionName": "apollo-lambda-production-graphql",
+              "FunctionName": "apollo-lambda-dev-graphql",
               "Handler": "graphql.graphqlHandler",
               "MemorySize": 1024,
               "Role": {
@@ -181,20 +181,20 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "GraphqlLambdaVersiony0ew9ePUDyWmkl0gDKn3CSGaGf27EUpq5FTuUIi6EhY": {
+          "GraphqlLambdaVersionnVLeJCEdmUHNw3FMujqiwKNIufMTv24u6kRyGtT6Wo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GraphqlLambdaFunction"
               },
-              "CodeSha256": "mtBtgUlfkx5nRL5iemFZwz7cyDMScZjyuOxetfxSgSA="
+              "CodeSha256": "UxizUdTLKirM4xK0EjqZ5+vraADmVIgInAcfR2VfyyE="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
-              "Name": "production-apollo-lambda",
+              "Name": "dev-apollo-lambda",
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -350,13 +350,13 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1574926360809": {
+          "ApiGatewayDeployment1574931742118": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               },
-              "StageName": "production"
+              "StageName": "dev"
             },
             "DependsOn": [
               "ApiGatewayMethodGraphqlOptions",
@@ -414,7 +414,7 @@
           "GraphqlLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GraphqlLambdaVersiony0ew9ePUDyWmkl0gDKn3CSGaGf27EUpq5FTuUIi6EhY"
+              "Ref": "GraphqlLambdaVersionnVLeJCEdmUHNw3FMujqiwKNIufMTv24u6kRyGtT6Wo"
             }
           },
           "ServiceEndpoint": {
@@ -435,7 +435,7 @@
                   {
                     "Ref": "AWS::URLSuffix"
                   },
-                  "/production"
+                  "/dev"
                 ]
               ]
             }
@@ -575,7 +575,7 @@
             }
           }
         ],
-        "name": "apollo-lambda-production-graphql",
+        "name": "apollo-lambda-dev-graphql",
         "package": {},
         "memory": 1024,
         "timeout": 6,
@@ -588,7 +588,7 @@
     "artifact": "/Volumes/DATA/MyApp/server/sunday-tv/prisma/.serverless/apollo-lambda.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/apollo-lambda/production/1574926381571-2019-11-28T07:33:01.571Z",
+    "artifactDirectoryName": "serverless/apollo-lambda/dev/1574931766183-2019-11-28T09:02:46.183Z",
     "artifact": "apollo-lambda.zip"
   }
 }

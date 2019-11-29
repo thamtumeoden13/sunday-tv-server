@@ -39,7 +39,7 @@ const typeDefs = gql`
 
     type Diocese {
         id: ID!
-        name: String!
+        name: String
         shortName: String
         published: Boolean
         deaneries: [Deanery!]!
@@ -47,7 +47,7 @@ const typeDefs = gql`
     }
     type Deanery {
         id: ID!
-        name: String!
+        name: String
         shortName: String
         published: Boolean
         diocese: Diocese
@@ -74,21 +74,25 @@ const typeDefs = gql`
     }
     type Poster {
         id: ID!
-        name: String!
+        name: String
+        title: String
+        content: String
+        description: String
         image: String
         thumbnail: String
         secure_url: String
         public_id: String
         published: Boolean
         category: Category
+        parish: Parish
+        deanery: Deanery
+        diocese: Diocese
     }
     type User {
         id: ID!
-        email: String!
+        email: String
         name: String
         password: String
-        # postersCreate:[Poster]
-        # postersUpdate:[Poster]
     }
     type LoginResponse {
         token: String
@@ -139,7 +143,7 @@ const typeDefs = gql`
     }
 
     input CategoryInput {
-        name: String!
+        name: String
         title: String
         content: String
         published: Boolean

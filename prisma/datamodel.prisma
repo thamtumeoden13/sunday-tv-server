@@ -12,6 +12,9 @@ type Poster {
     content: String @default(value: "")
     imageType: ImageType @relation(onDelete: SET_NULL)
     category: Category @relation(onDelete: SET_NULL)
+    parish: Parish @relation(onDelete: SET_NULL)
+    deanery: Deanery @relation(onDelete: SET_NULL)
+    diocese: Diocese @relation(onDelete: SET_NULL)
     createdAuthor: User @relation(name: "CreatedPoster", onDelete: SET_NULL)
     createdAt: DateTime! @createdAt
     updatedAuthor: User  @relation(name: "UpdatedPoster", onDelete: SET_NULL)
@@ -50,6 +53,7 @@ type Parish {
     deanery: Deanery @relation(onDelete: SET_NULL)
     diocese: Diocese @relation(onDelete: SET_NULL)
     categories: [Category!]! @relation(onDelete: CASCADE)
+    posters: [Poster!]! @relation(onDelete: CASCADE)
     published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
@@ -62,6 +66,7 @@ type Deanery {
     parishes: [Parish!]! @relation(onDelete: CASCADE)
     diocese: Diocese  @relation(onDelete: SET_NULL)
     categories: [Category!]! @relation(onDelete: CASCADE)
+    posters: [Poster!]! @relation(onDelete: CASCADE)
     published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
@@ -74,6 +79,7 @@ type Diocese {
     deaneries: [Deanery!]! @relation(onDelete: CASCADE)
     parishes: [Parish!]! @relation(onDelete: CASCADE)
     categories: [Category!]! @relation(onDelete: CASCADE)
+    posters: [Poster!]! @relation(onDelete: CASCADE)
     published: Boolean! @default(value: false)
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
